@@ -1,0 +1,20 @@
+{
+  "name": "jindojs-jindo",
+  "version": "2.11.0",
+  "description": "JindoJS JavaScript Framework",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "jindo",
+    "jindojs",
+    "javascript",
+    "library",
+    "framework"
+  ],
+  "authors": [
+    "NAVER Corp."
+  ],
+  "license": "LGPL v2",
+  "homepage": "http://jindo.dev.naver.com/jindo_home/"
+}
