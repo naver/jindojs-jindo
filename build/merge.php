@@ -1,6 +1,6 @@
 <?php
 /**
- * Merge each jindo object files located in '/src' folder for test propose.
+ * Merge each jindo object files located in '/src' folder for test purpose.
  * USAGE : <script src="YOUR_SERVER_URL/build/merge.php?OPTIONS_PARMETERS"></script>
  *
  * Options parameters :
