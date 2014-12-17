@@ -1,0 +1,162 @@
+<div class="section_inn first">
+
+	<div class="intro">
+		<h3 class="h_txt_jd jindo"><span class="blind">jindo js는 nhn에서 제작한 javascript library입니다.</span></h3>
+		<p>JindoJS는 Javascript Application 제작시에 반복적으로 발생하는 로직을 컴포넌트화하여 결과물의 품질을 향상시키기 위한 목적으로 작성되었습니다. NAVER에서 서비스하고 있는 수많은 페이지안의 UI들이 JindoJS를 사용하여 개발되었습니다.그런만큼 JindoJS는 크로스 브라우징에 있어서 거의 완벽한 호환성을 입증하고 있습니다.</p>
+	</div>
+
+	<!-- 다운로드 -->
+	<!--
+	<div class="sc_dw jindo">
+		<h2>다운로드</h2>
+		<table class="tbl_board">
+		<caption class="hide">다운로드</caption>
+		<colgroup>
+		<col style="50%">
+		<col style="50%">
+		</colgroup>
+		<tr>
+		<th scope="row" colspan="2">압축과 네임스페이스 유무를 선택하세요.</th>
+		</tr>
+		<tr>
+		<td>
+			<ul>
+			<li>
+				<span id="radio-zipped">
+					<span class="radio-mark radio-checked"></span>
+					<input type="radio" name="zipped" id="file_zipped" checked="checked" value="true">
+				</span><label for="file_zipped">압축 함</label>
+			</li>
+			<li>
+				<span id="radio-unzipped">
+					<span class="radio-mark"></span>
+					<input type="radio" name="zipped" id="file_unzipped" value="false">
+				</span><label for="file_unzipped">압축 안 함</label>
+			</li>
+			</ul>
+		</td>
+		<td>
+			<ul>
+			<li>
+				<span id="radio-namespaced" class="radio-applied">
+					<span class="radio-mark radio-checked"></span>
+					<input type="radio" name="namespaced" id="file_namespaced" checked="checked" value="true">
+				</span><label for="radio-namespaced">네임스페이스 있음</label>
+			</li>
+			<li>
+				<span id="radio-unnamespaced" class="radio-applied">
+					<span class="radio-mark"></span>
+					<input type="radio" name="namespaced" id="file_unnamespaced" value="false">
+				</span><label for="radio-unnamespaced">네임스페이스 없음</label>
+			</li>
+			</ul>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+			<a href="http://jindo.nhncorp.com/utils/downloader/?target=jindo&action=download" target="_blank" class="btn_dw" onclick="doDownload(this); return false;">Download</a>
+		</td>
+		</tr>
+		</table>
+		<p class="version">버전 :<em>2.4.0</em></p>
+	</div>
+-->
+	<!-- // 다운로드 -->
+</div>
+<div class="section_inn">
+	<h2>사용방법</h2>
+
+	<div class="usage">
+		JS 파일을 다운로드 받아 HTML 파일에 아래와 같이 삽입하여 사용합니다.
+
+		<pre class="code"><code class="prettyprint">&lt;script type="text/javascript" src="jindo.js"&gt;&lt;/script&gt;</code></pre>
+		<!-- 
+		만약 네임스페이스를 변경하고자 한다면 jindo파라메터를 이용하여 Jindo 의 이름을 지정 할 수 있습니다.	
+		<pre class="code"><code class="prettyprint">&lt;script type="text/javascript" src="jindo.js?jindo=FOO"&gt;&lt;/script&gt;</code></pre>
+		또한, JDC를 통해도 네임스페이스를 변경할 수 있습니다.
+		 -->
+	</div>
+</div>
+<div class="section_inn">
+    <h2>릴리즈 노트</h2>
+    <div class="release">
+        <script type="text/javascript">
+        
+            function notice(info) {
+                
+                var lists = info.notices;
+                var html = [];
+                
+                for (var i = 0, len = lists.length; i < len; i++) {
+                    
+                    var item = lists[i];
+                
+                    html.push([
+                        '<li>',
+                            '<span class="date">' + $Date(item.date * 1000).format("Y-m-d") + '</span>',
+                            '<a href="' + item.link + '">' + $S(item.title).escapeHTML() + '</a>',
+                        '</li>'
+                    ].join(' '));
+                    
+                }
+                
+                document.write(html.join(''));
+                
+            }
+            
+        </script>
+        <ol>
+            <script type="text/javascript" src="http://jindo.dev.naver.com/docs/jindo/api/info.php?callback=notice"></script>
+        </ol>
+    </div>
+    <a href="http://dev.naver.com/news/?group_id=29" class="btn_more">더보기<span class="ic"></span></a>
+</div>
+
+<div class="section_inn">
+	<h2>지원환경</h2>
+
+	<div class="support">
+		<div class="support_list desktop">
+			<strong class="tit">Desktop</strong>
+			<ul>
+			<li>
+				<span title="Internet Explorer" class="ic ie">IE</span>6.0 이상
+			</li>
+			<li>
+				<span title="Firefox" class="ic ff">Firefox</span>3.0 이상
+			</li>
+			<li>
+				<span title="Safari" class="ic safari">safari</span>4.0 이상
+			</li>
+			<li>
+				<span title="Opera" class="ic opera">opera</span>10.0 이상
+			</li>
+			<li>
+				<span title="Chrome" class="ic chrome">chrome</span>2 이상
+			</li>
+			</ul>
+		</div>
+
+		<div class="support_list mobile">
+			<strong class="tit"><span>Mobile</span></strong>
+			<ul>
+			<li>
+				<span title="Android" class="ic androi">androi</span> 2.1~ 4.1
+			</li>
+			<li>
+				<span title="ios" class="ic ios">ios</span> 3.0 ~ 6.x
+			</li>
+		</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	
+	/*new jindo.CheckBox($('radio-zipped'), { sClassPrefix : 'radio-' });
+	new jindo.CheckBox($('radio-unzipped'), { sClassPrefix : 'radio-' });
+	
+	function doDownload(anchor) {
+		open(anchor.href + '&minified=' + $('file_zipped').checked, anchor.target);
+	}*/
+	
+</script>

@@ -1,0 +1,31 @@
+<html lang='ko'>
+<head>
+<title>네이버 금융 :: 현명한 투자의 시작, 네이버 금융</title> 
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<script type="text/javascript" src="http://jindo.nhncorp.com/js/jindo.js?debug=true&refresh=true&encode=euc-kr"></script>
+
+
+</head>
+<body>
+<script type="text/javascript">
+document.domain = "naver.com";
+
+var oAjax = jindo.$Ajax("http://polling.finance.naver.com/api/realtime.nhn", {
+	type : "jsonp",
+	jsonp_charset : "euc-kr",
+	onload : function(response) {
+		// do something
+		response = null;
+	}
+});
+
+setInterval(function() {
+	oAjax.request();	
+}, 100);
+
+
+</script>
+</body>
+</html>

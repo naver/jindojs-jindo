@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<script type="text/javascript">
+
+			var sDomain = /[\?&]domain=([a-z\.]+)/.test(location.search) && RegExp.$1;
+
+			if (sDomain) {
+				document.domain = sDomain;
+			}
+
+			var sSearch = location.search.replace(/&nocache=.*$/, '');
+
+		</script>
+		<style type="text/css">
+			html, body { font-size:11px; font-family:Lucida Console; margin:0; padding:0; background-color:#000; color:#fff;}
+		</style>
+	</head>
+	<body onload="parent.jindo.Hash.onChangeIframeSrc(sSearch);">
+		<script type="text/javascript">
+			document.write(sDomain + '<br />' + new Date().getTime() + ' -> ' + sSearch);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<div class="sample" id="sample_div1">
+		<div id="sample_div2">
+			<div class="sample" id="sample_div3">Sample1</div>
+			<div id="sample_div4">Sample2</div>
+			<div class="sample" id="sample_div5">Sample3</div>
+			<div id="sample_div">Sample4
+				<div id="sample_div6">Sample5</div>
+			</div>
+			<div id="sample_div7">Sample6</div>
+			<div class="sample" id="sample_div8">Sample7</div>
+		</div>
+	</div>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		var sibling = $Element("sample_div").prev();
+		// ID가 sample_div5인 DIV를 래핑한 $Element를 반환
+
+		sibling = $Element("sample_div").prev(function(v){
+				return $Element(v).hasClass("sample");
+		});
+		// ID가 sample_div5인 DIV를 래핑한 $Element와
+		// ID가 sample_div3인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		LOG(sibling);
+
+	</script>
+</body>
+</html>

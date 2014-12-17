@@ -1,0 +1,17 @@
+<div class="content">
+	<%
+		var fileName = this.fileName.replace(/\\/g, '/');
+	%>
+	<h1 class="blind"><%=fileName%></h1>
+	<div class="tc-panel first">
+		<dl class="relation">
+			<dt>파일명</dt>
+			<dd><%=fileName.replace(/^[^\/]+\//, '')%></dd>
+			<dt>경로</dt>
+			<dd><%=fileName.replace(/\/[^\/]+$/, '/')%></dd>
+		</dl>
+		<div id="file" class="file">
+		    <pre class="code prettyprint linenums"><%==this.fileData%></pre>
+		</div>
+	</div>
+</div>

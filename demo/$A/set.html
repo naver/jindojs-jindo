@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		var zoo = ["zebra","giraffe","bear"];
+		var waZoo = $A(zoo);
+		
+		LOG("waZoo=>"+waZoo);
+		waZoo.set(1,"pig");
+		LOG("waZoo.set(1,'pig')=>"+waZoo);
+		
+	</script>
+</body>
+</html>

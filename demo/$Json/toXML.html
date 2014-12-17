@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		var json = $Json({foo:1, bar: 31});
+		LOG(json.toXML());
+		// 결과 :
+		// <foo>1</foo><bar>31</bar> 
+
+	</script>
+</body>
+</html>

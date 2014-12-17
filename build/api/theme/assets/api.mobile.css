@@ -1,0 +1,374 @@
+@charset "utf-8";
+/* Reset */html{overflow-y:scroll}
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select,pre{margin:0;padding:0}
+body,input,textarea,select,button,table,code,pre{font-family:'나눔고딕',nanumgothic,'돋움',Dotum,helvetica,sans-serif;font-size:14px;line-height:1.25em}
+body{background-color:#fff;-webkit-text-size-adjust:none;*word-break:break-all;-ms-word-break:break-all}
+img,fieldset,iframe{border:0}
+ul,ol,li{list-style:none}
+em,address{font-style:normal}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:none}
+table{border-collapse:collapse;table-layout:fixed;border-spacing:0}
+img{vertical-align:top}
+label,button{border:0;cursor:pointer}
+hr{display:none}
+legend{*width:0}
+h1,h2,h3,h4,h5,h6{font-size:14px;font-weight:normal}
+input,select,button{vertical-align:middle}
+input:focus{outline:none}
+input{border-radius:0;-webkit-appearance:none;-webkit-border-radius:0}
+input[type=text]{border-radius:0;-webkit-appearance:none;-webkit-border-radius:0}
+input:checked[type=checkbox]{/* background-color:#fff; */-webkit-appearance:checkbox}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}
+
+/* Common */
+.blind,legend{display:block;overflow:hidden;position:absolute;top:-10000em;left:0}
+:root legend{margin-top:-1px;font-size:0;line-height:0}
+.ir{display:block;overflow:hidden;position:relative;z-index:-1;height:11px;font-size:11px;white-space:nowrap}
+.ellipsis{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.show{display:block}
+.hide{display:none}
+.fl{float:left}
+.fr{float:right}
+
+/* Images */
+@media all and (-webkit-min-device-pixel-ratio:15){
+body,input,textarea,select,button,table,code,pre{font-size:15px;line-height:1.25em}
+}
+
+#header{position:relative;width:100%;height:44px;border-bottom:1px solid #2b2b2b;background:#474747;background:-webkit-gradient(linear, left top, left bottom,from(#686868),to(#434343))}
+#header h1{position:absolute;top:12px;left:10px;width:78px;height:23px;background:url(img/sp_jindo_high.png) 0 -20px no-repeat}
+#header h1 a{display:block;width:67px;height:26px}
+/*
+#header h1.jindo{overflow:hidden;top:20px;width:78px;height:23px;background-position:0 -20px}
+#header h1.jc{width:79px;height:30px;background-position:-90px -20px}
+#header h1.jmc{width:80px;height:39px;background-position:0 -50px}
+*/
+#header button{position:absolute;top:6px;right:45px;width:32px;height:33px;background:url(img/sp_jindo.png) -40px -160px}
+#header .btn_snb{right:10px;background-position:-120px -160px}
+#header .btn_sch{right:45px;background-position:-40px -160px}
+#header .btn_snb_on{background-position:-160px -160px}
+#header .btn_sch_on{background-position:-80px -160px}
+.sch_frm{position:relative;padding:4px 0;background:#e1e1e1}
+.sch_frm .filter{display:block;position:relative;margin:0 9px 0 9px;height:30px;border:1px solid #d4d4d4;background:#fff url(img/sp_jindo.png) -298px -177px no-repeat;color:#191919}
+.sch_frm .filter input{width:80%;margin:6px 0 0 30px;border:0}
+#search-tab{position:relative;margin-top:4px;border:1px solid #bebebe;border-width:1px 0;background:#f0f0f0;font-size:13px}
+#search-tab .tabs{overflow:hidden;height:30px;border-bottom:1px solid #ababab;line-height:30px;color:#545454}
+#search-tab .tabs:after{display:block;clear:both;content:''}
+#search-tab .tabs .tc-tab{float:left;width:16.4%;border-right:1px solid #ababab;text-align:center;white-space:nowrap;cursor:pointer;_cursor:hand}
+#search-tab .tabs .tc-tab:last-child{border-right:0}
+#search-tab .tabs .tc-selected{display:block;border-bottom:1px solid #fff;background:#fff;font-weight:bold;color:#010101}
+#search-tab .panels .tc-panel{display:none;clear:both;margin:0;padding:0;background:#fff}
+#search-tab .panels .tc-selected{display:block}
+#search-tab .result{padding:5px 10px;border-bottom:1px solid #ddd}
+#search-tab .result a{display:block;background:url(img/arr_link.png) right 50% no-repeat}
+#search-tab .result .title{font-size:16px;line-height:21px;line-height:color:#010101}
+#search-tab .result strong{font-weight:bold;color:#0a5afa}
+#search-tab .result ul{margin:8px 0 -5px}
+#search-tab .result li{height:30px;padding-left:16px;border-top:1px solid #f2f2f2;background:url(img/sp_jindo.png) -316px -80px no-repeat;line-height:30px}
+#search-tab .result .description,#search-tab .result .className{margin:0 15px;color:#545454}
+#search-tab .result .description{display:-webkit-box;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#search-tab .result .flag{display:inline-block;width:auto;height:13px;padding:0 3px;border-radius:3px;font-size:9px;line-height:13px;font-family:Arial;color:#fff;text-indent:1px;-moz-border-radius:3px;-webkit-border-radius:3px}
+#search-tab .result .keyword{background:#8f82bc}
+#search-tab .result .class{background:#88abda}
+#search-tab .result .method{background:#84ccc9}
+#search-tab .result .property{background:#00a0e9}
+#search-tab .result .event{background:#005982}
+#search-tab .no-result{padding:20px 0;font-size:1.2em;text-align:center}
+
+#header .info{position:absolute;top:7px;left:95px;color:#9f9f9f}
+#header .version{font-size:10px;font-family:tahoma,sans-serif;color:#9f9f9f}
+#header .info .bar,#header .info .help{display:none}
+#footer{position:relative;height:28px;border-top:1px solid #373737;background-color:#3f3f3f;line-height:28px;font-size:10px;color:#bfbebe;text-align:center}
+#footer a{font-weight:bold;color:#fff}
+
+.sidemenu .snb ul:after{display:block;clear:both;content:''}
+.sidemenu .depth1{border-bottom:1px solid #212121;/* border:1px solid #212121;border-width:0 0 1px 1px; */background:#3c3c3c}
+.sidemenu .depth1 li{float:left;width:33%;border:1px solid #252525;border-width:1px 0 0 1px;background:#2e2e2e}
+.sidemenu .depth1 a{display:block;overflow:hidden;height:34px;padding-left:10px;border:1px solid #3a3a3a;border-width:1px 0 0 1px;line-height:34px;color:#fff;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.sidemenu .depth1 h3{display:block;height:23px;padding-left:10px;border-top:1px solid #6b6b6b;background:#5c5c5c;background:-webkit-gradient(linear, left top, left bottom,from(#888888),to(#5c5c5c));line-height:23px;font-weight:bold;font-size:13px;color:#e4e4e4}
+.sidemenu .depth2 li{float:left;width:49.7%;border:1px solid #ddd;border-width:0 1px 1px 0}
+
+/* .sidemenu .depth2 ul li:nth-child(even){border-right:0} */
+.sidemenu .depth2 ul.history li{border-right:0}
+.sidemenu .depth2 a{display:block;overflow:hidden;height:30px;padding-left:10px;line-height:30px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.sidemenu .depth2 h3{display:block;clear:both;height:23px;margin-top:-1px;padding-left:10px;border-top:1px solid #d8dadf;border-bottom:1px solid #bbbfc4;background:#eaeaea;background:-webkit-gradient(linear, left top, left bottom,from(#fcfcfc),to(#eaeaea));font-weight:bold;font-size:13px;line-height:23px;font-weight:bold;color:#000}
+.sidemenu .depth2 h3 a{display:block;height:23px;line-height:23px;padding-left:0}
+
+.api-platform { display:none; }
+
+.api-options { position:relative; top:80px; height:40px; background-color:#e1e1e1; }
+.api-options li{width:109px;height:34px;padding-top:6px;border:0;float:left;}
+.api-options .checkbox-applied{display:inline-block;overflow:hidden;position:relative;width:105px;height:28px;vertical-align:middle;cursor:pointer}
+.api-options .checkbox-applied .checkbox-mark{position:absolute;top:0;left:0;z-index:1;width:105px;height:28px;background:url(img/sp_jindo.png) 0 -200px}
+.api-options .api-show-inherited .checkbox-mark{background-position:0 -200px}
+.api-options .api-show-deprecated .checkbox-mark{background-position:0 -230px}
+.api-options .api-show-inherited .checkbox-checked{background-position:-110px -200px}
+.api-options .api-show-deprecated .checkbox-checked{background-position:-110px -230px}
+
+.api-options label{display:none}
+.api-options *{text-decoration:none}
+
+#container { margin-top:35px; }
+
+.sidemenu button{display:block;position:relative;top:auto;right:auto;width:100%;height:33px;margin-top:-1px;border:1px solid #bcbcbc;border-width:1px 0;background:#e5e5e5;background:-webkit-gradient(linear, left top, left bottom,from(#f1f1f1),to(#dddddd));line-height:33px;font-weight:bold;font-size:13px;color:#000;text-align:center;text-indent:1px}
+.sidemenu .btn_close{display:block}
+.sidemenu .btn_open{display:none}
+.sidemenu button .ic{display:inline-block;width:11px;height:8px;margin-left:5px;background:url(img/sp_jindo.png) -320px -89px no-repeat}
+.sidemenu .btn_close .ic{background-position:-290px -49px}
+.sidemenu .btn_open .ic{background-position:-290px -69px}
+.lft_fold .sidemenu .depth2{display:none}
+.lft_fold .sidemenu .btn_close{display:none}
+.lft_fold .sidemenu .btn_open{display:block}
+.api-main .sidemenu button{display:none !important}
+.sidemenu .ic{display:inline-block;overflow:hidden;width:14px;height:13px;background-image:url(img/sp_jindo_high.png);vertical-align:middle}
+.sidemenu .new{background-position:-120px 0}
+.sidemenu .update{background-position:-140px 0}
+.sidemenu .beta{width:27px;background-position:-160px 0}
+
+.scrollbar{width:100% !important}
+.scrollbar .scrollbar-box,.scrollbar .scrollbar-content{width:100% !important}
+.scrollbar .scrollbar-show{display:none}
+
+#main{position:relative;width:100%;min-width:320px;margin:0 0 50px}
+
+/* .main_fix{position:relative;margin:0} */
+.section_inn{position:relative}
+.section_inn h2{height:30px;margin-top:-1px;padding-left:10px;border-top:1px solid #d8dadf;border-bottom:1px solid #bbbfc4;background:#fafafb;background:-webkit-gradient(linear, left top, left bottom,from(#fcfcfd),to(#e8e8e9));font-size:13px;font-weight:bold;line-height:30px}
+.intro{float:none;position:relative;padding:40px 10px;line-height:20px;color:#2c2d2f}
+.intro h3{width:203px;height:76px;margin:0 auto 40px;background:url(img/sp_jindo.png) 0 0 no-repeat;text-align:center}
+.intro h3{width:203px;height:76px;margin-bottom:40px;background:url(img/sp_jindo.png) 0 0 no-repeat}
+.intro h3.jindo{width:202px;height:57px;background-position:0 -260px}
+.intro h3.jmc{width:203px;height:101px;background-position:0 -320px}
+.intro .desc{display:none}
+.sc_dw{display:none}
+.tbl_board{width:100%;border-top:1px solid #eee;border-bottom:1px solid #bcbcbc}
+.tbl_board caption{border-bottom:1px dashed #bababa;background:#f8f8f8;line-height:30px}
+.tbl_board th{border-top:1px dashed #bababa;border-left:1px dashed #bababa;background:#f3f3f3;font-weight:normal;line-height:28px}
+.tbl_board th.tit{width:76px;border-left:0}
+.tbl_board td{margin:0 auto;padding:10px 0;border-top:1px dashed #bababa;border-left:1px dashed #bababa;font-size:13px;line-height:16px;text-align:center}
+.tbl_board th:first-child{border-left:0}
+.tbl_board td:first-child{border-left:0}
+.tbl_board td span{display:inline-block;margin:0 auto;text-align:left}
+.tbl_board td a{word-break:break-all;word-wrap:break-word}
+.tbl_board td a.name{font-weight:bold}
+.tbl_board .ic{display:block;width:34px;height:34px;margin:0 auto 4px;background:url(img/sp_jindo.png) 0 -80px no-repeat;font-size:0;line-height:0;text-indent:-1000em}
+.tbl_board .ie{background-position:0 -80px}
+.tbl_board .ff{background-position:-40px -80px}
+.tbl_board .safari{background-position:-80px -80px}
+.tbl_board .opera{background-position:-120px -80px}
+.tbl_board .chrome{background-position:-160px -80px}
+.tbl_board .androi{width:38px;height:44px;background-position:-210px -50px}
+.tbl_board .ios{width:34px;height:44px;background-position:-250px -50px}
+.section_inn .tbl_board td{width:33%;min-height:50px}
+
+/* 지원 */
+.support{overflow:hidden;position:relative;border-top:0;border-bottom:1px solid #bbbfc4;background:#fff}
+.support:after{display:block;clear:both;content:''}
+.support h3{display:block;border-bottom:1px dashed #bababa;background:#f8f8f8;line-height:30px;text-align:center}
+.support_list{width:100%;border:1px dashed #bababa;border-width:0 0 1px}
+.support_list:after{display:block;clear:both;content:''}
+.support_list:last-child{border-width:0}
+.support .tit{display:block;float:left;width:22%;padding-top:10px;font-size:13px;font-weight:normal;text-align:center;vertical-align:middle}
+.support ul{float:right;width:78%}
+.support li{float:left;width:19.8%;padding:10px 0;border:1px dashed #bababa;border-width:0 0 1px 1px;background:#fff;font-size:12px;text-align:center;white-space:nowrap}
+.support li:last-child{border-bottom:0}
+
+.desktop li{width:32.7%}
+.desktop li:nth-child(4){border-bottom:0}
+.desktop li:last-child{border-width:0 1px 1px}
+.support .mobile li{width:49.4%;border-bottom:0}
+
+.support_spec .ios,.support_spec .android{float:left;width:49.7%}
+.support_spec .android{border:1px dashed #bababa;border-width:0 0 0 1px}
+.support_spec ul{float:none;width:100%}
+.support_spec li{float:none;width:100%;border:1px dashed #bababa;border-width:1px 0 0}
+.support_spec .tit{float:none;width:100%;height:80px;padding:0;line-height:26px;text-align:center}
+.support_spec .txt{display:inline-block;float:left;margin:0 auto;padding:10px;border:1px dashed #bababa;border-width:0 0 0 1px;line-height:18px;text-align:left}
+.support_spec .ver{display:block;float:left;width:22%;padding-top:10px;border:0;font-weight:normal}
+.support_spec li:after{display:block;clear:both;content:''}
+.support_spec .ios li{height:auto;padding:0}
+.support_spec .android li{height:auto;padding:0}
+.support_spec .chrome li{width:100%;padding:0}
+.support_spec .chrome{display:none}
+.support ul.plan{float:none;width:100%;height:50px}
+.support ul.plan li{width:32.9%;height:39px;padding:0;border-width:0 1px 1px 0;line-height:39px}
+.support ul.plan li:nth-child(3){width:33%;border-right:0}
+.support ul.plan li:nth-child(4){border-bottom:0}
+.support span.ic{display:block;width:34px;height:34px;margin:0 auto 4px;background:url(img/sp_jindo.png) 0 -80px no-repeat;font-size:0;line-height:0;text-indent:-1000em}
+.support span.ie{background-position:0 -80px}
+.support span.ff{background-position:-40px -80px}
+.support span.safari{background-position:-80px -80px}
+.support span.opera{background-position:-120px -80px}
+.support span.chrome{background-position:-160px -80px}
+.support span.androi{width:38px;height:44px;background-position:-210px -50px}
+.support span.ios{float:none;width:34px;height:44px;background-position:-250px -50px}
+.support i{display:inline-block}
+
+.tc-panel .tbl_board{margin:0;border-top:2px solid #9a9a9a}
+.tc-panel .tbl_board th{border-top:0;background:#f6f7f7;font-weight:bold;color:#3f3f3f;text-align:center}
+.tc-panel .tbl_board tr:first-child td{border-top:1px solid #bcbcbc}
+.tc-panel .tbl_board tr:nth-child(even){background:#f9fafa}
+.tc-panel .tbl_board td.txt{padding:10px;text-align:left}
+.panel .tbl_board{width:100%;margin:10px 0 40px}
+.panel .tbl_board th{border:0;background:#fff;font-weight:normal;text-align:left}
+.panel .tbl_board td{margin:0;padding:6px 5px;border-left:0;line-height:18px;text-align:left;vertical-align:top}
+.panel .tbl_board td:first-child{width:22px;text-align:center;vertical-align:middle}
+.tc-panel .board{width:100%;margin:0 0 40px;padding-bottom:10px;border-top:1px solid #9a9a9a;border-bottom:1px solid #bcbcbc}
+.tc-panel .board dl{float:none;padding:10px 0 0}
+.tc-panel .board dl:after{display:block;clear:both;content:''}
+.tc-panel .board dt{float:left;padding-left:10px;border:0;border:0;line-height:18px}
+.tc-panel .board dl.constructor dt{display:none}
+.tc-panel .board dl.constructor dd{float:none}
+.tc-panel .board dd{float:left;padding:0 10px;line-height:18px}
+
+.release{position:relative;border-top:1px solid #eee}
+.release li{overflow:hidden;height:35px;padding:0 10px;border-bottom:1px dashed #bababa;line-height:35px}
+.release li a{display:block;overflow:hidden;width:100%;background:url(img/arr_link.png) right 50% no-repeat;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.release li .date{display:none}
+
+.btn_more{position:absolute;top:5px;right:10px;width:52px;height:20px;border:0;background:none;font-size:12px}
+.btn_more .ic{display:inline-block;position:relative;width:7px;height:14px;margin:-0 0 0 3px;background:url(img/sp_jindo.png) -320px -57px no-repeat}
+.footnote{display:none}
+.api-page .content a{color:#1760f6}
+.relation{line-height:20px;font-size:13px}
+.relation:after{display:block;clear:both;content:''}
+.relation dt{float:left;clear:both;width:30%;font-weight:bold}
+.relation dd{float:left;width:70%}
+.relation .arrow{display:inline-block;overflow:hidden;width:15px;height:9px;margin:0 3px;background:url(img/sp_jindo.png) -270px -120px no-repeat}
+.api-page div.description{margin:17px 0 20px;font-size:13px;line-height:18px/* padding:0 .5em;font-size:1.2em; */}
+.api-page .refer{font-size:13px}
+.api-page .refer ul{margin:5px 0 0 27px;line-height:18px/* font-size:1.2em;list-style:disc */}
+
+.qr_code{margin-top:20px;}
+.qr_code strong{float:left;clear:both;width:30%;font-weight:bold;font-size:13px}
+.qr_code #QRView{overflow:hidden;float:left;width:120px;height:120px;border: 4px solid #EEE}
+.qr_code img{position:absolute;margin:-15px 0 0 -15px;width:150px;height:150px;clip:rect(20px,220px,220px,20px);z-index:-1}
+
+.tc-panel{position:relative;padding:40px 0;border-top:3px solid #f1f1f1}
+.tc-panel:after{display:block;clear:both;content:''}
+.tc-panel.first,.tc-panel:first-child{padding:10px;border:0}
+.tc-panel h2{padding:0 0 10px 10px;border-bottom:1px solid #bcbcbc;font-weight:bold;font-size:18px}
+.tc-panel h3{position:relative;margin-top:-1px;/*padding:7px 0 4px;*/font-weight:bold;font-size:16px;height:30px;line-height:30px;color:#000}
+.tc-panel h3 span{font-size:12px;font-weight:normal}
+.tc-panel h4{margin:16px 0 11px;font-weight:bold;font-size:13px}
+.tc-panel .noline{border:0}
+.api-page .btn_code{display:inline-block;overflow:hidden;width:24px;height:12px;background:url(img/sp_jindo.png) -200px -100px no-repeat;vertical-align:middle}
+.api-page .btn_code a{display:block;width:24px;height:12px}
+.api-page .flag{display:inline-block;width:13px;height:13px;background:url(img/sp_jindo_high.png) 0 0 no-repeat;font-size:0;line-height:0;text-indent:-1000em;vertical-align:middle}
+.api-page .flag.chainable{background-position:0 0}
+.api-page .flag.deprecated{background-position:-20px 0}
+.api-page .flag.inherited{background-position:-40px 0}
+.api-page .flag.static{background-position:-60px 0}
+.api-page .flag.optional{background:none}
+.api-page .type .flag.inherited{width:11px;height:11px;background-position:-100px 0}
+.api-page .type .flag.deprecate{width:12px;height:12px;background-position:-80px 0}
+.api-page .item{padding:10px;border-bottom:1px dashed #ddd}
+.api-page .item:last-child{border:0}
+.api-page .api-options{padding-left:10px}
+.api-page .api-options:after{display:block;clear:both;content:''}
+.api-page .tc-panel .api-options li{float:none;margin-right:10px;padding-left:11px;background:url(img/sp_jindo.png) -320px 5px no-repeat;line-height:20px;font-size:13px}
+.api-page .tc-panel .api-options li.collapsed{background-position:-320px -24px}
+
+.api-page .history-table{position:relative;margin:0 10px;padding:0}
+.api-page .history .history-table{margin:0 0 0 20px}
+.api-page .history-table .tbl_board th{text-align:center}
+.api-page .history-table .tbl_board th:nth-child(3){display:table-cell}
+.api-page .history-table button{position:absolute;right:0;z-index:1;width:80px;height:11px;margin:0;border:0;background:url(img/sp_jindo.png) -50px -120px no-repeat}
+.api-page .history-table .btn_open{display:none;bottom:-11px;background-position:-40px -140px}
+.api-page .history-table .btn_open{display:none;bottom:-11px;background-position:-40px -140px}
+.api-page .history-table .btn_close{display:block;bottom:1px;background-position:-40px -120px}
+.api-page .history-table.tbl_fold .btn_open{display:block}
+.api-page .history-table.tbl_fold .btn_close{display:none}
+.api-page .tbl_board .ver{width:10%}
+.api-page .tbl_board .cate{width:15%}
+.api-page .tbl_board .target{width:20%;padding:10px;line-height:13px;-moz-hyphens:auto;-ms-hyphens:auto;-webkit-hyphens:auto;hyphens:auto;word-break:break-all;word-wrap:break-word}
+.api-page .tbl_board .target br{line-height:22px}
+
+.item .params-list{margin:5px 0 5px 15px;padding-left:10px}
+.item .collapsed .params-list{display:none}
+.item .params-list .description{padding:5px 15px;color:#777;line-height:18px}
+.item .params-list .flag{display:inline-block;width:auto;height:13px;padding:0 5px 0 3px;border-radius:6px;font-size:9px;line-height:13px;font-family:Arial;color:#fff;text-indent:1px;-moz-border-radius:6px;-webkit-border-radius:6px}
+.item .params-list .flag.optional{background:#bbb}
+.item .params-list .default{padding:0 2px;color:#333;font-size:12px}
+.item .param{margin:8px 0}
+.item .params-list .params-list{margin:0 !important}
+.item .param .name{font-size:13px;font-weight:bold;color:#000}
+
+.item button.fold{overflow:hidden;width:14px;height:14px;margin:0 6px 0 -23px;background:url(img/sp_jindo.png) -250px -100px no-repeat;line-height:10em;vertical-align:middle}
+.item .collapsed button.fold{background-position:-230px -100px}
+.item .params-list .collapsed .description{border-left:1px solid #fff}
+.item .params-list .params-list .param{margin:0;padding:3px 0 3px 15px;background:url(img/sp_jindo.png) -312px -204px no-repeat;line-height:16px;border-left:1px solid #ddd}
+.item .params-list .params-list .last{border:0;background-position:-310px -350px}
+
+.optional{font-style:italic !important}
+.item .params-list button ~ .description{margin:0 0 0 10px;padding-left:15px;border-left:1px solid #ddd}
+.item .param .description ul{margin:4px 0 0 1em;list-style:disc}
+.item .params-list .params-list .param ul{margin-left:15px}
+.item .params-list .params-list li{padding-left:9px;background:url(img/sp_jindo.png) -320px -132px no-repeat;color:#777;font-size:12px;line-height:18px;}
+.item .params-list .params-list table{margin-left:15px;width:60%;line-height:20px;}
+.item .params-list .params-list table td{padding:6px 0}
+
+.item .example-content{margin-left:20px}
+pre.code{margin:10px 0;padding:5px;border:1px solid #ddd;background-color:#eee;font-size:12px;word-break:break-all;word-wrap:break-word}
+pre.code code{font-family:'나눔고딕코딩',Consolas,'Lucida Console',Monaco}
+
+.item .returns .description{margin:0 0 0 25px}
+.item .returns .params-list{margin:-5px 0 0 45px;padding-left:15px;border-left:1px dashed #ddd}
+.item .returns .param .description{margin:0 0 0 20px}
+
+.demo{position:relative;height:auto;margin-top:0;border:0}
+.demo .btn_external{display:none;position:absolute;top:4px;right:4px;width:78px;height:21px;border:1px solid #b8b8b8;background:#fafafa;color:#474747}
+.demo_list{float:none;position:relative;z-index:1;width:100%;height:auto;border-right:0}
+.demo_list li{height:35px;border-bottom:1px solid #bcbcbc;line-height:35px}
+.api-page .content .demo_list li a{display:block;margin-right:10px;padding:0 0 0 8px;background:url(img/arr_link.png) right 50% no-repeat;color:#010101}
+.api-page .content .demo_list li.selected a,.api-page .content .demo_list li a:hover{background:#none;color:#010101}
+.demo_example{display:none;float:none;width:100%;height:398px;margin-left:-178px}
+.demo_example .clipboard{display:none;margin-left:178px}
+.demo_example .description{padding:0 0 0 14px;background:#f1f1f1;line-height:32px;font-size:13px;color:#bcbcbc}
+
+.manual h3{display:block;margin:-11px -10px 0;padding-left:10px;border-top:1px solid #d8dadf;border-bottom:1px solid #bbbfc4;background:#ededed;background:-webkit-gradient(linear, left top, left bottom,from(#fcfcfd),to(#e8e8e9))}
+.manual .description{margin:15px 0 0;padding:0}
+.manual .description h4{display:inline-block;margin:15px 0 0;line-height:25px}
+.manual .description h5{display:block;margin:15px 0 0 15px;font-size:12px;line-height:25px}
+.manual .description h4 em{color:#E11B10}
+.manual .description strong{display:inline-block;margin:15px 0 0;line-height:25px}
+.manual .description ul{margin:0 0 0 35px;list-style:disc}
+.manual .description li{list-style:disc}
+.manual .description ol{margin:0 0 0 35px;list-style:decimal}
+.manual .description ol li{margin:20px 0 0 0;list-style:decimal}
+.manual .description ol li strong{color:#69C}
+.manual .description strong{color:#ff0000;font-weight:normal}
+.manual .description img{margin:5px 0;max-width:300px}
+.manual .description small{display:block;margin-top:7px;color:#777}
+.manual p{margin:0}
+.manual .description h4 ~ p,.manual .description h4 ~ pre.code{margin-left:15px}
+.manual .description h5 ~ p,.manual .description h5 ~ pre.code{margin-left:30px}
+.manual .description h4 ~ p strong{color:#E11B10}
+.manual .description h5 ~ p.post{margin-top:10px;font-size:12px;color:#666;}
+.manual .description ul.tumb_list,
+.manual .description ul.tumb_list li{list-style:none}
+.manual .description ul.tumb_list{margin-left:15px;}
+
+.tumb_list:after{display:block;clear:both;content:''}
+.tumb_list li{display:list-item;float:left;width:auto;height:150px;padding:10px;text-align:center;}
+.tumb_list li img{display:block;text-align:center;}
+
+.description .support_spec{border-top:1px solid #BBBFC4}
+.description .support_spec .support_list{float:none;width:100%;border-left:0}
+.description .support .tit{width:15%;margin:0;color:#333}
+.description .support ul{float:right;margin:0 !important;width:83%;list-style:none !important}
+.description .support li{float:left;padding:0;border:1px dashed #bababa;border-width:0 0 0 1px;background:#fff;text-align:center;list-style:none !important}
+.description .support li:last-child{border-right:0}
+.description .support_spec ul,.description .support_spec li{list-style:none}
+.description .support .ios li{width:24.6%;height:80px}
+.description .support .android li{width:19.6%;height:80px}
+.description .support_spec .ver{float:none;width:100%;padding:0;border-bottom:1px dashed #bababa;background:#f3f3f3;font-weight:normal;line-height:28px}
+.description .support_spec .txt{float:none;display:inline-block;margin:0 auto;padding:10px;border:0;line-height:18px;text-align:center}
+
+.api-page ul.disc{margin:0 0 0 35px;list-style:disc}
+.api-page ul.disc > li{list-style:disc}
+.api-page .params .disc{color:#777}
+.api-page ol.decimal{margin:0 0 0 35px;list-style:decimal}
+.api-page ol.decimal > li{list-style:decimal}
+span.type {color:#6823da}

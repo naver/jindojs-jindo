@@ -1,0 +1,374 @@
+<comments name="function">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and methods of the jindo.$Fn() object
+	@name function.js 
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The jindo.$Fn() object provides the extended functionality for functions by wrapping the Function object.
+	
+	@class jindo.$Fn
+	@keyword function
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Creates the jindo.$Fn() object. A specific function can be specified as the parameter of the constructor. At this time, the execution context can be specified in order to use the 'this' keyword according to the situation. In addition, the jindo.$Fn() object can be created by entering the parameter and the body of the function to be wrapped as the parameter of the creator.
+	
+	@constructor
+	@syntax fpFunction, vExeContext
+	@syntax sFuncArgs, sFuncBody
+	@param {Function+} fpFunction A function to wrap
+	@param {Variant} [vExeContext] An object which will become the execution context of the function
+	@param {String} sFuncArgs A string that represents the parameter of the function
+	@param {String} sFuncBody A string that represents the body of the function
+	@return {jindo.$Fn} The jindo.$Fn() object
+	@see jindo.$Fn#toFunction
+	@example
+		func : function() {
+		       // code here
+		}
+		
+		var fn = $Fn(func, this);
+	@example
+		var someObject = {
+		    func : function() {
+		       // code here
+		   }
+		}
+		
+		var fn = $Fn(someObject.func, someObject);
+	@example
+		var fn = $Fn("a, b", "return a + b;");
+		var result = fn.$value()(1, 2) // result = 3;
+		
+		// fn wraps the same function as function(a, b){ return a + b;}, a function literal.
+  ]]></comment>
+  <comment id="etc"><![CDATA[
+ * userAgent cache
+ * @ignore
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	The $value() method returns the original Function object.
+	
+	@method $value
+	@return {Function} The original Function object
+	@example
+		func : function() {
+			// code here
+		}
+		
+		var fn = $Fn(func, this);
+		fn.$value(); // Returns the original function.
+  ]]></comment>
+  <comment id="bind"><![CDATA[
+	The bind() method returns the function object bound as a method of the object specified by the constructor. At this time, the execution context of the method is set to the specified object.
+	
+	@method bind
+	@param {Variant} [vParameter*] The 1st~Nth default parameter to be entered for the created function
+	@return {Function} The function object bound by the method of the execution context
+	@see jindo.$Fn
+	@see jindo.$Class
+	@example
+		var sName = "OUT";
+		var oThis = {
+		    sName : "IN"
+		};
+		
+		function getName() {
+		    return this.sName;
+		}
+		
+		oThis.getName = $Fn(getName, oThis).bind();
+		
+		alert( getName() );       	  //  OUT
+		alert( oThis.getName() ); //   IN
+	@example
+		 // When a factor is entered to the bound method
+		var b = $Fn(function(one, two, three){
+			console.log(one, two, three);
+		}).bind(true);
+		
+		b();	// true, undefined, undefined
+		b(false);	// true, false, undefined
+		b(false, "1234");	// true, false, "1234"
+	@example
+		// When defining functions first and then using them later, use the bind() method,
+		// as such functions refer to values that are valid at the time of their call, not the values assigned at the time of their creation.
+		for(var i=0; i<2;i++){
+			aTmp[i] = function(){alert(i);}
+		}
+		
+		for(var n=0; n<2;n++){
+			aTmp[n](); // Alerts only number 2 twice.
+		}
+		
+		for(var i=0; i<2;i++){
+		aTmp[i] = $Fn(function(nTest){alert(nTest);}, this).bind(i);
+		}
+		
+		for(var n=0; n<2;n++){
+			aTmp[n](); // Alerts numbers 0 and 1.
+		}
+	@example
+		// The bind() method is used to keep scope if a function is used as a parameter when creating a class.
+		var MyClass = $Class({
+			fFunc : null,
+			$init : function(func){
+				this.fFunc = func;
+		
+				this.testFunc();
+			},
+			testFunc : function(){
+				this.fFunc();
+			}
+		})
+		var MainClass = $Class({
+			$init : function(){
+				var oMyClass1 = new MyClass(this.func1);
+				var oMyClass2 = new MyClass($Fn(this.func2, this).bind());
+			},
+			func1 : function(){
+				alert(this);// this represents MyClass.
+			},
+			func2 : function(){
+				alert(this);// this represents MainClass.
+			}
+		})
+		function init(){
+			var a = new MainClass();
+		}
+  ]]></comment>
+  <comment id="bindForEvent"><![CDATA[
+	The bindForEvent() method binds an object and a method and returns them as a single event handler function.
+	
+	@method bindForEvent
+	@param {Variant} [vParameter*] The 1st~Nth default parameter to be entered for the created event handler
+	@see jindo.$Fn#bind
+	@see jindo.$Event 
+	@ignore
+	@deprecated Deprecated in version 2.0.0.
+	@example
+	var name = "Kim Kil-dong";
+	function getName(event) {
+	    alert("event type:" + event.type +", name value "+ this.name);
+	}
+	
+	var person = {
+	    "name" : "Hong Kil-dong"
+	};
+	
+	// When the document area is clicked, "event type: click, name value is Hong Kil-dong" is displayed.
+	document.body.onclick = $Fn(getName, person).bindForEvent();
+  ]]></comment>
+  <comment id="attach"><![CDATA[
+	The attach() method registers a function as the event handler of a specific element.
+
+	@method attach
+	@syntax elElement, sEvent, bUseCapture
+	@syntax vElement, sEvent, bUseCapture
+	@syntax sElement, sEvent, bUseCapture
+	@remark If it is bound to the jindo.$Fn() object and the return value is false, the Internet Explorer blocks the basic function. Therefore, do not use it.<br>
+		There are other limitations as follows:<br>
+		<ul class="disc">
+			<li>Do not use the prefix on for event names.</li>
+			<li>Use the mouse wheel scroll event with mousewheel.</li>
+			<li>Additionally, the domready, mouseenter, mouseleave, and mousewheel events can be used.</li>
+		</ul>
+	@param {Element} elElement An element that is to allocate the event handler
+	@param {Array | $A} vElement An array consisting of elements to which the event handler will be allocated
+	@param {String} sElement id of an element that allocates the event handler
+	@param {String} sEvent Event type
+	@param {Boolean} [bUseCapture=false] Whether to use capturing (1.4.2~2.0.0 버전까지  지원). Enter true to use capturing.
+	@return {jindo.$Fn} The created jindo.$Fn() object
+	@deprecated In version 2.0.0, it has been changed to $Element#attach.
+	@see jindo.$Fn#detach
+	@example
+		var someObject = {
+		    func : function() {
+				// code here
+		   }
+		}
+
+		// In the event of attaching a click event handler to one single element
+		$Fn(someObject.func, someObject).attach($("test"),"click");
+
+		// When registering a click event handler to multiple elements
+		// When the array is entered as the first parameter as shown below, the event handler is registered to all the elements.
+		$Fn(someObject.func, someObject).attach($$(".test"),"click");
+  ]]></comment>
+  <comment id="attach_1"><![CDATA[
+DOMMouseScroll is not working in Internet Explorer 9.
+  ]]></comment>
+  <comment id="attach_2"><![CDATA[
+An error is thrown because the domready event is not executed within iframe.
+  ]]></comment>
+  <comment id="detach"><![CDATA[
+	The detach() method detaches the event handlers from elements.
+
+	@method detach
+	@param {Element} elElement An element that will unregister the event element
+	@param {String} sEvent Event type. The "on" prefix must not be used as part of an event name.
+	@param {Boolean} [bUseCapture=false] Whether to use capturing (1.4.2~2.0.0 버전까지  지원). Enter true to use capturing.
+	@return {jindo.$Fn} The created jindo.$Fn() object
+	@see jindo.$Fn#attach
+	@deprecated In version 2.0.0, it has been changed to $Element#detach.
+	@example
+		var someObject = {
+		    func : function() {
+				// code here
+		   }
+		}
+
+		var fpFn = $Fn(someObject.func, someObject);
+		fpFn.attach($("test"),"click");
+		// In the event of detaching a click event handler from one single element
+		// The detach function can be used within the same $Fn instance in which the attach function was executed.
+		fpFn.detach($("test"),"click");
+
+		var fpFn = $Fn(someObject.func, someObject);
+		fpFn.attach($$(".test"),"click");
+		// In the event of detaching a click event from multiple elements.
+		// If an array is given as a first parameter as you see below, an event handler is attached to every corresponding element.
+		// The detach function can be used within the same $Fn instance in which the attach function was executed.
+		fpFn.detach($$(".test"),"click");
+  ]]></comment>
+    <comment id="delay"><![CDATA[
+	The delay() method invokes a wrapped function after a specified period of time has elapsed.
+	
+	@method delay
+	@param {Numeric} nSec Elapsed time until a function is invoked (in seconds)
+	@param {Array+} [aArgs] An array contains parameters to be used when invoking a function
+	@return {jindo.$Fn} Created jindo.$Fn() object
+	@see jindo.$Fn#bind
+	@see jindo.$Fn#setInterval
+	@example
+		function func(a, b) {
+			alert(a + b);
+		}
+		
+		$Fn(func).delay(5, [3, 5]); // Invokes the func function that has the values of 3 and 5 as parameters after 5 seconds.
+  ]]></comment>
+  <comment id="setInterval"><![CDATA[
+	The setInterval() method invokes a wrapped function at a specified interval.
+	
+	@method setInterval
+	@param {Numeric} nSec Elapsed time until a function is invoked (in seconds)
+	@param {Array+} [aArgs] An array contains parameters to be used when invoking a function
+	@return {jindo.$Fn} Created jindo.$Fn() object
+	@see jindo.$Fn#bind
+	@see jindo.$Fn#delay
+	@example
+		function func(a, b) {
+			alert(a + b);
+		}
+		
+		$Fn(func).setInterval(5, [3, 5]); // Invokes the func function that has the values of 3 and 5 as parameters every 5 seconds.
+  ]]></comment>
+  <comment id="repeat"><![CDATA[
+	The repeat() method is the same as the setInterval() method.
+	
+	@method repeat
+	@param {Numeric} nSec Elapsed time until a function is invoked (in seconds)
+	@param {Array+} [aArgs] An array contains parameters to be used when invoking a function
+	@return {jindo.$Fn} Created jindo.$Fn() object
+	@see jindo.$Fn#setInterval
+	@see jindo.$Fn#bind
+	@see jindo.$Fn#delay
+	@example
+		function func(a, b) {
+			alert(a + b);
+		}
+		
+		$Fn(func).repeat(5, [3, 5]); // Calls the func function that uses the values 3 and 5 as parameters every 5 seconds.
+  ]]></comment>
+  <comment id="stopDelay"><![CDATA[
+	The stopDelay() method stops the function call that has been specified by the delay() method.
+	
+	@method stopDelay
+	@return {this} 인스턴스 자신
+	@see jindo.$Fn#delay
+	@example
+		function func(a, b) {
+			alert(a + b);
+		}
+		
+		var fpDelay = $Fn(func);
+		fpDelay.delay(5, [3, 5]);
+		fpDelay.stopDelay();
+  ]]></comment>
+  <comment id="stopRepeat"><![CDATA[
+	The stopRepeat() stops invocation of a function that is specified by the repeat() method.
+	
+	@method stopRepeat
+	@return {this} 인스턴스 자신
+	@see jindo.$Fn#repeat
+	@example
+		function func(a, b) {
+			alert(a + b);
+		}
+		
+		var fpDelay = $Fn(func);
+		fpDelay.repeat(5, [3, 5]);
+		fpDelay.stopRepeat();
+  ]]></comment>
+  <comment id="free"><![CDATA[
+	Detaches all references that use this object in memory (direct invoking prevented).
+	
+	@param {Element} elElement Releases only the event handler of the element.
+	@ignore
+  ]]></comment>
+  <comment id="free_1"><![CDATA[
+There is a logic for detaching a function that has been attached to an element when uploading, but the logic prevents the unload event from executing. Therefore, a properly working logic is created here. Call this logic only when gc calls it.
+  ]]></comment>
+  <comment id="sign_fireWhenElementBoundary"><![CDATA[
+	The function filter is executed only when it is out of range to emulate the mouseenter/mouseleave events in non-Internet Explorer.
+	
+	@ignore
+  ]]></comment>
+  <comment id="gc"><![CDATA[
+	The gc() method releases all event handlers registered by using the attach() method.
+	
+	@method gc
+	@return {Void}
+	@deprecated Deprecated in version 2.0.0.
+	@see jindo.$Fn#attach
+	@example
+		var someObject = {
+		   func1 : function() {
+				// code here
+		   },
+		   func2 : function() {
+				// code here
+		   }
+		}
+		
+		$Fn(someObject.func1, someObject).attach($("test1"),"mouseup");
+		$Fn(someObject.func2, someObject).attach($("test1"),"mousedown");
+		$Fn(someObject.func1, someObject).attach($("test2"),"mouseup");
+		$Fn(someObject.func2, someObject).attach($("test2"),"mousedown");
+		......
+		$Fn.gc();
+  ]]></comment>
+  <comment id="gc_1"><![CDATA[
+deletes references
+  ]]></comment>
+  <comment id="freeElement"><![CDATA[
+	@description The freeElement() method releases all event handlers assigned to the specified elements.
+	
+	@method freeElement
+	@param {Element|$Element} elElement The elements to release event handlers
+	@since Available in version 1.3.5 and higher
+	@deprecated Deprecated in version 2.0.0.
+	@see jindo.$Fn#gc
+	@example
+		var someObject = {
+		    func : function() {
+				// code here
+		   }
+		}
+		
+		$Fn(someObject.func, someObject).attach($("test"),"mouseup");
+		$Fn(someObject.func, someObject).attach($("test"),"mousedown");
+		
+		$Fn.freeElement($("test"));
+  ]]></comment>
+</comments>

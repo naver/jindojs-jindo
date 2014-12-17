@@ -1,0 +1,293 @@
+<comments name="string">
+  <comment id="title"><![CDATA[
+	@fileOverview $S의 생성자 및 메서드를 정의한 파일
+	@name string.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$S() 객체는 String 객체를 래핑(wrapping)하여 문자열을 처리하기 위한 확장 기능을 제공한다.
+	
+	@class jindo.$S
+	@keyword string
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$S() 객체를 생성한다.
+	
+	@constructor
+	@param {Variant} sStr 래핑할 문자열.(null, undefined는 ""으로 그외는 toString한 결과된다.)
+	@example
+		var sStr = 'Hello world!';
+		var oStr = $S(sStr);            // jindo.$S() 객체 생성
+		var oStr2 = new $S(sStr);        // new를 사용한 jindo.$S() 객체 생성
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	$value() 메서드는 jindo.$S() 객체가 감싸고 있던 원본 문자열(String 객체)을 반환한다. toString() 메서드와 같은 의미이다.
+	
+	@method $value
+	@return {String} 원본 String 객체.
+	@see jindo.$S#toString
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String String - MDN Docs
+	@example
+		var str = $S("Hello world!!");
+		str.$value();
+		
+		// 결과 :
+		// Hello world!!
+  ]]></comment>
+  <comment id="toString"><![CDATA[
+	toString() 메서드는 jindo.$S() 객체가 감싸고 있던 원본 문자열(String 객체)을 반환한다. $value() 메서드와 같은 의미이다.
+	
+	@method toString
+	@return {String} 원본 String 객체.
+	@see jindo.$S#$value
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String String - MDN Docs
+	@example
+		var str = $S("Hello world!!");
+		str.toString();
+		
+		// 결과 :
+		// Hello world!!
+  ]]></comment>
+  <comment id="trim"><![CDATA[
+	trim() 메서드는 문자열의 양 끝에 있는 공백을 제거한다.
+	
+	@method trim
+	@return {jindo.$S} 문자열의 양 끝에 있는 공백을 제거한 새로운 jindo.$S() 객체
+	@remark 1.4.1 버전부터 전각공백도 제거
+	@example
+		var str = "   I have many spaces.   ";
+		document.write ( $S(str).trim() );
+		
+		// 결과 :
+		// I have many spaces.
+  ]]></comment>
+  <comment id="escapeHTML"><![CDATA[
+	escapeHTML() 메서드는 HTML 특수 문자를 HTML 엔티티(Entities)형식으로 변환한다.	
+	
+	@method escapeHTML
+	@return {jindo.$S} HTML 특수 문자를 엔티티 형식으로 변환한 새로운 jindo.$S() 객체.
+	@remark 변경하는 문자는 다음 표와 같다.<br>
+		<table class="tbl_board">
+			<caption class="hide">HTML Escape 문자 변환</caption>
+			<thead>
+				<tr>
+					<th scope="col">변환 대상 문자</th>
+					<th scope="col">&quot;</th>
+					<th scope="col">&amp;</th>
+					<th scope="col">&lt;</th>
+					<th scope="col">&gt;</th>
+					<th scope="col">&#39;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">변환 결과</td>
+					<td>&amp;quot;</td>
+					<td>&amp;amp;</td>
+					<td>&amp;lt;</td>
+					<td>&amp;gt;</td>
+					<td>&#39;</td>
+				</tr>
+			</tbody>
+		</table>
+	@see jindo.$S#unescapeHTML
+	@see jindo.$S#escape
+	@example
+		var str = ">_<;;";
+		document.write( $S(str).escapeHTML() );
+		
+		// 결과 :
+		// &amp;gt;_&amp;lt;;;
+  ]]></comment>
+  <comment id="stripTags"><![CDATA[
+	stripTags() 메서드는 문자열에서 XML 혹은 HTML 태그를 제거한다.	
+	
+	@method stripTags
+	@return {jindo.$S} XML 혹은 HTML 태그를 제거한 새로운 jindo.$S() 객체.
+	@example
+		var str = "Meeting <b>people</b> is easy.";
+		document.write( $S(str).stripTags() );
+		
+		// 결과 :
+		// Meeting people is easy.
+  ]]></comment>
+  <comment id="times"><![CDATA[
+	times() 메서드는 문자열을 파라미터로 지정한 횟수만큼 반복하는 문자열을 생성한다.	
+	
+	@method times
+	@param {Numeric} [nTimes=1] 반복할 횟수.
+	@return {jindo.$S} 문자열을 지정한 횟수만큼 반복한 새로운 jindo.$S() 객체
+	@example
+		document.write ( $S("Abc").times(3) );
+		
+		// 결과 : AbcAbcAbc
+  ]]></comment>
+  <comment id="unescapeHTML"><![CDATA[
+	unescapeHTML() 메서드는 이스케이프(escape)된 문자를 원래의 문자로 변환한다.	
+	
+	@method unescapeHTML
+	@return {jindo.$S} 이스케이프된 문자를 원래의 문자로 변환한 새로운 jindo.$S() 객체
+	@see jindo.$S#escapeHTML
+	@example
+		var str = "&lt;a href=&quot;http://naver.com&quot;&gt;Naver&lt;/a&gt;";
+		document.write( $S(str).unescapeHTML() );
+		
+		// 결과 :
+		// <a href="http://naver.com">Naver</a>
+  ]]></comment>
+  <comment id="escape"><![CDATA[
+	escape() 메서드는 문자열에 포함된 한글을 ASCII 문자열로 인코딩하고 non-ASCII 문자를 이스케이프(escape)한다.
+	
+	@method escape
+	@return {jindo.$S} 문자열을 이스케이프한 새로운 jindo.$S() 객체
+	@remark 변경하는 문자는 다음 표와 같다.<br>
+		<table class="tbl_board">
+			<caption class="hide">Escape 문자 변환</caption>
+			<thead>
+				<tr>
+					<th scope="col">변환 대상 문자</th>
+					<th scope="col">\r</th>
+					<th scope="col">\n</th>
+					<th scope="col">\t</th>
+					<th scope="col">'</th>
+					<th scope="col">"</th>
+					<th scope="col">non-ASCII 문자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">변환 결과</td>
+					<td>\\r</td>
+					<td>\\n</td>
+					<td>\\t</td>
+					<td>\'</td>
+					<td>\"</td>	
+					<td>\uXXXX</td>	
+				</tr>
+			</tbody>
+		</table>
+	@see jindo.$S#escapeHTML
+	@example
+		var str = '가"\'나\\';
+		document.write( $S(str).escape() );
+		
+		// 결과 :
+		// \uAC00\"\'\uB098\\
+  ]]></comment>
+  <comment id="bytes"><![CDATA[
+	bytes() 메서드는 문자열의 실제 바이트(byte) 수를 반환한다.
+	
+	@method bytes
+	@return {Number} 문자열의 바이트 수를 반환한다.
+	@example
+		// 문서가 euc-kr 환경임을 가정합니다.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes() );
+		
+		// 결과 :
+		// 37
+  ]]></comment>
+  <comment id="bytes2"><![CDATA[
+	bytes() 메서드는 제한하려는 바이트(byte) 수를 지정하면 문자열을 해당 크기에 맞게 잘라낸다.
+	
+	@method bytes
+	@param {Numeric} nLength 잘라내고자 하는 바이트 수
+	@return {jindo.$S} 해당 크기만큼 문자열을 잘라낸 jindo.$S() 객체
+	@example
+		// 문서가 euc-kr 환경임을 가정합니다.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes(20) );
+		
+		// 결과 :
+		// 한글과 English가
+  ]]></comment>
+  <comment id="bytes3"><![CDATA[
+	bytes() 메서드는 지정한 인코딩 방식에 따라 한글을 비롯한 유니코드 문자열의 바이트 수를 계산한다.
+	
+	@method bytes
+	@param {Hash+} oOptions 인코딩 방식과 제한할 크기를 설정한 객체.
+		@param {String} oOptions.charset 인코딩 방식
+		@param {String} [oOptions.size]  제한할 바이트 수 (이 옵션을 지정하면 해당 크기만큼 문자열을 잘라낸 jindo.$S() 객체를 반환, 이외의 경우 문자열의 크기(Number)를 반환)
+	
+	@return {Variant} oOptions 의 size 값의 유무에 따라 다른 값을 반환한다.
+	@remark 1.4.3 버전부터 인코딩 방식 사용 가능
+	@example
+		// 문서가 euc-kr 환경임을 가정합니다.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes({charset:'euc-kr',size:20}) );
+		
+		// 결과 :
+		// 한글과 English가 섞
+		
+		document.write( $S(str).bytes({charset:'euc-kr'}) );
+		
+		// 결과 :
+		// 29
+  ]]></comment>
+  <comment id="bytes_1"><![CDATA[
+유니코드 문자열의 바이트 수는 위키피디아를 참고했다(http://ko.wikipedia.org/wiki/UTF-8).
+  ]]></comment>
+  <comment id="parseString"><![CDATA[
+	parseString() 메서드는 URL 쿼리스트링(Query String)을 객체로 파싱한다. 예제를 확인한다.	
+	
+	@method parseString
+	@return {Object} 쿼리스트링을 파싱한 객체.
+	@see http://en.wikipedia.org/wiki/Querystring Query String - Wikipedia
+	@example
+		var str = "aa=first&bb=second";
+		var obj = $S(str).parseString();
+		
+		// 결과 :
+		// obj => { aa : "first", bb : "second" }
+  ]]></comment>
+  <comment id="escapeRegex"><![CDATA[
+	escapeRegex() 메서드는 문자열을 정규식에 사용할 수 있도록 이스케이프(escape)한다. 예제를 참고한다.
+	
+	@method escapeRegex
+	@return {jindo.$S} 내부 문자열이 이스케이프된 jindo.$S() 객체.
+	@since 1.2.0
+	@see http://en.wikipedia.org/wiki/Regexp Regular Expression
+	@example
+		var str = "Slash / is very important. Backslash \ is more important. +_+";
+		document.write( $S(str).escapeRegex() );
+		
+		// 결과 : Slash \/ is very important\. Backslash is more important\. \+_\+
+  ]]></comment>
+  <comment id="format"><![CDATA[
+	format() 메서드는 문자열을 형식 문자열(Format Specifier)에 대입하여 새로운 문자열을 만든다. 형식 문자열은 %로 시작하며, 사용하는 형식 문자열의 종류는 PHP의 sprintf() 함수가 사용하는 것과 동일하다.
+	
+	@method format
+	@param {String} sFormatString 대입할 형식 문자열.
+	@return {String} 문자열을 형식 문자열에 대입하여 만든 새로운 문자열.
+	@see http://www.php.net/manual/en/function.sprintf.php sprintf() - php.net
+	@see jindo.$S#times
+	@example
+		var str = $S("%4d년 %02d월 %02d일").format(2008, 2, 13);
+		
+		// 결과 :
+		// str = "2008년 02월 13일"
+		
+		var str = $S("패딩 %5s 빈공백").format("값");
+		
+		// 결과 :
+		// str => "패딩     값 빈공백"
+		
+		var str = $S("%b").format(10);
+		
+		// 결과 :
+		// str => "1010"
+		
+		var str = $S("%x").format(10);
+		
+		// 결과 :
+		// str => "a"
+		
+		var str = $S("%X").format(10);
+		
+		// 결과 :
+		// str => "A"
+  ]]></comment>
+</comments>

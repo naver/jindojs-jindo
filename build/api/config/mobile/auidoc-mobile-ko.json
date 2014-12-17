@@ -1,0 +1,35 @@
+{
+	"name": "Jindo",
+	"description": "Jindo API Documentation",
+	"version": "2.12.0-pre",
+	"url": "http://dev.naver.com/projects/jindo",
+	"logo": "./asset/logo.png",
+	"support": "http://dev.naver.com/projects/jindo/issue",
+	"index": "index-external-ko",
+	"options": {
+		"linkNatives": "true",
+		"exclude": ".git",
+		"paths": "./dist/mobile/ko",
+		"outdir": "./dist/doc/mobile/ko",
+		"themedir": "./build/api/theme",
+		"filter": "mobile"
+	},
+	"types": {
+		"String+": "Jindo 의 $S 와 String 을 모두 포함",
+		"Array+": "Jindo 의 $A 와 Array 을 모두 포함",
+		"Function+": "Jindo 의 $Fn 와 Function 을 모두 포함",
+		"Hash": "일반 객체",
+		"Hash+": "Jindo 의 $H 와 일반 객체을 모두 포함",
+		"Element": "nodeType이 1인 객체",
+		"Element+": "Jindo 의 $Element 와 Element을 모두 포함",
+		"Document": "nodeType이 9인 객체",
+		"Document+": "Jindo 의 $Document와 Document을 모두 포함",
+		"Window": "window객체",
+		"Window+": "Jindo 의 $Window와 Window을 모두 포함",
+		"$Class": "$Class객체",
+		"Variant": "모든 타입을 허용",
+		"Node": "nodeType이 있는 객체",
+		"ArrayStyle": "인덱스를 갖는 객체",
+		"Numeric": "숫자, 숫자 형 문자('1', '2'), '2px'같은 형태는 안됨"
+	}
+}

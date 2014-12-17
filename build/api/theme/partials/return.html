@@ -1,0 +1,20 @@
+<% var hasProps = HAS(this.props); %>
+<li class="param <% if (hasProps) { %>collapsed<% } %> last">
+    <% if (hasProps) { %>
+        <button type="submit" class="fold">자세히 보기</button>
+    <% } %>
+	<span class="type"><%=crossLink(this.type === "this" ? addon.className : this.type)%></span>
+	<% if (HAS(this.description)) { %><p class="description"><%=this.description%></p><% } %>
+	<% if (hasProps) { %>
+	    <ul class="params-list">
+	        <%
+	        	var len = (this.props && this.props.length) || 0;
+	        	var idx = 0;
+	        	
+	        	EACH(this.props, function() {
+	        		print(INCLUDE("param", this, { isLast : len === (++idx) }));
+	            });
+	        %>
+	    </ul>
+	<% } %>
+</li>

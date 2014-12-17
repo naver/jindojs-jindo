@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" onclick="StopDelay(); return false;" value="5초 delay로 지정된 함수를 중지합니다" />
+	<script type="text/javascript" data-jsbin="javascript">
+		
+		function func(a, b) {
+			LOG(a + b);
+		}
+		
+		function StopDelay() {
+			fpDelay.stopDelay();
+		}
+		
+		var fpDelay = $Fn(func);
+		fpDelay.delay(5, [3, 5]); 
+		
+	</script>
+</body>
+</html>

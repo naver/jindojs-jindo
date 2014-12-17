@@ -1,0 +1,81 @@
+﻿@charset "utf-8";
+/* NHN Web Standardization Team (http://html.nhndesign.com/) HHJ 090226 */
+
+#element_auto_test{
+	padding : 2px 1px;
+	margin : 2px 1px;
+	background-position : 2px 2px;
+}
+#class_api_update{
+	text-decoration : underline overline;
+}
+#width_test{
+	border : 1px solid black;
+}
+#paddingBug{}
+
+.se2_inputarea{margin:0;padding:0;font-family:'돋움',Dotum,Helvetica,Sans-serif;font-size:12px;line-height:1.5}
+.se2_inputarea p,.se2_inputarea br{margin:0;padding:0}
+/* size */
+.se2_inputarea{margin:15px;word-wrap:break-word}
+.se2_inputarea_890{width:741px;margin:20px 0 10px 64px}
+.se2_inputarea_698{width:548px;margin:20px 0 10px 64px}
+/* 숨김글 */
+.se2_summary_ty1{width:99%;border:1px dashed #a7a7a7}
+.se2_summary_ty1 .se2_summary_td{padding:3px 0 3px 9px !important;border-bottom:1px dashed #a7a7a7;font-weight:normal;color:#0482d6}
+.se2_summary_ty1 .se2_summary_td2{padding:8px 0 8px 9px !important;color:#666}
+.se2_summary_ty1 .se2_summary_ty1{width:100%;border-right:0}
+/* 각주 */
+.se2_tag_fn{margin:-2px 0 3px;vertical-align:middle}
+/* 맞춤법 */
+.se2_check_spell{padding-bottom:1px;background:url(http://blogimgs.naver.net/smarteditor/20120921/bg_spell.gif) 0 bottom repeat-x}
+/* 인용구 */
+.se2_quote1{margin:0 0 30px 20px;padding:0 8px;border-left:2px solid #ccc;color:#888}
+.se2_quote2{margin:0 0 30px 13px;padding:0 8px 0 16px;background:url(http://blogimgs.naver.net/smarteditor/20120921/bg_quote2.gif) 0 3px no-repeat;color:#888}
+.se2_quote3{margin:0 0 30px;padding:12px 10px 11px;border:1px dashed #ccc;color:#888}
+.se2_quote4{margin:0 0 30px;padding:12px 10px 11px;border:1px dashed #66b246;color:#888}
+.se2_quote5{margin:0 0 30px;padding:12px 10px 11px;border:1px dashed #ccc;background:#fafafa;color:#888}
+.se2_quote6{margin:0 0 30px;padding:12px 10px 11px;border:1px solid #e5e5e5;color:#888}
+.se2_quote7{margin:0 0 30px;padding:12px 10px 11px;border:1px solid #66b246;color:#888}
+.se2_quote8{margin:0 0 30px;padding:12px 10px 11px;border:1px solid #e5e5e5;background:#fafafa;color:#888}
+.se2_quote9{margin:0 0 30px;padding:12px 10px 11px;border:2px solid #e5e5e5;color:#888}
+.se2_quote10{margin:0 0 30px;padding:12px 10px 11px;border:2px solid #e5e5e5;background:#fafafa;color:#888}
+/* 글양식,글장식테이블 NS HSC */
+.se2_editarea{border:1px dashed #999 !important}
+.se2_editarea_t{border-top:1px dashed #999 !important}
+.se2_editarea_r{border-right:1px dashed #999 !important}
+.se2_editarea_b{border-bottom:1px dashed #999 !important}
+.se2_editarea_l{border-left:1px dashed #999 !important}
+.se2_editarea_trb{border-top:1px dashed #999 !important;border-right:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea_ltr{border-top:1px dashed #999 !important;border-right:1px dashed #999 !important;border-left:1px dashed #999 !important}
+.se2_editarea_blt{border-top:1px dashed #999 !important;border-left:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea_rbl{border-right:1px dashed #999 !important;border-left:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea_tl{border-top:1px dashed #999 !important;border-left:1px dashed #999 !important}
+.se2_editarea_tr{border-top:1px dashed #999 !important;border-right:1px dashed #999 !important}
+.se2_editarea_bl{border-left:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea_br{border-right:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea_lr{border-right:1px dashed #999 !important;border-left:1px dashed #999 !important}
+.se2_editarea_tb{border-top:1px dashed #999 !important;border-bottom:1px dashed #999 !important}
+.se2_editarea2{border:1px dashed #dadada !important}
+.se2_editarea2_t{border-top:1px dashed #dadada !important}
+.se2_editarea2_r{border-right:1px dashed #dadada !important}
+.se2_editarea2_b{border-bottom:1px dashed #dadada !important}
+.se2_editarea2_l{border-left:1px dashed #dadada !important}
+.se2_editarea2_trb{border-top:1px dashed #dadada !important;border-right:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_editarea2_ltr{border-top:1px dashed #dadada !important;border-right:1px dashed #dadada !important;border-left:1px dashed #dadada !important}
+.se2_editarea2_blt{border-top:1px dashed #dadada !important;border-left:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_editarea2_rbl{border-right:1px dashed #dadada !important;border-left:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_editarea2_tl{border-top:1px dashed #dadada !important;border-left:1px dashed #dadada !important}
+.se2_editarea2_tr{border-top:1px dashed #dadada !important;border-right:1px dashed #dadada !important}
+.se2_editarea2_bl{border-left:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_editarea2_br{border-right:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_editarea2_lr{border-right:1px dashed #dadada !important;border-left:1px dashed #dadada !important}
+.se2_editarea2_tb{border-top:1px dashed #dadada !important;border-bottom:1px dashed #dadada !important}
+.se2_tspace{padding:5px !important;border:1px dashed #dadada}
+.se2_tspace2{padding:5px !important}
+/* SE1 레이아웃템플릿에 사용되는 편집도트 */
+.Basicborder{border:1px dashed #BBBBBB}
+/* SE1 레이아웃 td의 font-size:0 재설정 */
+.NHN_Layout_Preset{font-size:9pt}
+
+#ele_opacity { opacity : 0 }

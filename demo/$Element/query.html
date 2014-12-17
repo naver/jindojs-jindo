@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<div id="sample">
+		<div></div>
+		<div class="pink"></div>
+		<div></div>
+		<div class="pink"></div>
+		<div></div>
+		<div class="blue"></div>
+		<div class="blue"></div>
+	</div> 
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		LOG($Element("sample").query(".pink"));
+		// 첫 번째 <div class="pink"></div> DIV 요소를 반환
+		
+		LOG($Element("sample").query(".green"));
+		// null 을 반환
+
+	</script>
+</body>
+</html>

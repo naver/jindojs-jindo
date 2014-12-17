@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>샘플코드</title>
+	<script type="text/javascript" src="../core.js"></script>
+	<script type="text/javascript" src="../cssquery.js"></script>
+	<script type="text/javascript" src="../agent.js"></script>
+	<script type="text/javascript" src="../array.js"></script>
+	<script type="text/javascript" src="../array.extend.js"></script>
+	<script type="text/javascript" src="../ajax.js"></script>
+	<script type="text/javascript" src="../ajax.extend.js"></script>
+	<script type="text/javascript" src="../hash.js"></script>
+	<script type="text/javascript" src="../json.js"></script>
+	<script type="text/javascript" src="../cookie.js"></script>
+	<script type="text/javascript" src="../element.js"></script>
+	<script type="text/javascript" src="../element.extend.js"></script>
+	<script type="text/javascript" src="../function.js"></script>
+	<script type="text/javascript" src="../event.js"></script>
+	<script type="text/javascript" src="../elementlist.js"></script>
+	<script type="text/javascript" src="../string.js"></script>
+	<script type="text/javascript" src="../document.js"></script>
+	<script type="text/javascript" src="../form.js"></script>
+	<script type="text/javascript" src="../template.js"></script>
+	<script type="text/javascript" src="../date.js"></script>
+	<script type="text/javascript" src="../window.js"></script>
+	<script type="text/javascript" src="../noconflict.js"></script>
+	<script type="text/javascript" src="../component.js"></script>
+</head>
+<body>
+	<div id="map" style="border:1px solid #000;"></div>
+	<script type="text/javascript">
+	nhn.mapcore = {Util:{}};
+	(function() {
+
+		var nRnd = parseInt(Math.random() * new Date().getTime(), 10);
+
+		nhn.mapcore.Util.JSONP = jindo.$Class({
+
+			$init : function() {
+
+				var self = this;
+
+				this._uid = 'K' + parseInt(Math.random() * new Date().getTime(), 10);
+				window['_JSONP_callbacks_' + nRnd][this._uid] = function(nScriptID) {
+					return function(oRes) {
+						return self._onResponse(oRes, nScriptID);
+					};
+				};
+
+			},
+
+			request : function(sURL, oParam) {
+
+				var nScriptID = parseInt(Math.random() * new Date().getTime(), 10);
+
+				var elEl = document.createElement('script');
+				elEl.type = 'text/javascript';
+				elEl.language = 'javascript';
+				elEl.id = nScriptID;
+				elEl.src = sURL + '?' + jindo.$H(oParam).toQueryString() + '&callback=_JSONP_callbacks_' + nRnd + '.' + this._uid + '(' + nScriptID + ')';
+
+				document.body.insertBefore(elEl, document.body.firstChild);
+
+			},
+
+			_onResponse : function(oRes, nScriptID) {
+
+				var elEl = document.getElementById(nScriptID);
+				elEl.parentNode.removeChild(elEl);
+
+				this.fireEvent('load', { response : oRes });
+
+			}
+
+		}).extend(nhn.Component);
+
+		window['_JSONP_callbacks_' + nRnd] = {};
+
+	})();
+	function aaa(){
+		
+		var TRAFFIC_UPDATE_URL = 'http://test.api.map.naver.com/traffic/trafficUpdateTime';
+
+		var _responseTrafficTime = function(oRes) {
+			alert(oRes);
+		};
+
+		var oAjax = jindo.$Ajax(TRAFFIC_UPDATE_URL, {
+			type: "jsonp",
+			callbackname: "callback",
+			onload: _responseTrafficTime
+		});
+
+			oAjax.request({caller:"map_openapi", output:"json", encoding:"UTF-8"});
+
+	}
+	
+	// aaa();
+
+
+	</script>
+	<input type="button" name="some_name" value="" id="some_name" onclick="aaa();">
+</body>
+
+</html>

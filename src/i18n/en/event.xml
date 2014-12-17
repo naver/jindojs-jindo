@@ -1,0 +1,484 @@
+<comments name="event">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and methods of the jindo.$Event() object
+	@name event.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The $Event() element provides extended features related to event handling by wrapping the event object. The jindo.$Event() object can be used to obtain the information of or specify the action for the event that has occurred.
+	
+	@class jindo.$Event
+	@keyword event
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Creates the jindo.$Event() object by wrapping the event object.
+	
+	@constructor
+	@param {Event} event Event object
+  ]]></comment>
+  <comment id="type"><![CDATA[
+	Event types
+	
+	@property type
+	@type String
+	@filter desktop
+  ]]></comment>
+  <comment id="srcElement"><![CDATA[
+	The element in which an event occurred
+	
+	@property srcElement
+	@type Element
+	@filter desktop
+  ]]></comment>
+  <comment id="currentElement"><![CDATA[
+	The element in which an event has defined
+	
+	@property currentElement
+	@type Element
+	@filter desktop
+  ]]></comment>
+  <comment id="delegatedElement"><![CDATA[
+	delegate를 사용할 경우 delegate된 엘리먼트
+	
+	@property delegatedElement
+	@type Element
+	@filter desktop
+	@example
+		<div id="sample">
+			<ul>
+					<li><a href="#">1</a></li>
+					<li>2</li>
+			</ul>
+		</div>
+		$Element("sample").delegate("click","li",function(e){
+			//li 밑에 a를 클릭한 경우.
+			e.srcElement -> a
+			e.currentElement -> div#sample
+			e.delegatedElement -> li
+		});
+  ]]></comment>
+  <comment id="hook"><![CDATA[
+	hook() 메서드는 이벤트 명을 조회한다.
+	@method hook
+	@syntax vName
+	@static
+	@param {String+} vName 이벤트명(String)
+	@remark 2.5.0부터 사용가능하다.
+	@return {Variant} 이벤트를 나타내는 값 혹은 함수.
+	@example
+		$Event.hook("pointerDown");
+		//MsPointerDown
+	
+  ]]></comment>
+  <comment id="hook2"><![CDATA[
+	hook() 메서드는 개발자가 이벤트를 만들면 진도에서 해당 이벤트가 들어왔을 때 변경하여 사용한다.
+	@method hook
+	@syntax vName, vValue
+	@syntax oList
+	@static
+	@param {String+} vName 이벤트명(String)
+	@param {Variant} vValue 변경할 이벤트명(String|Function)
+	@param {Hash+} oList 하나 이상의 이벤트 명과 값을 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@remark 2.5.0부터 사용가능하다.
+	@return {$Event} $Event
+	
+	
+	@example
+		$Event.hook("pointerDown","MsPointerDown");
+		
+		$Element("some").attach("pointerDown",function(){});
+		//개발자가 hook으로 등록하면 진도는 이벤트를 할당할 때 이름을 변경한다.
+		//pointerDown -> MsPointerDown
+	@example
+		//함수도 할당할 수 있다.
+		$Event.hook("pointerDown",function(){
+			if(isWindow8&&isIE){
+				return "MsPointerDown";
+			}else if(isMobile){
+				return "touchdown";
+			}else{
+				return "mousedown";
+			}
+		});
+		
+		$Element("some").attach("pointerDown",function(){});
+		//윈도우8이고 IE10인 경우는 MsPointerDown	
+		//모바일인 경우는 touchdown	
+		//기타는 mousedown	
+
+  ]]></comment>
+  <comment id="customEvent"><![CDATA[
+	customEvent() 메서드는 개발자가 가상의 이벤트를 만들 수 있다.
+	@method customEvent
+	@syntax vName
+	@syntax vName, vEvent
+	@static
+	@param {String+} vName 이벤트명(String)
+	@param {Hash+} vEvent fire할 조건을 할당.
+	@remark 2.6.0부터 사용가능하다.
+	@return {$Event} $Event
+	
+	
+	@example
+		$Event.customEvent("allReady");
+		
+		$Element("some").attach("allReady",function(){
+			console.log("allReady");
+		});
+		
+		$Element("some").fireEvent("allReady");
+		//console.log("allReady");
+		
+	@example
+		$Event.customEvent("longTap",{
+			"mousedown" : function(we){
+				var self = this;
+				this.isPassed4S = false;
+				this.timerID = setTimeout(function(){
+					self.isPassed4S = true; 
+				},4000); 
+			},
+			"mouseup":function(){
+				if(isPassed4S){
+					this.fireEvent({
+						"type" : "longTap"
+					});
+				}
+			}
+		});
+		
+		$Element("some").attach("longTap",function(we){
+			console.log(we.type);
+		});
+		
+		//some엘리먼트에 mousedown하고 4초후 mouseup을 하면 이벤트가 실행된다.
+
+  ]]></comment>
+  <comment id="relatedElement"><![CDATA[
+	The associative element of an event
+	
+	@property relatedElement
+	@type Element
+	@filter desktop
+  ]]></comment>
+  <comment id="mouse"><![CDATA[
+	The mouse() method returns the object that contains the information of the mouse event.
+	
+	@method mouse
+	@param {Boolean} [bIsScrollbar=false] If this value is true, the scroll attributes are provided. (2.0.0 버전부터 지원).
+	@return {Object} An object that contains the mouse event information.
+		@return {Number} .delta Stores the amount of mouse wheel movement as an integer. A positive number is stored if the wheel has been scrolled upward, and a negative number is stored if the wheel has been scrolled downward.
+		@return {Boolean} .left Stores whether the left mouse button has been clicked on as Boolean.
+		@return {Boolean} .middle Stores whether the middle mouse button has been clicked on as Boolean.
+		@return {Boolean} .right Stores whether the right mouse button has been clicked on as Boolean.
+		@return {Boolean} .scrollbar Able to identify whether the event has occurred during the scroll action.
+	@filter desktop
+	@example
+		function eventHandler(evt) {
+		   var mouse = evt.mouse();
+		
+		   mouse.delta;     // Number. The degree of wheel movement. Returns positive numbers if the wheel is scrolled upward, or negative numbers if the wheel is scrolled downward.
+		   mouse.left;      // true if the left mouse button is held down, false otherwise.
+		   mouse.middle;    // true if the middle mouse button is held down, false otherwise.
+		   mouse.right;     // true if the right mouse button is held down, false otherwise.
+		   mouse.scrollbar; // true if the event fired during scroll action, false otherwise.
+		}
+  ]]></comment>
+  <comment id="_event_isScroll_1"><![CDATA[
+	// IE 의 경우 componentFromPoint 메서드를 제공하므로 이걸 활용
+  ]]></comment>
+  <comment id="_event_isScroll_2"><![CDATA[
+	// 파이어폭스는 스크롤바 클릭시 XUL 객체로 지정
+  ]]></comment>
+  <comment id="_event_isScroll_3"><![CDATA[
+	// 엘리먼트 내에서 클릭된 위치 얻기
+  ]]></comment>
+  <comment id="_event_isScroll_4"><![CDATA[
+	// Webkit 의 경우 border 의 사이즈가 더해져서 나옴
+  ]]></comment>
+  <comment id="_event_isScroll_5"><![CDATA[
+	// 스크롤바가 있는 영역
+  ]]></comment>
+  <comment id="key"><![CDATA[
+	The key() method returns the object that contains the keyboard event information.
+	
+	@method key
+	@return {Object} An object that contains the keyboard event information
+		@return {Boolean} .alt Stores whether the ALT key has been pressed as Boolean.
+		@return {Boolean} .ctrl Stores whether the CTRL key has been pressed as Boolean.
+		@return {Boolean} .down Stores whether the Down Arrow key has been pressed as Boolean.
+		@return {Boolean} .enter Stores whether the Enter key has been pressed as Boolean.
+		@return {Boolean} .esc Stores whether the ESC key has been pressed as Boolean.
+		@return {Boolean} .keyCode Stores the code value of the entered key as integers.
+		@return {Boolean} .left Stores whether the Left Arrow key has been pressed as Boolean.
+		@return {Boolean} .meta Stores whether the META key (the command key of the keyboard for Mac) has been pressed as Boolean.
+		@return {Boolean} .right Stores whether the Right Arrow key has been pressed as Boolean.
+		@return {Boolean} .shift Stores whether the Shift key has been pressed as Boolean.
+		@return {Boolean} .up Stores whether the Up Arrow key has been pressed as Boolean.
+	@example
+		function eventHandler(evt) {
+		   var key = evt.key();
+		
+		   key.keyCode; // Number. The key code of a keyboard
+		   key.alt;     // true if the Alt key is held down.
+		   key.ctrl;    // true if the Ctrl key is held down.
+		   key.meta;    // true if the Meta key is held down.
+		   key.shift;   // true if the Shift key is held down.
+		   key.up;      // true if the up arrow key is held down.
+		   key.down;    // true if the down arrow key is held down.
+		   key.left;    // true if the left arrow key is held down.
+		   key.right;   // true if the right arrow key is held down.
+		   key.enter;   // true if the return key is held down.
+		   key.esc;   // true if the ESC key is held down.
+		}
+  ]]></comment>
+  <comment id="pos"><![CDATA[
+	The pos() method returns the object that contains the information of the position of the mouse cursor.
+	
+	@method pos
+	@param {Boolean} [bGetOffset]  The parameter that determines whether to calculate the offsetX and the offsetY values, the relative position of the mouse cursor on the element where the event has occurred. If the bGetOffset value is true, the offsetX and the offsetY values are calculated.
+	@return {Object} The mouse cursor position information.
+		@return {Number} .clientX Stores the X-coordinate of the mouse cursor based on the screen.
+		@return {Number} .clientY Stores the Y-coordinate of the mouse cursor based on the screen.
+		@return {Number} .offsetX Stores the X-coordinate of the mouse cursor based on the DOM element.
+		@return {Number} .offsetY Stores the Y-coordinate of the mouse cursor based on the DOM element.
+		@return {Number} .pageX Stores the X-coordinate of the mouse cursor based on the document.
+		@return {Number} .pageY Stores the Y-coordinate of the mouse cursor based on the document.
+	@remark 
+		<ul class="disc">
+			<li>To use the pos() method, the Jindo framework must include the jindo.$Element() object.</li>
+		</ul>
+	@example
+		function eventHandler(evt) {
+		   var pos = evt.pos();
+		
+		   pos.clientX;  // X coordinate of the current page
+		   pos.clientY;  // Y coordinate of the current page
+		   pos.offsetX; // The relative X coordinate of a mouse cursor to the element in which the event occurred (available in version 1.2.0 and higher)
+		   pos.offsetY; // The relative Y coordinate of a mouse cursor to the element in which the event occurred (available in version 1.2.0 and higher)
+		   pos.pageX;  // X coordinate of the entire document
+		   pos.pageY;  // Y coordinate of the entire document
+		}
+  ]]></comment>
+  <comment id="pos_1"><![CDATA[
+As the method used for calculating offsets is CPU-intensive, use it only when necessary.
+  ]]></comment>
+  <comment id="stop"><![CDATA[
+	stop() method stops the bubbling and basic actions of an event. Bubbling is a phenomenon in which an event that has occurred in a subnode is spreading through its supernodes, in specific HTML elements. For example, when the &lt;div&gt; element is clicked, an onclick event occurs in the document element, the parent element, as well as the &lt;div&gt; element. The stop() method blocks bubbling so as to allow the event to occur only in a specified object.
+	
+	@method stop
+	@param {Numeric} [nCancelConstant=$Event.CANCEL_ALL] The constant of the jindo.$Event() object. Selectively stops the bubbling or basic action of an event according to the specified constant. (1.1.3 버전부터 지원).
+		@param {Numeric} [nCancelConstant.$Event.CANCEL_ALL] 버블링과 기본 동작을 모두 중지
+		@param {Numeric} nCancelConstant.$Event.CANCEL_BUBBLE 버블링을 중지
+		@param {Numeric} nCancelConstant.$Event.CANCEL_DEFAULT 기본 동작을 중지
+	@return {this} 창의 버블링과 기본 동작을 중지한 인스턴스 자신
+	@see jindo.$Event.CANCEL_ALL
+	@see jindo.$Event.CANCEL_BUBBLE
+	@see jindo.$Event.CANCEL_DEFAULT
+	@example
+		// To stop only basic operations (available in version 1.1.3 and higher)
+		function stopDefaultOnly(evt) {
+			// Here is some code to execute
+		
+			// Stop default event only
+			evt.stop($Event.CANCEL_DEFAULT);
+		}
+  ]]></comment>
+  <comment id="stopImmediatePropagation"><![CDATA[
+ * @description The stopImmediatePropagation() method immediately stops event bubbling.
+ * @return {jindo.$Event} Event object
+ * @example
+$Element("id").attach("click",function(e){
+	alert(1);
+	e.stopImmediatePropagation();//-> Because it immediately stops event bubbling, alert(2) is not called.
+});
+$Element("id").attach("click",function(e){
+	alert(2);
+});
+  ]]></comment>
+  <comment id="isImmediatePropagationStopped"><![CDATA[
+ * @description The isImmediatePropagationStopped() method checks whether the stopImmediatePropagation has been called.
+ * @return {Boolean} Returns whether it is used
+  ]]></comment>
+  <comment id="isPropagationStopped"><![CDATA[
+ * @description The isPropagationStopped() method checks whether the stopBubble has been called.
+ * @return {Boolean} Returns whether it is used
+  ]]></comment>
+  <comment id="isBubbleStopped"><![CDATA[
+ * @description The isBubbleStopped() method checks whether the stopBubble has been called.
+ * @return {Boolean} Returns whether it is used
+  ]]></comment>
+  <comment id="stopDefault"><![CDATA[
+	The stopDefault() method stops the basic actions of an event. It behaves the same with entering the CANCEL_DEFAULT value as the parameter of the stop() method.
+	
+	@method stopDefault
+	@return {this} 이벤트의 기본 동작을 중지한 인스턴스 자신
+	@see jindo.$Event#stop
+	@see jindo.$Event.CANCEL_DEFAULT
+  ]]></comment>
+  <comment id="stopBubble"><![CDATA[
+	The stopBubble() method stops the bubbling of an event. It behaves the same with entering the CANCEL_BUBBLE value as the parameter of the stop() method.
+	
+	@method stopBubble
+	@return {this} 이벤트의 버블링을 중지한 인스턴스 자신
+	@see jindo.$Event#stop
+	@see jindo.$Event.CANCEL_BUBBLE
+  ]]></comment>
+  <comment id="cancel_bubble"><![CDATA[
+	The CANCEL_BUBBLE is a constant used by the stop() method to stop bubbling.
+	
+	@property CANCEL_BUBBLE
+	@static
+	@constant
+	@type Number
+	@default 1
+	@see jindo.$Event#stop
+	@final
+  ]]></comment>
+  <comment id="cancel_default"><![CDATA[
+	The CANCEL_DEFAULT is a constant used by the stop() method to stop basic actions.
+	
+	@property CANCEL_DEFAULT
+	@static
+	@constant
+	@type Number
+	@default 2
+	@see jindo.$Event#stop
+	@final
+  ]]></comment>
+  <comment id="cancel_all"><![CDATA[
+	The CANCEL_ALL is a constant used by the stop() method to stop both bubbling and basic actions.
+	
+	@property CANCEL_ALL
+	@static
+	@constant
+	@type Number
+	@default 3
+	@see jindo.$Event#stop
+	@final
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	The $value method returns the original Event object.
+	
+	@method $value
+	@return {Event} The original Event object
+	@example
+		function eventHandler(evt){
+			evt.$value();
+		}
+  ]]></comment>
+  <comment id="changedTouch"><![CDATA[
+	It makes the use of the changeTouches object easier when using touch-related events on mobile devices.
+	
+	@method changedTouch
+	@param {Numeric} [nIndex] Index number. If don't indicate this option then return data array.
+	@return {Array | Hash} An array that contains a variety of information data or Various information data
+	@throws {$Except.NOT_SUPPORT_METHOD} The exception occurs when using on the desktop computer.
+	@filter mobile
+	@since 2.0.0 
+	@see jindo.$Event#targetTouch
+	@see jindo.$Event#pos
+	@example
+		$Element("only_mobile").attach("touchstart",function(e){
+			e.changedTouch(0);
+			{
+			   "id" : "123123",// identifier
+			   "event" : $Event,// $Event
+			   "element" : element, // The corresponding element
+			   "pos" : function(){}//  Method (same as the Pos method)
+			}
+			
+		 	e.changedTouch();
+			[
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				},
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				}
+			]
+		 });
+  ]]></comment>
+  <comment id="targetTouch"><![CDATA[
+	It makes the use of the targetTouches object easier when using touch-related events on mobile devices.
+	
+	@method targetTouch
+	@param {Numeric} [nIndex] Index number. If don't indicate this option then return data array.
+	@return {Array | Hash} An array that contains a variety of information data or Various information data
+	@throws {$Except.NOT_SUPPORT_METHOD} The exception occurs when using on the desktop computer.
+	@filter mobile
+	@since 2.0.0
+	@see jindo.$Event#changedTouch
+	@see jindo.$Event#pos
+	@example
+		$Element("only_mobile").attach("touchstart",function(e){
+			e.targetTouch(0);
+			{
+			   "id" : "123123",// identifier
+			   "event" : $Event,// $Event
+			   "element" : element, // The corresponding element
+			   "pos" : function(){}//  Method (same as the Pos method)
+			}
+			
+			e.targetTouch();
+			[
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				},
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				}
+			]
+		 });
+  ]]></comment>
+    <comment id="touch"><![CDATA[
+	It makes the use of the touches object easier when using touch-related events on mobile devices.
+
+	@method touch
+	@param {Numeric} [nIndex] Index number. If don't indicate this option then return data array.
+	@return {Array | Hash} An array that contains a variety of information data or Various information data
+	@throws {$Except.NOT_SUPPORT_METHOD} The exception occurs when using on the desktop computer.
+	@filter mobile
+	@since 2.0.0
+	@see jindo.$Event#changedTouch
+	@see jindo.$Event#pos
+	@example
+		$Element("only_mobile").attach("touchstart",function(e){
+			e.touch(0);
+			{
+			   "id" : "123123",// identifier
+			   "event" : $Event,// $Event
+			   "element" : element, // The corresponding element
+			   "pos" : function(){}//  Method (same as the Pos method)
+			}
+
+			e.touch();
+			[
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				},
+				{
+				   "id" : "123123",
+				   "event" : $Event,
+				   "element" : element,
+				   "pos" : function(){}
+				}
+			]
+		 });
+  ]]></comment>
+</comments>

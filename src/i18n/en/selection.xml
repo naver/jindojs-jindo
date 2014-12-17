@@ -1,0 +1,33 @@
+<comments name="selection">
+  <comment id="title"><![CDATA[
+	Returns the jindo.$Selection() object of a selected area.
+	
+	@id jindo.$Selection
+	@ignore
+  ]]></comment>
+  <comment id="range"><![CDATA[
+	Returns the jindo.$Range() object corresponding to the current selected area. If the jindo.$Range() object is passed as a first parameter, the given $Range is specified as a selected area.
+	
+	@id jindo.$Range.range
+	@param {jindo.$Range} The jindo.$Range() object for a selected area.
+	@ignore
+  ]]></comment>
+  <comment id="sign_range"><![CDATA[
+	Returns the jindo.$Range() object of a selected area.
+	
+	@id jindo.$Range
+	@ignore
+  ]]></comment>
+  <comment id="sign_range_getHTML"><![CDATA[
+	Gets a HTML string in the given Text Range.
+	
+	@id jindo.$Range.getHTML
+	@ignore
+  ]]></comment>
+  <comment id="sign_range_setHTML"><![CDATA[
+	Replaces HTML with the given Text Range.
+	
+	@id jindo.$Range.setHTML
+	@ignore
+  ]]></comment>
+</comments>

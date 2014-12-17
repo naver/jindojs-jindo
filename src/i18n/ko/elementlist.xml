@@ -1,0 +1,791 @@
+<comments name="elementlist">
+  <comment id="title"><![CDATA[
+	@fileOverview $ElementList의 생성자 및 메서드를 정의한 파일
+	@name elementlist.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$ElementList() 객체는 여러 개의 DOM 요소를 한 번에 다룰 수 있는 기능을 제공한다. jindo.$ElementList() 객체는 DOM 요소를 배열 형태로 관리한다.
+	
+	@class jindo.$ElementList
+	@keyword elementlist, element, list, 엘리먼트리스트, 엘리먼트, 리스트
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$ElementList() 객체를 생성한다. DOM 요소의 ID 또는 ID를 원소로 같은 배열, 혹은 CSS 선택자, jindo.$Element() 객체를 원소로 갖는 배열 등을 사용하여 jindo.$ElementList() 객체를 생성한다.
+	
+	@constructor
+	@syntax
+	@syntax  sIDorSelector
+	@syntax  aList
+	@param {String+} sIDorSelector 문서에서 DOM 요소를 찾기 위한 CSS 선택자(CSS Selector) 혹은 ID 를 입력한다.
+	@param {Array+} aList 문서에서 DOM 요소의 ID, Element, jindo.$Element() 객체를 원소로 같는 배열을 입력한다.
+	@example
+		// 'foo', 'bar' 요소의 ElementList를 생성한다.
+		var woElList = $ElementList($('foo','bar'));
+		
+		// 문서의 모든 'DIV' 요소에 대한 $ElementList를 생성한다. 
+		var woElList = $ElementList('DIV');
+  ]]></comment>
+  <comment id="get"><![CDATA[
+	get() 메서드는 jindo.$ElementList() 객체의 내부 요소 중에서 지정한 인덱스에 해당하는 요소를 반환한다.
+	
+	@method get
+	@param {Numeric} nIndex 가져올 요소의 인덱스.<br>인덱스는 0부터 시작한다.
+	@return {jindo.$Element} 지정한 인덱스의 요소.
+  ]]></comment>
+  <comment id="getFirst"><![CDATA[
+	getFirst() 메서드는 jindo.$ElementList() 객체의 첫 번째 요소를 반환한다. get() 메서드에 인덱스 값으로 0을 지정한 것과 동일하다.	
+	
+	@method getFirst
+	@return {jindo.$Element} jindo.$ElementList() 객체의 첫 번째 요소.
+	@see jindo.$ElementList#get
+	@see jindo.$ElementList#getLast
+  ]]></comment>
+  <comment id="getLast"><![CDATA[
+	getLast() 메서드는 jindo.$ElementList() 객체의 마지막 요소를 반환한다. get() 메서드에 인덱스 값으로 마지막 인덱스 번호를 지정한 것과 동일하다.
+	
+	@method getLast
+	@return {jindo.$Element} jindo.$ElementList() 객체의 마지막 요소.
+	@see jindo.$ElementList#get
+	@see jindo.$ElementList#getFirst
+  ]]></comment>
+  <comment id="length"><![CDATA[
+	length() 메서드는 jindo.$A() 객체의 length() 메서드를 이용하여 jindo.$ElementList() 객체의 크기를 반환한다.
+	
+	@method length
+	@return {Number} 현재 jindo.$ElementList() 객체의 배열 크기(Number)를 반환한다.
+	
+	@since 1.4.3
+	@see jindo.$A#length
+  ]]></comment>
+  <comment id="length2"><![CDATA[
+	length() 메서드는 jindo.$A() 객체의 length() 메서드를 이용하여 jindo.$ElementList() 객체의 크기를 조정한다.
+	
+	@method length
+	@syntax nLen
+	@param {Numeric} nLen 지정할 배열의 크기. nLen이 기존 jindo.$ElementList() 객체의 배열 크기보다 작으면 nLen 번째 이후의 원소는 제거한다.
+	
+	@syntax nLen2, oValue
+	@param {Numeric} nLen2 지정할 배열의 크기. nLen이 기존 jindo.$ElementList() 객체의 배열 크기보다 크면 추가된 배열의 공간에 oValue 파라미터의 값으로 채운다. nLen이 기존 jindo.$ElementList() 객체의 배열 크기보다 작으면 nLen 번째 이후의 원소는 제거한다.
+	@param {Variant} oValue 새로운 원소를 추가할 때 사용할 초기 값.
+	
+	@return {this} 내부 배열을 변경한 인스턴스 자신
+	@since 1.4.3
+	@see jindo.$A#length
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	$value() 메서드는 내부 배열을 반환한다.
+	
+	@method $value
+	@return {Array} jindo.$Element() 객체를 원소로 가지는 배열.
+  ]]></comment>
+  <comment id="show"><![CDATA[
+	show() 메서드는 HTML 요소가 화면에 보이도록 display 속성을 변경한다.
+	
+	@method show
+	@param {String+} [sDisplay] display 속성에 지정할 값.<br>파라미터를 생략하면 태그별로 미리 지정된 기본값이 속성 값으로 설정된다. 미리 지정된 기본값이 없으면 "inline"으로 설정된다. 에러가 발생한 경우는 "block"으로 설정된다.
+	@return {this} display 속성을 변경한 인스턴스 자신
+	@remark 1.4.5 버전부터 sDisplay 파라미터를 사용할 수 있다.
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display 속성 - W3C CSS2 Specification
+	@see jindo.$Element#show
+	@see jindo.$Element#hide
+	@see jindo.$ElementList#hide
+	@example
+		// 화면에 보이도록 설정
+		$ElementList("div").show();
+		
+		//Before
+		<div style="display:none">Hello</div>
+		<div style="display:none">Good Bye</div>
+		
+		//After
+		<div style="display:block">Hello</div>
+		<div style="display:block">Good Bye</div>
+  ]]></comment>
+  <comment id="show_1"><![CDATA[
+IE에서 sDisplay값이 비정상적일때 block로 셋팅한다.
+  ]]></comment>
+  <comment id="hide"><![CDATA[
+	hide() 메서드는 HTML 요소가 화면에 보이지 않도록 display 속성을 none으로 변경한다.
+	
+	@method hide
+	@return {this} display 속성을 none으로 변경한 인스턴스 자신
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display 속성 - W3C CSS2 Specification
+	@see jindo.$Element#show
+	@see jindo.$ElementList#show
+	@see jindo.$Element#hide
+	@example
+		// 화면에 보이지 않도록 설정
+		$ElementList("div").hide();
+		
+		//Before
+		<div style="display:block">Hello</div>
+		<div style="display:block">Good Bye</div>
+		
+		//After
+		<div style="display:none">Hello</div>
+		<div style="display:none">Good Bye</div>
+  ]]></comment>
+  <comment id="toggle"><![CDATA[
+	toggle() 메서드는 HTML 요소의 display 속성을 변경하여 해당 요소를 화면에 보이거나, 보이지 않게 한다. 이 메서드는 마치 스위치를 켜고 끄는 것과 같이 요소의 표시 여부를 반전시킨다.
+	
+	@method toggle
+	@param {String+} [sDisplay] 해당 요소가 보이도록 변경할 때 display 속성에 지정할 값. 파라미터를 생략하면 태그별로 미리 지정된 기본값이 속성 값으로 설정된다. 미리 지정된 기본값이 없으면 "inline"으로 설정된다.
+	@return {this} display 속성을 변경한 인스턴스 자신
+	@remark 1.4.5 버전부터 보이도록 설정할 때 sDisplay 값으로 display 속성 값 지정이 가능하다.
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display 속성 - W3C CSS2 Specification
+	@see jindo.$ElementList#show
+	@see jindo.$ElementList#hide
+	@see jindo.$Element#visible
+	@example
+		// 화면에 보이거나, 보이지 않도록 처리
+		$ElementList("div").toggle();
+		
+		//Before
+		<div style="display:block">Hello</div>
+		<div style="display:none">Good Bye</div>
+		
+		//After
+		<div style="display:none">Hello</div>
+		<div style="display:block">Good Bye</div>
+  ]]></comment>
+  <comment id="addClass"><![CDATA[
+	addClass() 메서드는 HTML 요소에 클래스를 추가한다.
+	
+	@method addClass
+	@param {String+} sClass 추가할 클래스 이름. 둘 이상의 클래스를 추가하려면 클래스 이름을 공백으로 구분하여 나열한다.
+	@return {this} 지정한 클래스를 추가한 인스턴스 자신
+	@see jindo.$Element#className
+	@see jindo.$ElementList#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#removeClass
+	@see jindo.$ElementList#removeClass
+	@see jindo.$Element#toggleClass
+	@see jindo.$ElementList#toggleClass
+	@example
+		// 클래스 추가
+		$ElementList(".sample li.off").addClass("deselected");
+		$ElementList(".sample li.on").addClass("selected highlight");
+		
+		//Before
+		<ul class="sample">
+			<li class="on">Example1</li>
+			<li class="off">Example2</li>
+			<li class="off">Example3</li>
+			<li class="on">Example4</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="on selected highlight">Example1</li>
+			<li class="off deselected">Example2</li>
+			<li class="off deselected">Example3</li>
+			<li class="on selected highlight">Example4</li>
+		</ul>
+  ]]></comment>
+  <comment id="removeClass"><![CDATA[
+	removeClass() 메서드는 HTML 요소에서 특정 클래스를 제거한다.
+	
+	@method removeClass
+	@param {String+} sClass 제거할 클래스 이름. 둘 이상의 클래스를 제거하려면 클래스 이름을 공백으로 구분하여 나열한다.
+	@return {this} 지정한 클래스를 제거한 인스턴스 자신
+	@see jindo.$Element#className
+	@see jindo.$ElementList#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$ElementList#addClass
+	@see jindo.$Element#toggleClass
+	@see jindo.$ElementList#toggleClass
+	@example
+		// 클래스 제거
+		$ElementList(".sample li").removeClass("selected");
+		
+		//Before
+		<ul class="sample">
+			<li class="on selected">Example1</li>
+			<li class="off">Example2</li>
+			<li class="off">Example3</li>
+			<li class="on selected">Example4</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="on">Example1</li>
+			<li class="off">Example2</li>
+			<li class="off">Example3</li>
+			<li class="on">Example4</li>
+		</ul>
+	@example
+		// 여러개의 클래스를 제거
+		$ElementList(".sample li").removeClass("selected highlight deselected");
+		
+		//Before
+		<ul class="sample">
+			<li class="on selected highlight">Example1</li>
+			<li class="off deselected">Example2</li>
+			<li class="off deselected">Example3</li>
+			<li class="on selected highlight">Example4</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="on">Example1</li>
+			<li class="off">Example2</li>
+			<li class="off">Example3</li>
+			<li class="on">Example4</li>
+		</ul>
+  ]]></comment>
+  <comment id="toggleClass"><![CDATA[
+	toggleClass() 메서드는 HTML 요소에 파라미터로 지정한 클래스가 이미 적용되어 있으면 제거하고 만약 없으면 추가한다.<br>
+	파라미터를 하나만 입력할 경우 파라미터로 지정한 클래스가 사용되고 있으면 제거하고 사용되고 있지 않으면 추가한다. 만약 두 개의 파라미터를 입력할 경우 두 클래스 중에서 사용하고 있는 것을 제거하고 나머지 클래스를 추가한다.
+	
+	@method toggleClass
+	@param {String+} sClass 추가 혹은 제거할 클래스 이름1.
+	@param {String+} [sClass2] 추가 혹은 제거할 클래스 이름2.
+	@return {this} 지정한 클래스를 추가 혹은 제거한 인스턴스 자신
+	@import core.$Element[hasClass,addClass,removeClass]
+	@see jindo.$Element#className
+	@see jindo.$ElementList#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$ElementList#addClass
+	@see jindo.$Element#removeClass
+	@see jindo.$ElementList#removeClass
+	@example
+		// 파라미터가 하나인 경우
+		$ElementList(".sample li").toggleClass("on");
+		
+		//Before
+		<ul class="sample">
+			<li>Example1</li>
+			<li class="even on">Example2</li>
+			<li>Example3</li>
+			<li class="even on">Example4</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="on">Example1</li>
+			<li class="even">Example2</li>
+			<li class="on">Example3</li>
+			<li class="even">Example4</li>
+		</ul>
+	@example
+		// 파라미터가 두 개인 경우
+		$ElementList(".sample li").toggleClass("on", "off");
+		
+		//Before
+		<ul class="sample">
+			<li class="on">Example1</li>
+			<li class="even off">Example2</li>
+			<li class="on">Example3</li>
+			<li class="even off">Example4</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="off">Example1</li>
+			<li class="even on">Example2</li>
+			<li class="off">Example3</li>
+			<li class="even on">Example4</li>
+		</ul>
+  ]]></comment>
+  <comment id="fireEvent"><![CDATA[
+	fireEvent() 메서드는 HTML 요소에 이벤트를 발생시킨다. 파라미터로 발생시킬 이벤트 종류와 이벤트 객체의 속성을 지정할 수 있다.
+	
+	@method fireEvent
+	@param {String+} sEvent 발생시킬 이벤트 이름. on 접두사는 생략한다.
+	@param {Hash+} [oProps] 이벤트 객체의 속성을 지정한 객체. 이벤트를 발생시킬 때 속성을 설정할 수 있다.
+	@return {jindo.$ElementList} 이벤트가 발생한 HTML 요소의 jindo.$ElementList() 객체.
+	@remark 
+		<ul class="disc">
+			<li>1.4.1 버전부터 keyCode 값을 설정할 수 있다.</li>
+			<li>WebKit 계열에서는 이벤트 객체의 keyCode가 읽기 전용(read-only)인 관계로 key 이벤트를 발생시킬 경우 keyCode 값을 설정할 수 없었다.</li>
+		</ul>
+	@example
+		// click 이벤트 발생
+		$ElementList("div").fireEvent("click", {left : true, middle : false, right : false});
+		
+		// mouseover 이벤트 발생
+		$ElementList("div").fireEvent("mouseover", {screenX : 50, screenY : 50, clientX : 50, clientY : 50});
+		
+		// keydown 이벤트 발생
+		$ElementList("div").fireEvent("keydown", {keyCode : 13, alt : true, shift : false ,meta : false, ctrl : true});
+  ]]></comment>
+  <comment id="leave"><![CDATA[
+	leave() 메서드는 HTML 요소를 자신의 부모 요소에서 제거한다. HTML 요소에 등록된 이벤트 핸들러, 그리고 그 요소의 모든 자식요소의 모든 이벤트 핸들러도 제거한다.
+	
+	@method leave
+	@return {this} 부모 요소에서 제거된 인스턴스 자신
+	@see jindo.$Element#empty
+	@see jindo.$ElementList#empty
+	@see jindo.$Element#remove
+	@example
+		// 부모 요소 노드에서 제거
+		$ElementList(".sample li").leave();
+		
+		//Before
+		<ul class="sample">
+			<li>Example1</li>
+			<li>Example2</li>
+		</ul>
+		
+		//After : <li>Example1</li><li>Example2</li>를 래핑한 $ElementList가 반환된다
+		<ul class="sample">
+		
+		</ul>
+  ]]></comment>
+  <comment id="empty_1"><![CDATA[
+	empty() 메서드는 HTML 요소의 자식 요소와 그 자식 요소들에 등록된 모든 이벤트 핸들러까지 제거한다.
+	
+	@method empty
+	@return {this} 자식 노드를 모두 제거한 인스턴스 자신
+	@see jindo.$Element#leave
+	@see jindo.$ElementList#leave
+	@see jindo.$Element#remove
+	@example
+		// 자식 노드를 모두 제거
+		$ElementList(".sample li").empty();
+		
+		//Before
+		<ul class="sample">
+			<li>Example1 <span>Child Node</span></li>
+			<li>Example1 <span>Child Node</span></li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li></li>
+			<li></li>
+		</ul>
+  ]]></comment>
+  <comment id="appear"><![CDATA[
+	appear() 메서드는 HTML 요소를 서서히 나타나게 한다(Fade-in 효과)
+	
+	@method appear
+	@param {Numeric} [nDuration] HTML 요소가 완전히 나타날 때까지 걸리는 시간. 단위는 초(second)이다.
+	@param {Function} [fCallback] HTML 요소가 완전히 나타난 후에 실행할 콜백 함수.
+	@return {this} Fade-in 효과를 적용한 인스턴스 자신
+	@remark
+		<ul class="disc">
+			<li>인터넷 익스플로러 6 버전에서 filter를 사용하면서 해당 요소가 position 속성을 가지고 있으며 사라지는 문제가 있다. 이 경우에는 HTML 요소에 position 속성이 없어야 정상적으로 사용할 수 있다.</li>
+			<li>Webkit 기반의 브라우저(Safari 5 버전 이상, Mobile Safari, Chrome, Mobile Webkit), Opear 10.60 버전 이상의 브라우저에서는 CSS3 transition 속성을 사용한다. 그 이외의 브라우저에서는 자바스크립트를 사용한다.</li>
+		</ul>
+	@see http://www.w3.org/TR/css3-transitions/ CSS Transitions - W3C
+	@see jindo.$Element#show
+	@see jindo.$ElementList#show
+	@see jindo.$Element#disappear
+	@see jindo.$ElementList#disappear
+	@example
+		$Element("sample1").appear(5, function(){
+			$ElementList(".sample2 li").appear(3);
+		});
+		
+		//Before
+		<div id="sample1" style="display: none;">
+			<ul class="sample2">
+				<li style="display: none;">Example1</li>
+				<li style="display: none;">Example2</li>
+			</ul>
+		</div>
+		
+		//After(1) : sample1 요소가 나타남
+		<div id="sample1" style="display: block;opacity: 1;">
+			<ul class="sample2">
+				<li class="selected" style="display: none;">Example1</li>
+				<li class="selected" style="display: none;">Example2</li>
+			</ul>
+		</div>
+		
+		//After(2) : sample2 요소가 나타남
+		<div id="sample1" style="display: block;opacity: 1;">
+			<ul class="sample2">
+				<li class="selected" style="display: block;opacity: 1;">Example1</li>
+				<li class="selected" style="display: block;opacity: 1;">Example2</li>
+			</ul>
+		</div>
+  ]]></comment>
+  <comment id="disappear"><![CDATA[
+	disappear() 메서드는 HTML 요소를 서서히 사라지게 한다(Fade-out 효과).
+	
+	@method disappear
+	@param {Numeric} [nDuration] HTML 요소 완전히 사라질 때까지 걸리는 시간. 단위는 초를 사용한다.
+	@param {Function} [fCallback] HTML 요소가 완전히 사라진 후에 실행할 콜백 함수.
+	@return {this} Fade-out 효과를 적용한 인스턴스 자신
+	@remark
+		<ul class="disc">
+			<li>HTML 요소가 완전히 사라지면 해당 요소의 display 속성은 none으로 변한다.</li>
+			<li>Webkit 기반의 브라우저(Safari 5 버전 이상, Mobile Safari, Chrome, Mobile Webkit), Opear 10.6 버전 이상의 브라우저에서는 CSS3 transition 속성을 사용한다. 그 이외의 브라우저에서는 자바스크립트를 사용한다.</li>
+		</ul>
+	@see http://www.w3.org/TR/css3-transitions/ CSS Transitions - W3C
+	@see jindo.$Element#hide
+	@see jindo.$ElementList#hide
+	@see jindo.$Element#appear
+	@see jindo.$ElementList#appear
+	@example
+		$ElementList(".sample2 li").disappear(5, function(){
+			$Element("sample1").disappear(3);
+		});
+		
+		//Before
+		<div id="sample1" style="display: none;">
+			<ul class="sample2">
+				<li style="display: none;">Example1</li>
+				<li style="display: none;">Example2</li>
+			</ul>
+		</div>
+		
+		//After(1) : sample2 요소가 사라짐
+		<div id="sample1" style="display: block;opacity: 1;">
+			<ul class="sample2">
+				<li class="selected" style="display: none;opacity: 0;">Example1</li>
+				<li class="selected" style="display: none;opacity: 0;">Example2</li>
+			</ul>
+		</div>
+		
+		//After(2) : sample1 요소가 사라짐
+		<div id="sample1" style="display: none;opacity: 0;">
+			<ul class="sample2">
+				<li class="selected" style="display: none;opacity: 0;">Example1</li>
+				<li class="selected" style="display: none;opacity: 0;">Example2</li>
+			</ul>
+		</div>
+  ]]></comment>
+  <comment id="disappear_1"><![CDATA[
+opera 버그로 인하여 아래와 같이 처리함.
+  ]]></comment>
+  <comment id="className"><![CDATA[
+	className() 메서드는 HTML 요소의 클래스 이름을 설정한다.
+	
+	@method className
+	@param {String+} sClass 설정할 클래스 이름. 하나 이상의 클래스를 지정하려면 공백으로 구분하여 지정할 클래스 이름을 나열한다.
+	@return {this} 지정한 클래스를 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_FOUND_ARGUMENT} 파라미터가 없는 경우.
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$ElementList#addClass
+	@see jindo.$Element#removeClass
+	@see jindo.$ElementList#removeClass
+	@see jindo.$Element#toggleClass
+	@see jindo.$ElementList#toggleClass
+	@example
+		// HTML 요소에 클래스 이름 설정
+		$ElementList(".sample li").className("highlight");
+		
+		//Before
+		<style type="text/css">
+		.sample .selected { color:#0077FF; }
+		.sample .highlight { background:#C6E746; }
+		</style>
+		
+		<ul class="sample">
+			<li class="selected">Example1</li>
+			<li class="selected">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="highlight">Example1</li>
+			<li class="highlight">Example2</li>
+		</ul>
+	@example
+		// HTML 요소에 여러개의 클래스 이름 설정
+		$ElementList(".sample li").className("highlight selected");
+		
+		//Before
+		<style type="text/css">
+		.sample .selected { color:#0077FF; }
+		.sample .highlight { background:#C6E746; }
+		</style>
+		
+		<ul class="sample">
+			<li class="list">Example1</li>
+			<li class="list">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="highlight selected">Example1</li>
+			<li class="highlight selected">Example2</li>
+		</ul>
+  ]]></comment>
+  <comment id="width"><![CDATA[
+	width() 메서드는 HTML 요소의 너비를 설정한다.
+	
+	@method width
+	@param {Numeric} nWidth	설정할 너비 값. 단위는 픽셀(px)이며 파라미터의 값은 숫자로 지정한다.
+	@return {this} width 속성 값을 반영한 인스턴스 자신
+	@remark 브라우저마다 Box 모델의 크기 계산 방법이 다르므로 CSS의 width 속성 값과 width 메서드()의 반환 값은 서로 다를 수 있다.
+	@see jindo.$Element#height
+	@see jindo.$ElementList#height
+	@example
+		// HTML 요소에 너비 값을 설정
+		$ElementList(".sample li").width(200);
+		
+		//Before
+		<style type="text/css">
+			.sample li { width:70px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<ul class="sample">
+			<li class="list">Example1</li>
+			<li class="list">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="list" style="width: 190px">Example1</li>
+			<li class="list" style="width: 190px">Example2</li>
+		</ul>
+  ]]></comment>
+  <comment id="height"><![CDATA[
+	height() 메서드는 HTML 요소의 실제 높이를 설정한다.
+	
+	@method height
+	@param {Number} nHeight 설정할 높이 값. 단위는 픽셀(px)이며 파라미터의 값은 숫자로 지정한다.
+	@return {this} height 속성 값을 반영한 인스턴스 자신
+	@remark 브라우저마다 Box 모델의 크기 계산 방법이 다르므로 CSS의 height 속성 값과 height() 메서드의 반환 값은 서로 다를 수 있다.
+	@see jindo.$Element#width
+	@see jindo.$ElementList#width
+	@example
+		// HTML 요소에 높이 값을 설정
+		$ElementList("sample_div").height(100);
+		
+		//Before
+		<style type="text/css">
+			div { width:70px; height:50px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<ul class="sample">
+			<li class="list">Example1</li>
+			<li class="list">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="list" style="height: 90px">Example1</li>
+			<li class="list" style="height: 90px">Example2</li>
+		</ul>
+  ]]></comment>
+  <comment id="text"><![CDATA[
+	text() 메서드는 HTML 요소의 텍스트 노드를 지정한 값으로 설정한다.
+	
+	@method text
+	@param {String+} sText 지정할 텍스트.
+	@return {this} 지정한 값을 설정한 인스턴스 자신
+	@example
+		// 텍스트 노드 값 설정
+		$ElementList(".sample li").text("New Example");
+		
+		//Before
+		<ul class="sample">
+			<li><span>Old Example1</span></li>
+			<li><span>Old Example2</span></li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li>New Example</li>
+			<li>New Example</li>
+		</ul>
+  ]]></comment>
+  <comment id="html"><![CDATA[
+	html() 메서드는 HTML 요소의 내부 HTML 코드(innerHTML)를 설정한다. 이때 모든 하위 요소의 모든 이벤트 핸들러를 제거한다.
+	
+	@method html
+	@param {String+} sHTML 내부 HTML 코드로 설정할 HTML 문자열.
+	@return {this} 지정한 값을 설정한 인스턴스 자신
+	@remark IE8에서 colgroup의 col을 수정하려고 할 때 colgroup을 삭제하고 다시 만든 후 col을 추가해야 합니다.
+	@see https://developer.mozilla.org/en/DOM/element.innerHTML element.innerHTML - MDN Docs
+	@see jindo.$Element#outerHTML
+	@example
+		// 내부 HTML 설정
+		$ElementList(".sample li").html("<p><em>New</em> Example</p>");
+		
+		//Before
+		<ul class="sample">
+			<li><em>Old</em> Example1</li>
+			<li><em>Old</em> Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li><p><em>New</em> Example</p></li>
+			<li><p><em>New</em> Example</p></li>
+		</ul>
+  ]]></comment>
+  <comment id="html_1"><![CDATA[
+ * IE 나 FireFox 의 일부 상황에서 SELECT 태그나 TABLE, TR, THEAD, TBODY 태그에 innerHTML 을 셋팅해도
+ * 문제가 생기지 않도록 보완 - hooriza
+  ]]></comment>
+  <comment id="html_2"><![CDATA[
+* ie에서 select테그일 경우 option중 selected가 되어 있는 option이 있는 경우 중간에
+* selected가 되어 있으면 그 다음 부터는 계속 selected가 true로 되어 있어
+* 해결하기 위해 cloneNode를 이용하여 option을 카피한 후 selected를 변경함. - mixed
+  ]]></comment>
+  <comment id="css"><![CDATA[
+	css() 메서드는 HTML 요소의 CSS 속성 값을 설정한다.
+	
+	@method css
+	@syntax vName, vValue
+	@syntax oList
+	@param {String+} vName CSS 속성 이름(String)
+	@param {String+ | Numeric} vValue CSS 속성에 설정할 값. 숫자(Number) 혹은 단위를 포함한 문자열(String)을 사용한다.
+	@param {Hash+} oList 하나 이상의 CSS 속성과 값을 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@return {this} CSS 속성 값을 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_USE_CSS} css을 사용할 수 없는 엘리먼트 일 때.
+	@remark 
+		<ul class="disc">
+			<li>CSS 속성은 카멜 표기법(Camel Notation)을 사용한다. 예를 들면 border-width-bottom 속성은 borderWidthBottom으로 지정할 수 있다.</li>
+			<li>float 속성은 JavaScript의 예약어로 사용되므로 css() 메서드에서는 float 대신 cssFloat을 사용한다(Internet Explorer에서는 styleFloat, 그 외의 브라우저에서는 cssFloat를 사용한다.).</li>
+		</ul>
+	@see jindo.$Element#attr
+	@see jindo.$ElementList#attr
+	@example
+		// CSS 속성 값 설정
+		$ElementList('.sample li').css('backgroundColor', 'red');
+		
+		//Before
+		<ul class="sample">
+			<li class="highlight">Example1</li>
+			<li class="highlight">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="highlight" style="background-color: red;">Example1</li>
+			<li class="highlight" style="background-color: red;">Example2</li>
+		</ul>
+	@example
+		// 여러개의 CSS 속성 값을 설정
+		$ElementList('.sample li').css({
+			width: "200px",		// 200
+			height: "80px"  	// 80 으로 설정하여도 결과는 같음
+		});
+		
+		//Before
+		<ul class="sample">
+			<li class="highlight" style="background-color: red;">Example1</li>
+			<li class="highlight" style="background-color: red;">Example2</li>
+		</ul>
+		
+		//After
+		<ul class="sample">
+			<li class="highlight" style="background-color: red; width: 200px; height: 80px;">Example1</li>
+			<li class="highlight" style="background-color: red; width: 200px; height: 80px;">Example2</li>
+		</ul>
+  ]]></comment>
+  <comment id="attr"><![CDATA[
+	attr() 메서드는 HTML 요소의 속성을 설정한다. 
+	
+	@method attr
+	@syntax sName, vValue
+	@syntax oList
+	@param {String+} sName 속성 이름(String).
+	@param {Variant} vValue 속성에 설정할 값. 숫자(Number) 혹은 단위를 포함한 문자열(String)을 사용한다. 또한 속성의 값을 null로 설정하면 해당 HTML 속성을 삭제한다.
+	@param {Hash+} oList 하나 이상의 속성과 값을 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@return {this} 속성 값을 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_USE_CSS} sName은 문자,오브젝트 나 $Hash여야 한다.
+	@remark 2.2.0 버전 부터 &lt;select&gt; 엘리먼트에 사용시, 옵션값을 설정할 수 있다.
+	@see jindo.$Element#css
+	@see jindo.$ElementList#css
+	@example
+		$ElementList(".sample a").attr("href", "http://www.hangame.com");
+		
+		//Before
+		<div class="sample">
+			<a href="http://www.naver.com" target="_blank">네이버</a>
+			<a href="#">한게임</a>
+		</div>
+		
+		//After
+		<ul class="sample">
+			<a href="http://www.hangame.com" target="_blank">네이버</a>
+			<a href="http://www.hangame.com" target="_blank">한게임</a>
+		</ul>
+	@example
+		$ElementList(".sample a").attr({
+		    "href" : "http://www.hangame.com",
+		    "target" : "_blank"
+		});
+		
+		//Before
+		<div class="sample">
+			<a href="http://www.naver.com" target="_self">네이버</a>
+			<a href="#">한게임</a>
+		</div>
+		
+		//After
+		<div class="sample">
+			<a href="http://www.hangame.com" target="_blank">네이버</a>
+			<a href="http://www.hangame.com" target="_blank">한게임</a>
+		</div>
+	@example
+		<select class="sample">
+			<option value="naver">네이버</option>
+			<option value="hangame">한게임</option>
+			<option>쥬니버</option>
+		</select>
+		<select class="sample">
+			<option value="naver">네이버</option>
+			<option value="hangame">한게임</option>
+			<option>해피빈</option>
+		</select>
+		<script type="text/javascript">
+			var wel = $ElementList(".sample");
+			wel.attr("value", null); // null
+			
+			// 해당 셀렉트리스트에서 "hangame" 옵션 선택함
+			wel.attr("value", "한게임");
+			
+			// 해당 셀렉트리스트에서 "쥬니버" 옵션 선택함
+			// 해당 옵션이 없으면 선택한 옵션 없음(null)
+			wel.attr("value", "쥬니버");
+			
+			// 해당 셀렉트리스트에서 "naver" 옵션 선택함
+			wel.attr("value", "naver");
+			
+			// 해당 셀렉트리스트에서 "해피빈" 옵션 선택함
+			// 해당 옵션이 없으면 선택한 옵션 없음(null)
+			wel.attr("value", "해피빈");
+			
+			// multiple이 아닐 때 파라미터를 배열로 입력시 선택한 옵션 없음(null)
+			wel.attr("value", ["hangame"]);
+		</script>
+	@example
+		<select class="sample" multiple="true">
+			<option value="naver">네이버</option>
+			<option value="hangame">한게임</option>
+			<option>쥬니버</option>
+		</select>
+		<select class="sample" multiple="true">
+			<option value="naver">네이버</option>
+			<option value="hangame">한게임</option>
+			<option>해피빈</option>
+		</select>
+		<script type="text/javascript">
+			var wel = $ElementList(".sample");
+			
+			// 해당 셀렉트리스트에서 각각 ["naver"], ["naver"] 옵션 선택함
+			wel.attr("value", "naver");
+			
+			// 선택한 옵션 없음(null, null)
+			wel.attr("value", null);
+			
+			// 해당 셀렉트리스트에서 ["hangame"], ["hangame"] 옵션 선택함
+			wel.attr("value", ["한게임"]);
+			
+			// 선택한 옵션 없음(null, null)
+			wel.attr("value", []);
+			
+			// 해당 셀렉트리스트에서 ["naver", "hangame"], ["naver", "hangame"] 옵션 선택함
+			wel.attr("value", ["네이버", "hangame"]);
+			
+			// 해당 셀렉트리스트에서 ["쥬니버"], ["쥬니버"] 옵션 선택함
+			wel.attr("value", ["쥬니버", "me2day"]);
+			
+			// 해당 셀렉트리스트에서 ["naver"], ["naver", "해피빈"] 옵션 선택함
+			wel.attr("value", ["naver", "해피빈"]);
+		</script>
+  ]]></comment>
+</comments>

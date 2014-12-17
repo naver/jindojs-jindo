@@ -1,0 +1,101 @@
+<comments name="cookie">
+  <comment id="title"><![CDATA[
+	@fileOverview $Cookie의 생성자 및 메서드를 정의한 파일
+	@name cookie.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$Cookie() 객체는 쿠키(Cookie)에 정보를 추가, 수정, 혹은 삭제하거나 쿠키의 값을 가져온다.
+	
+	@class jindo.$Cookie
+	@keyword cookie, 쿠키
+    ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$Cookie() 객체를 생성한다.
+	
+	@constructor
+	@param {Boolean} [bURIComponent=false] 값 인코드/디코드시 encodeURIComponent()/decodeURIComponent() 함수를 사용할지 여부.
+		@param {Boolean} [bURIComponent.false] escape()/unescape() 함수를 사용
+		@param {Boolean} bURIComponent.true encodeURIComponent()/decodeURIComponent() 함수를 사용
+	@remark 2.3.0 버전부터 bURIComponent 매개변수 사용가능.
+	@example
+		var cookie = $Cookie();
+		var cookie = $Cookie(true);
+    ]]></comment>
+  <comment id="keys"><![CDATA[
+	keys() 메서드는 쿠키 키(key)를 원소로 가지는 배열을 리턴한다.
+	
+	@method keys
+ 	@return {Array} 쿠키의 키를 원소로 가지는 배열
+	@see jindo.$Cookie#set
+	@example
+		var cookie = $Cookie();
+		cookie.set("session_id1", "value1", 1);
+		cookie.set("session_id2", "value2", 1);
+		cookie.set("session_id3", "value3", 1);
+		
+		document.write (cookie.keys ());
+		// 결과 :
+		// session_id1, session_id2, session_id3
+  ]]></comment>
+  <comment id="get"><![CDATA[
+	get() 메서드는 쿠키에서 키(key)에 해당하는 값(value)을 가져온다. 값이 존재하지 않는다면 null을 반환한다.
+	
+	@method get
+	@param {String+} sName 키 이름.
+	@return {String} 해당 키의 값.
+	@see jindo.$Cookie#set
+	@example
+		var cookie = $Cookie();
+		cookie.set("session_id1", "value1", 1);
+		document.write (cookie.get ("session_id1"));
+			
+		// 결과 :
+		// value1
+		
+		document.write (cookie.get ("session_id0"));
+		// 결과 :
+		// null
+  ]]></comment>
+  <comment id="set"><![CDATA[
+	set() 메서드는 쿠키 값을 설정한다. 쿠키 값을 설정할 때 유효 기간, 유효 도메인, 유효 경로(path)를 함께 설정할 수 있다.
+
+	@method set
+	@param {String+} sName 키의 이름
+	@param {String+} sValue 키의 값
+	@param {Numeric} [nDays=0] 쿠키 유효 시간. 유효 시간은 일단위로 설정한다. 유효시간을 생략하거나 0을 넣으면 쿠키는 웹 브라우저가 종료되면 없어진다.
+	@param {String+} [sDomain] 쿠키 도메인
+	@param {String+} [sPath] 쿠키 패스
+	@return {this} 값을 설정한 인스턴스 자신
+	@see jindo.$Cookie#set
+	@example
+		var cookie = $Cookie();
+		cookie.set("session_id1", "value1", 1);
+		cookie.set("session_id2", "value2", 1);
+		cookie.set("session_id3", "value3", 1);
+  ]]></comment>
+  <comment id="remove"><![CDATA[
+	remove() 메서드는 쿠키에 설정된 쿠키 값을 제거한다. 만약 제거하려는 값에 유효 도메인과 유효 경로가 설정되어 있다면 정확히 지정해야 한다.
+	
+	@method remove
+	@param {String+} sName 키 이름.
+	@param {String+} [sDomain] 설정된 유효 도메인.
+	@param {String+} [sPath] 설정된 유효 경로.
+	@return {this} 값을 제거한 인스턴스 자신
+	@see jindo.$Cookie#get
+	@see jindo.$Cookie#set
+	@example
+		var cookie = $Cookie();
+		cookie.set("session_id1", "value1", 1);
+		document.write (cookie.get ("session_id1"));
+		
+		// 결과 :
+		// value1
+		
+		cookie.remove("session_id1");
+		document.write (cookie.get ("session_id1"));
+		
+		// 결과 :
+		// null
+  ]]></comment>
+</comments>

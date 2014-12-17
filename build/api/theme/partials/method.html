@@ -1,0 +1,132 @@
+<% var className = addon.className; %>
+<div id="method_<%=this.name%>" class="method item<% if (HAS(this.access)) { %> <%=this.access%><% } %><% if (HAS(this.deprecated)) { %> deprecated-item<% } %><% if (HAS(this.extended_from)) { %> inherited-item<% } %>">
+	<h3><%=this.name%>()
+		<span>메서드</span>
+        <% if (HAS(this.deprecated)) { %>
+            <span class="flag deprecated" title="<%==this.deprecationMessage||'deprecated'%>"><span class="blind">deprecated</span></span>
+        <% } %>
+        <% if (HAS(this.access)) { %>
+            <span class="flag <%=this.access%>" title="<%=this.access%>"><span class="blind"><%=this.access%></span></span>
+        <% } %>
+        <!--
+        <% if (HAS(this.final)) { %>
+            <span class="flag final" title="final"><span class="blind">final</span></span>
+        <% } %>
+        -->
+        <% if (HAS(this.static)) { %>
+            <span class="flag static" title="static"><span class="blind">static</span></span>
+        <% } %>
+        <% if (HAS(this.async)) { %>
+            <span class="flag async" title="async"><span class="blind">async</span></span>
+        <% } %>
+        <% if (HAS(this.chainable)) { %>
+            <span class="flag chainable" title="chainable"><span class="blind">chainable</span></span>
+        <% } %>
+		<% if (HAS(this.extended_from)) { %> 
+			<span class="flag inherited" title="inherited"><span class="blind">inherited</span></span>
+		<% } %>
+		<span class="btn_code"><a href="<%=this.foundAt%>" title="view source code"><span class="blind">소스코드</span></a></span>
+    </h3>
+	<div class="syntax"><code><%=addon.SYNTAX(this, addon.className, HAS, crossLink, crossLinkRaw, true)%></code></div>
+	<div class="description"><%=this.methodDescription%></div>
+
+	<% if (HAS(this.remark)) { %>
+	<div class="remark">
+		<h4>중요</h4>
+	    <% EACH(this.remark, function() { %>
+            <div class="example-content"><%=this%></div>
+	    <% }); %>
+	</div>
+	<% } %>
+	
+    <% if (HAS(this.params)) { %>
+        <div class="params">
+			<h4>매개 변수</h4>
+
+            <ul class="params-list">
+            <%
+            	var len = (this.params && this.params.length) || 0;
+            	var idx = 0;
+            	
+            	EACH(this.params, function() {
+            		print(INCLUDE("param", this, { isLast : len === (++idx) }));
+	            });
+            %>
+            </ul>
+        </div>
+    <% } %>
+	
+    <% if (HAS(this.return)) { %>
+        <div class="params">
+			<h4>반환값</h4>
+            <ul class="params-list">
+            <%
+            	EACH(this.return, function() {
+            		print(INCLUDE("return", this, { className : className }));
+	            });
+            %>
+            </ul>
+        </div>
+    <% } %>
+    	
+    <% if (HAS(this.throws)) { %>
+        <div class="params">
+			<h4>예외발생</h4>
+            <ul class="params-list">
+            <%
+            	EACH(this.throws, function() {
+            		%>
+            		<li>
+						<span class="type"><%=crossLink(this.type)%></span>
+						<p class="description"><%=this.description%></p>
+            		</li>
+            		<%
+	            });
+            %>
+            </ul>
+        </div>
+    <% } %>
+        	
+    <% EACH(this.example, function() { %>
+        <div class="example">
+            <h4>예제</h4>
+
+            <div class="example-content">
+                <%=this%>
+            </div>
+        </div>
+    <% }); %>
+    
+    <% if (HAS(this.see)) { %>
+        <div class="see">
+            <h4>참고</h4>
+		    <% EACH(this.see, function() { %>
+	            <div class="example-content">
+	                <a href="<%=this.href%>" target="<%=this.target%>"><%=this.description%></a>
+	            </div>
+		    <% }); %>
+        </div>
+    <% } %>
+    
+    <% if (HAS(this.since)) { %>
+        <div class="since">
+            <h4>
+                지원 버젼
+            </h4>
+            
+            <div class="example-content">
+            	<%=this.since%> 이상
+            </div>
+        </div>
+    <% } %>
+    
+    <% if (HAS(this.history)) { %>
+        <div class="history">
+            <h4>
+                히스토리
+            </h4>
+            <%=INCLUDE("history", this.history, { noTarget : true })%>
+        </div>
+    <% } %>
+
+</div>

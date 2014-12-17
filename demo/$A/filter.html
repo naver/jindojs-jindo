@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		var arr = $A([1,2,3,4,5]);
+		// 필터링 함수
+		function filterFunc(value, index, array) {
+			if (value > 2) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		var newArr = arr.filter(filterFunc);
+		LOG('원본array :' + arr.$value()); // 결과 : [1,2,3,4,5]
+		LOG('filter적용후 :' + newArr.$value()); // 결과 : [3,4,5]
+		
+	</script>
+</body>
+</html>

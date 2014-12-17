@@ -1,0 +1,55 @@
+<%
+	function HISTORY_COMPARE(a, b) {
+
+		var aparts = a.version.split('.');
+		var bparts = b.version.split('.');
+
+		for (var i = 0; i < aparts.length && i < bparts.length; i++) {
+
+			var apartn = aparts[i] * 1;
+			var bpartn = bparts[i] * 1;
+
+			if (apartn !== bpartn) { return bpartn - apartn; }
+
+		}
+
+		return bparts.length - aparts.length;
+
+	}
+
+    function SORT_HISTORY(a) {
+        return a.sort(HISTORY_COMPARE);
+    }
+%>
+<div class="history-table tbl_fold" >
+	<table class="tbl_board">
+	<caption class="hide">전체 히스토리</caption>
+	<colgroup>
+	<col style="width:60px" />
+	<col style="width:65px" />
+	<col />
+	</colgroup>
+	<thead>
+	<tr>
+	<th scope="col" class="ver">릴리즈</th>
+	<th scope="col" class="cate">종류</th>
+	<% if (!addon.noTarget) { %><th scope="col" class="target">대상</th><% } %>
+	<th scope="col">내용</th>
+	</tr>
+	</thead>
+	<tbody>
+    <% var idx = 0; EACH(SORT_HISTORY(this), function() { %>
+		<tr class="<%=(idx >= 3 ? 'more_history' : '')%> idx_<%=(idx++)%>">
+		<td><%=this.version%></td>
+		<td><%=this.category%></td>
+		<% if (!addon.noTarget) { %><td><%=this.target%></td><% } %>
+		<td class="txt"><%=this.description%></td>
+		</tr>
+    <% }); %>
+	</tbody>
+	</table>
+	<% if (this.length > 3) { %>
+	<button type="button" title="펼치기" class="btn_open"><span class="blind">펼치기</span><span class="ic"></span></button>
+	<button type="button" title="접기" class="btn_close"><span class="blind">접기</span><span class="ic"></span></button>
+	<% } %>
+</div>

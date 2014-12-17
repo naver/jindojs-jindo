@@ -1,0 +1,246 @@
+<comments name="form">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and methods of the jindo.$Form() object
+	@name form.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The jindo.$Form() object provides functions to handle &lt;form&gt; and its child elements.
+	
+	@class jindo.$Form
+	@keyword form
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Creates the jindo.$Form() object.
+	
+	@constructor
+	@syntax elForm
+	@syntax sId
+	@param {Element} elForm The &lt;form&gt; element
+	@param {String} sId The ID (String) of the &lt;form&gt; element. If there are two or more &lt;form&gt; elements with identical IDs, returns the jindo.$Form() object that wraps the first element.
+	@return {Element} The original &lt;form&gt; element
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	The $value method returns the original form elements.
+
+	@method $value
+	@return {Element} The original &lt;form&gt; element
+	@example
+		var el = $('<form>');
+		var form = $Form(el);
+		
+		alert(form.$value() === el); // true
+  ]]></comment>
+  <comment id="serialize"><![CDATA[
+	The serialize() method returns a specific input element or all input elements of an element in the query string format.
+	
+	@method serialize
+	@param {String} [sName*] The name of the 1st~Nth input element. If no parameter is entered when the serialize() method is used, returns all input elements under the &lt;form&gt; element in the query string format. If a parameter is entered, returns the input element with the name attribute identical with the specified name in the query string format.
+	@return {String} A string converted in the query string format
+	@see http://en.wikipedia.org/wiki/Querystring Query String - Wikipedia
+	@example
+		<form id="TEST">
+			<input name="ONE" value="1" type="text" />
+			<input name="TWO" value="2" checked="checked" type="checkbox" />
+			<input name="THREE" value="3_1" type="radio" />
+			<input name="THREE" value="3_2" checked="checked" type="radio" />
+			<input name="THREE" value="3_3" type="radio" />
+			<select name="FOUR">
+				<option value="4_1">..</option>
+				<option value="4_2">..</option>
+				<option value="4_3" selected="selected">..</option>
+			</select>
+		</form>
+		
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			var allstr = form.serialize();
+			// ONE=1&TWO=2&THREE=3_2&FOUR=4_3
+		
+			var str = form.serialize('ONE', 'THREE');
+			// ONE=1&THREE=3_2'
+		</script>
+  ]]></comment>
+  <comment id="element"><![CDATA[
+	The element() method returns a specific input element or all input elements. Able to specify the name of the input element that is to be passed to the parameter.
+	
+	@method element
+	@param {String+} [sKey] The name of an input element. If the parameter is omitted, retrieves the values of all input elements.
+	@return {Array | Element} An array that has an input element or Input element.
+  ]]></comment>
+  <comment id="enable"><![CDATA[
+	enable() method checks the availability of an input element. To check the availability of the element, enter the name of the input element to the parameter.
+	
+	@method enable
+	@param {String+} sName The name of an input element
+	@return {Boolean} The Boolean value that specifies whether an input element is enabled
+  ]]></comment>
+  <comment id="enable2"><![CDATA[
+	enable() method configures the availability of an input element. If true is entered with the name of the input element, the element is enabled. If false, the element is disabled. In addition, an object may be entered to change the availability of multiple elements simultaneously.
+	
+	@method enable
+	@syntax sName, bEnable
+	@syntax oList
+	@param {String+} sName The name of an input element
+	@param {Boolean} bEnable Whether to enable it
+	@param {Hash+} oList The object and $H that specifies whether multiple input elements are enabled
+	@return {this} 입력 요소의 활성화 여부를 반영한 인스턴스 자신
+	@example
+		<form id="TEST">
+			<input name="ONE" disabled="disabled" type="text" />
+			<input name="TWO" type="checkbox" />
+		</form>
+		
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			form.enable('ONE');	// false
+		
+			form.enable('TWO', false);
+			form.enable('TWO');	// false
+		
+			form.enable({
+				'ONE' : true,
+				'TWO' : false
+			});
+			
+			form.enable('ONE');	// true
+			form.enable('TWO');	// false
+		</script>
+  ]]></comment>
+  <comment id="value"><![CDATA[
+	The value() method retrieves the value of the &lt;form&gt; element. To check the value of the element, enter the name of the input element to the parameter.
+	
+	@method value
+	@param {String+} sName The name of an input element
+	@return {String} The value of an input element
+	@throws {jindo.$Except.NOT_FOUND_ELEMENT} The exception occurs when no elements exist.
+  ]]></comment>
+  <comment id="value2"><![CDATA[
+	The value() method configures the value of the &lt;form&gt; element. If the value is specified with the name of the input element, it changes the value of the element. In addition, an object may be entered to change the values of multiple elements simultaneously.
+
+	@method value
+	@syntax sName, sValue
+	@syntax oList
+	@param {String+} sName The name of an input element
+	@param {Variant} sValue A value to be specified in an input element
+	@param {Hash+} oList 하나 이상의 입력 요소 이름과 값을 지정한 객체(Object) 또는 해시 객체(jindo.$H() object)
+	@return {this} 입력 요소의 값을 반영한 인스턴스 자신
+	@remark 2.2.0 버전부터, &lt;select&gt;엘리먼트의 옵션값 지정에 &lt;option&gt;의 value속성뿐만 아니라 text속성도 사용 가능하다.
+	@throws {jindo.$Except.NOT_FOUND_ELEMENT} The exception occurs when no elements exist.
+	@example
+		<form id="TEST">
+			<input name="ONE" value="1" type="text" />
+			<input name="TWO" type="checkbox" />
+		</form>
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			form.value('ONE');	// 1
+			
+			form.value('TWO');	// undefined
+		
+			form.value('TWO', 2);
+			form.value('TWO');	//2
+		
+			form.value({
+				'ONE' : '1111',
+				'TWO' : '2'
+			});
+			
+			form.value('ONE');	// 1111
+			form.value('ONE');	// 2
+		</script>
+	@example
+		<form id="test">
+			<select name="one">
+				<option value="Apple">Apple</option>
+				<option value="Orange">Orange</option>
+				<option>Pineapple</option>
+				<option>Banana</option>
+			</select>
+			<select name="multi" multiple="true">
+				<option value="naver">naver</option>
+				<option value="hangame">hangame</option>
+				<option>me2day</option>
+				<option>happybean</option>
+			</select>
+		</form>
+		<script type="text/javascript">
+			var welForm = $Form("test");
+			welForm.value("one"); // "Apple"
+			welForm.value("one", null).value("one"); // undefined
+			welForm.value("one", "Orange").value("one"); // "Orange"
+			welForm.value("one", "").value("one"); // undefined
+			welForm.value("one", "Orange").value("one"); // "Orange"
+			welForm.value("one", undefined).value("one"); // undefined
+			welForm.value("one", "Banana").value("one"); // "Banana"
+			welForm.value("one", []).value("one"); // undefined
+			
+			welForm.value("multi"); // undefined
+			welForm.value("multi", "naver").value("multi"); // "naver"
+			welForm.value("multi", []).value("multi"); // undefined
+			welForm.value("multi", ["naver", "hangame", "me2day"]).value("multi"); // ["naver", "hangame", "me2day"]
+			welForm.value("multi", null).value("multi"); // undefined
+			welForm.value("multi", ["happybean", "hangame"]).value("multi"); // ["hangame", "happybean"]
+			welForm.value("multi", ["happybean", "juniornaver"]).value("multi"); // undefined
+			welForm.value("multi", ["happybean"]).value("multi"); // "happybean"
+			welForm.value("multi", undefined).value("multi"); // undefined
+		</script>
+  ]]></comment>
+  <comment id="value_1"><![CDATA[The element does not exist.]]></comment>
+  <comment id="submit"><![CDATA[
+	The submit() method submits the data of the &lt;form&gt; element. When a parameter is specified in the submit() method, the target attribute of the &lt;form&gt; element is ignored and the information is sent to the specified target. At this time, the target attribute of the existing &lt;form&gt; element is not changed. A function can be entered as a parameter. When the function returns true, submits the data. By using this function, the user can validate the data before it is transmitted.	
+	
+	@method submit
+	@syntax
+	@syntax sTargetName
+	@syntax fValidation
+	@syntax sTargetName, fValidation
+	@param {String+} sTargetName Transmit target
+	@param {Function+} fValidation A function that is used to validate the data of the &lt;form&gt; element. The parameter of the function allows the original &lt;form&gt; element that is wrapped by the jindo.$Form() object to be entered.
+	@return {this} 데이터를 제출한 인스턴스 자신
+	@example
+		var form = $Form(el);
+		form.submit();
+		form.submit('foo');
+	@example
+		// When the fValidation parameter has been used
+		var form = $Form(el);
+		form.submit("target_name");
+		
+		form.submit(function(){
+			if($("test").value.length > 0) {
+				return true; // return true; if true is returned, the submit() method is executed.
+			}
+			
+			return false; // return false; if false is returned, the submit() method is not executed.
+		});
+		
+		form.submit("target_name", function(){
+			if($("test").value.length > 0) {
+				return true;
+			}
+			
+			return false;
+		});
+  ]]></comment>
+  <comment id="reset"><![CDATA[
+	The reset() method initializes the &lt;form&gt; element. In addition, a function can be entered as a parameter. If the function returns true, it initializes the &lt;form&gt; element.
+	
+	@method reset
+	@param {Function+} [fValidation] A function to be executed before initializing data of the &lt;form&gt; element
+	@return {this} 데이터를 초기화한 인스턴스 자신
+	@example
+		var form = $Form(el);
+		form.reset();
+	@example
+		// If the fValidation parameter has been used
+		var form = $Form(el);
+		
+		form.submit(function(){
+			return confirm("Do you want to initialize it?");
+		});
+  ]]></comment>
+</comments>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		var oDate = new $Date();
+	
+		LOG("오늘 날짜: "+oDate.date());
+		LOG("요일 : " +oDate.day());
+		oDate.date(10); //10일로 설정
+		LOG("설정된 날의 요일: " +oDate.day());
+	
+	</script>
+</body>
+</html>

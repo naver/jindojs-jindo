@@ -1,0 +1,246 @@
+<comments name="form">
+  <comment id="title"><![CDATA[
+	@fileOverview $Form 생성자 및 메서드를 정의한 파일
+	@name form.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$Form() 객체는 &lt;form&gt; 요소와 자식 요소를 제어하는 기능을 제공한다.
+	
+	@class jindo.$Form
+	@keyword form, 폼
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$Form() 객체를 생성한다.
+	
+	@constructor
+	@syntax elForm
+	@syntax sId
+	@param {Element} elForm	&lt;form&gt; 요소(Element).
+	@param {String} sId	&lt;form&gt; 요소의 ID(String). 만약 동일한 ID를 사용한 &lt;form&gt; 요소가 둘 이상이면 먼저 나오는 요소를 감싼 jindo.$Form() 객체를 반환한다.
+	@return {Element} 원본 &lt;form&gt; 요소
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	$value() 메서드는 원본 &lt;form&gt; 요소를 반환한다
+
+	@method $value
+	@return {Element} 원본 &lt;form&gt; 요소
+	@example
+		var el = $('<form>');
+		var form = $Form(el);
+		
+		alert(form.$value() === el); // true
+  ]]></comment>
+  <comment id="serialize"><![CDATA[
+	serialize() 메서드는 &lt;form&gt; 요소의 특정 또는 전체 입력 요소를 쿼리스트링(Query String) 형태로 반환한다.
+	
+	@method serialize
+	@param {String} [sName*] 첫~N번째 입력 요소의 이름(name). 파라미터를 입력하지 않으면 &lt;form&gt; 요소의 하위의 모든 입력 요소를 쿼리스트링으로 반환하고 파라미터를 입력하면 지정한 이름과 같은 name 속성을 가지는 입력 요소를 쿼리스트링 형태로 반환한다.
+	@return {String} 쿼리스트링 형태로 변환한 문자열.
+	@see http://en.wikipedia.org/wiki/Querystring Query String - Wikipedia
+	@example
+		<form id="TEST">
+			<input name="ONE" value="1" type="text" />
+			<input name="TWO" value="2" checked="checked" type="checkbox" />
+			<input name="THREE" value="3_1" type="radio" />
+			<input name="THREE" value="3_2" checked="checked" type="radio" />
+			<input name="THREE" value="3_3" type="radio" />
+			<select name="FOUR">
+				<option value="4_1">..</option>
+				<option value="4_2">..</option>
+				<option value="4_3" selected="selected">..</option>
+			</select>
+		</form>
+		
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			var allstr = form.serialize();
+			// ONE=1&TWO=2&THREE=3_2&FOUR=4_3
+		
+			var str = form.serialize('ONE', 'THREE');
+			// ONE=1&THREE=3_2'
+		</script>
+  ]]></comment>
+  <comment id="element"><![CDATA[
+	element() 메서드는 특정 또는 전체 입력 요소를 반환한다. 파라미터에 가져올 입력 요소의 이름(name)을 지정할 수 있다.
+	
+	@method element
+	@param {String+} [sKey] 입력 요소의 이름(name). 파라미터를 생략하면 모든 입력 요소의 값을 가져온다.
+	@return {Array | Element} 입력 요소를 가진 배열 또는 입력 요소.
+  ]]></comment>
+  <comment id="enable"><![CDATA[
+	enable() 메서드는 입력 요소의 활성화 여부를 검사한다. 파라미터에 입력 요소의 이름(name)만 입력하면 해당 요소의 활성화 여부를 확인할 수 있다.
+	
+	@method enable
+	@param {String+} sName 입력 요소의 이름.
+	@return {Boolean} 입력 요소의 활성화 여부를 나타내는 Boolean 값.
+  ]]></comment>
+  <comment id="enable2"><![CDATA[
+	enable() 메서드는 입력 요소의 활성화 여부를 설정한다. 입력 요소의 이름과 함께 true 값을 입력하면 해당 요소를 활성화하고 false를 입력하면 비활성화한다. 또한, 한번에 여러 요소의 활성화 상태를 변경하기 위해 객체를 입력할 수도 있다.
+	
+	@method enable
+	@syntax sName, bEnable
+	@syntax oList
+	@param {String+} sName 입력 요소의 이름.
+	@param {Boolean} bEnable 활성화 여부.
+	@param {Hash+} oList 여러 입력 요소의 활성화 여부를 지정한 객체 및 $H.
+	@return {this} 입력 요소의 활성화 여부를 반영한 인스턴스 자신
+	@example
+		<form id="TEST">
+			<input name="ONE" disabled="disabled" type="text" />
+			<input name="TWO" type="checkbox" />
+		</form>
+		
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			form.enable('ONE');	// false
+		
+			form.enable('TWO', false);
+			form.enable('TWO');	// false
+		
+			form.enable({
+				'ONE' : true,
+				'TWO' : false
+			});
+			
+			form.enable('ONE');	// true
+			form.enable('TWO');	// false
+		</script>
+  ]]></comment>
+  <comment id="value"><![CDATA[
+	value() 메서드는 &lt;form&gt; 요소의 값을 얻는다. 파라미터에 입력 요소의 이름(name)만 입력하면 해당 요소의 값을 확인할 수 있다.
+	
+	@method value
+	@param {String+} sName 입력 요소의 이름.
+	@return {String} 입력 요소의 값.
+	@throws {jindo.$Except.NOT_FOUND_ELEMENT} 엘리먼트가 없을 때 예외상황 발생
+  ]]></comment>
+  <comment id="value2"><![CDATA[
+	value() 메서드는 &lt;form&gt; 요소의 값을 설정한다. 입력 요소의 이름과 함께 값을 지정하면 해당 요소의 값을 변경한다. 또한, 한번에 여러 요소의 값을 변경하기 위해 객체를 입력할 수도 있다.
+	
+	@method value
+	@syntax sName, sValue
+	@syntax oList
+	@param {String+} sName 입력 요소의 이름.
+	@param {Variant} sValue 입력 요소에 지정할 값.
+	@param {Hash+} oList 하나 이상의 입력 요소 이름과 값을 지정한 객체(Object) 또는 해시 객체(jindo.$H() 객체)
+	@return {this} 입력 요소의 값을 반영한 인스턴스 자신
+	@remark 2.2.0 버전부터, &lt;select&gt;엘리먼트의 옵션값 지정에 &lt;option&gt;의 value속성뿐만 아니라 text속성도 사용 가능하다.
+	@throws {jindo.$Except.NOT_FOUND_ELEMENT} 엘리먼트가 없을 때 예외상황 발생
+	@example
+		<form id="TEST">
+			<input name="ONE" value="1" type="text" />
+			<input name="TWO" type="checkbox" />
+		</form>
+		<script type="text/javascript">
+			var form = $Form('TEST');
+		
+			form.value('ONE');	// 1
+			
+			form.value('TWO');	// undefined
+		
+			form.value('TWO', 2);
+			form.value('TWO');	//2
+		
+			form.value({
+				'ONE' : '1111',
+				'TWO' : '2'
+			});
+			
+			form.value('ONE');	// 1111
+			form.value('ONE');	// 2
+		</script>
+	@example
+		<form id="test">
+			<select name="one">
+				<option value="사과">Apple</option>
+				<option value="오렌지">Orange</option>
+				<option>Pineapple</option>
+				<option>Banana</option>
+			</select>
+			<select name="multi" multiple="true">
+				<option value="네이버">naver</option>
+				<option value="한게임">hangame</option>
+				<option>me2day</option>
+				<option>happybean</option>
+			</select>
+		</form>
+		<script type="text/javascript">
+			var welForm = $Form("test");
+			welForm.value("one"); // "사과"
+			welForm.value("one", null).value("one"); // undefined
+			welForm.value("one", "오렌지").value("one"); // "오렌지"
+			welForm.value("one", "").value("one"); // undefined
+			welForm.value("one", "Orange").value("one"); // "오렌지"
+			welForm.value("one", undefined).value("one"); // undefined
+			welForm.value("one", "Banana").value("one"); // "Banana"
+			welForm.value("one", []).value("one"); // undefined
+			
+			welForm.value("multi"); // undefined
+			welForm.value("multi", "네이버").value("multi"); // "네이버"
+			welForm.value("multi", []).value("multi"); // undefined
+			welForm.value("multi", ["naver", "한게임", "me2day"]).value("multi"); // ["네이버", "한게임", "me2day"]
+			welForm.value("multi", null).value("multi"); // undefined
+			welForm.value("multi", ["happybean", "hangame"]).value("multi"); // ["한게임", "happybean"]
+			welForm.value("multi", ["해피빈", "쥬니버"]).value("multi"); // undefined
+			welForm.value("multi", ["happybean"]).value("multi"); // "happybean"
+			welForm.value("multi", undefined).value("multi"); // undefined
+		</script>
+  ]]></comment>
+  <comment id="value_1"><![CDATA[엘리먼트는 존재하지 않습니다.]]></comment>
+  <comment id="submit"><![CDATA[
+	submit() 메서드는 &lt;form&gt; 요소의 데이터를 제출(submit)한다. submit() 메서드에 파라미터를 지정하면 &lt;form&gt; 요소의 target 속성을 무시하고 지정한 전송 대상으로 정보를 전송한다. 이때 기존 &lt;form&gt; 요소의 target 속성을 변경하지 않는다. 또한 파라미터로 함수를 입력할 수 있으며 해당 함수가 true 값을 반환하면 데이터를 제출한다. 이 함수를 사용하여 데이터를 전송하기 전에 검증할 수 있다.
+	
+	@method submit
+	@syntax
+	@syntax sTargetName
+	@syntax fValidation
+	@syntax sTargetName, fValidation
+	@param {String+} sTargetName 전송 대상.
+	@param {Function+} fValidation &lt;form&gt; 요소의 데이터를 검증할 함수. 이 함수의 파라미터로 jindo.$Form() 객체가 감싸고 있는 원본 &lt;form&gt; 요소가 입력된다.
+	@return {this} 데이터를 제출한 인스턴스 자신
+	@example
+		var form = $Form(el);
+		form.submit();
+		form.submit('foo');
+	@example
+		// fValidation 파라미터 사용한 경우
+		var form = $Form(el);
+		form.submit("target_name");
+		
+		form.submit(function(){
+			if($("test").value.length > 0) {
+				return true; //true를 리턴하면 submit() 수행
+			}
+			
+			return false; //false를 리턴하면 submit() 수행하지 않음
+		});
+		
+		form.submit("target_name", function(){
+			if($("test").value.length > 0) {
+				return true;
+			}
+			
+			return false;
+		});
+  ]]></comment>
+  <comment id="reset"><![CDATA[
+	reset() 메서드는 &lt;form&gt; 요소를 초기화(reset)한다. 파라미터로 함수를 입력할 수 있으며 해당 함수가 true 값을 반환하면 &lt;form&gt; 요소를 초기화한다.
+	
+	@method reset
+	@param {Function+} [fValidation] &lt;form&gt; 요소의 데이터를 초기화하기 전에 실행할 함수.
+	@return {this} 데이터를 초기화한 인스턴스 자신
+	@example
+		var form = $Form(el);
+		form.reset();
+	@example
+		// fValidation 파라미터 사용한 경우
+		var form = $Form(el);
+		
+		form.submit(function(){
+			return confirm("초기화하시겠습니까?");
+		});
+  ]]></comment>
+</comments>

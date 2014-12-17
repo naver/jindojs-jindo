@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="undelegate fnOddClass" onclick="ElementUndelegate(); return false;" />
+	<ul id="parent">
+		<li class="odd">1 (click this!)</li>
+		<li>2</li>
+		<li class="odd">3 (click this!)</li>
+		<li>4</li>
+	</ul>
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		// 콜백 함수
+		function fnOddClass(eEvent){
+			LOG("odd 클래스를 가진 li가 클릭 될 때 실행");
+		}
+		
+		function fnOddClass2(eEvent){
+			LOG("odd 클래스를 가진 li가 클릭 될 때 실행2");
+		}
+		
+		function fnOddClass3(eEvent){
+			LOG("odd 클래스를 가진 li가 클릭 될 때 실행3");
+		}
+		
+		$Element("parent").delegate("click", ".odd", fnOddClass); // 이벤트 델리게이션 사용
+
+		function ElementUndelegate() {
+			$Element("parent").undelegate("click", ".odd", fnOddClass); // fnOddClass만 이벤트 해제
+		}
+		
+	</script>
+</body>
+</html>

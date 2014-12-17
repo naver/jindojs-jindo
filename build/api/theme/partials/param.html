@@ -1,0 +1,43 @@
+<% var hasProps = HAS(this.props); %>
+<li class="param <% if (hasProps) { %>collapsed<% } %> <%=(addon.isLast ? 'last' : '')%>">
+    <% if (hasProps) { %>
+        <button type="submit" class="fold">자세히 보기</button>
+    <% } %>
+    <% if (HAS(this.optional)) { %>
+        <code class="name optional"><%=this.name%></code>
+        <span class="type">: <%=crossLink(this.type)%></span>
+        <span class="default"><% if (HAS(this.optdefault)) { %>(기본값 : <%==this.optdefault%>)<% } else { %>(생략 가능)<% } %></span>
+    <% } else { %>
+        <code class="name"><%=this.name%></code>
+        <span class="type">: <%=crossLink(this.type)%></span>
+    <% } %>
+
+    <% if (HAS(this.multiple)) { %>
+	<!--
+        <span class="flag multiple" title="이 파라미터는 한번 이상 반복 될 수 있습니다."><span class="blind">multiple</span></span>
+    -->
+    <% } %>
+
+    <p class="description"><%=this.description%></p>
+
+	<% if (HAS(this.remark)) { %>
+	<!--
+	<div class="remark">
+	    <%=this.remark%>
+	</div>
+	-->
+	<% } %>
+	
+    <% if (hasProps) { %>
+        <ul class="params-list">
+            <%
+            	var len = (this.props && this.props.length) || 0;
+            	var idx = 0;
+            	
+            	EACH(this.props, function() {
+            		print(INCLUDE("param", this, { isLast : len === (++idx) }));
+	            });
+            %>
+        </ul>
+    <% } %>
+</li>

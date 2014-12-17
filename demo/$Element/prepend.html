@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="run prepend!" onclick="ElementPrependFn(); return false;" />
+	<div id="sample">
+		<div>Hello</div>
+	</div>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		function ElementPrependFn() {
+				// ID가 sample인 HTML 요소에 새로운 DIV 요소를 추가
+				var elChild = $("<div>Hello New</div>");
+				$Element("sample").prepend(elChild);
+		}
+		
+	</script>
+</body>
+</html>

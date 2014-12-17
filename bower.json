@@ -1,7 +1,8 @@
 {
   "name": "jindojs-jindo",
-  "version": "2.11.0",
-  "description": "JindoJS JavaScript Framework",
+  "version": "2.12.0",
+  "description": "Jindo JavaScript Framework",
+  "main": "dist/desktop/en/jindo.desktop.js",
   "moduleType": [
     "globals"
   ],
@@ -16,5 +17,21 @@
     "NAVER Corp."
   ],
   "license": "LGPL v2",
-  "homepage": "http://jindo.dev.naver.com/jindo_home/"
+  "homepage": "http://jindo.dev.naver.com/",
+  "ignore" : [
+    "**/.*",
+    "build",
+    "demo",
+    "dist/desktop",
+    "dist/mobile",
+    "dist/doc",
+    "dist/meta",
+    "src",
+    "test",
+    ".gitignore",
+    ".jshintrc",
+    "Gruntfile.js",
+    "package.json",
+    "*.md"
+  ]
 }

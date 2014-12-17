@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<div id="sample_div1">
+		<div id="sample_div">
+			<div id="sample_div2">
+				Sample1
+			</div>
+			<div id="sample_div3">
+				<div id="sample_div4">
+					Sample2
+				</div>
+				Sample3
+			</div>
+			<div id="sample_div5">
+				Sample4
+				<div id="sample_div6">
+					Sample5
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		var welSample = $Element("sample_div");
+		LOG(welSample.indexOf($Element("sample_div1"))); // 결과 : -1
+		LOG(welSample.indexOf($Element("sample_div2"))); // 결과 : 0
+		LOG(welSample.indexOf($Element("sample_div3"))); // 결과 : 1
+		LOG(welSample.indexOf($Element("sample_div4"))); // 결과 : -1
+		LOG(welSample.indexOf($Element("sample_div5"))); // 결과 : 2
+		LOG(welSample.indexOf($Element("sample_div6"))); // 결과 : -1
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta http-equiv="cache-control" content="no-cache"> <!-- tells browser not to cache -->
+<meta http-equiv="expires" content="0"> <!-- says that the cache expires 'now' -->
+<meta http-equiv="pragma" content="no-cache"> <!-- says not to use cached stuff, if there is any -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
+<title>Jindo2 Tests</title>
+<script src="../asset/qunit/qunit-1.14.0.js"></script>
+<link rel="stylesheet" href="../asset/qunit/qunit-1.14.0.css" />
+<link rel="stylesheet" href="../asset/main.css" />
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="../asset/config.js"></script>
+<script type="text/javascript" src="../asset/diff_match_patch.js"></script>
+<script type="text/javascript" src="../asset/jsmocktool.js"></script>
+<script type="text/javascript" src="../asset/handlebars-v1.3.0.js"></script>
+
+<!-- jindo start -->
+<script type="text/javascript">
+!function() {
+    window.nhn = {"test":true};
+    window.jindo = {"test":true};
+
+    jindo._p_ = {};
+    jindo._p_.jindoName = "jindo";
+
+    if(window[jindo._p_.jindoName]){
+        var __old_j = window[jindo._p_.jindoName];
+        for(var i in __old_j){
+            jindo[i] = __old_j[i];
+        }
+    }
+}();
+</script>
+
+<!-- Jindo source files -->
+<script type="text/javascript" src="../../src/desktop/core.js"></script>
+<script type="text/javascript" src="../../src/desktop/cssquery.js"></script>
+<script type="text/javascript" src="../../src/desktop/agent.js"></script>
+<script type="text/javascript" src="../../src/desktop/array.js"></script>
+<script type="text/javascript" src="../../src/desktop/array.extend.js"></script>
+<script type="text/javascript" src="../../src/desktop/ajax.js"></script>
+<script type="text/javascript" src="../../src/desktop/ajax.extend.js"></script>
+<script type="text/javascript" src="../../src/desktop/hash.js"></script>
+<script type="text/javascript" src="../../src/desktop/json.js"></script>
+<script type="text/javascript" src="../../src/desktop/cookie.js"></script>
+<script type="text/javascript" src="../../src/desktop/event.js"></script>
+<script type="text/javascript" src="../../src/desktop/element.js"></script>
+<script type="text/javascript" src="../../src/desktop/element.extend.js"></script>
+<script type="text/javascript" src="../../src/desktop/function.js"></script>
+<script type="text/javascript" src="../../src/desktop/elementlist.js"></script>
+<script type="text/javascript" src="../../src/desktop/string.js"></script>
+<script type="text/javascript" src="../../src/desktop/document.js"></script>
+<script type="text/javascript" src="../../src/desktop/form.js"></script>
+<script type="text/javascript" src="../../src/desktop/template.js"></script>
+<script type="text/javascript" src="../../src/desktop/template.extend.js"></script>
+<script type="text/javascript" src="../../src/desktop/date.js"></script>
+<script type="text/javascript" src="../../src/desktop/window.js"></script>
+<!-- // Jindo source files -->
+
+<script type="text/javascript">
+!function() {
+    // Add jindo._p_.addExtension method to each class.
+    var aClass = [ "$Agent","$Ajax","$A","$Cookie","$Date","$Document","$Element","$ElementList","$Event","$Form","$Fn","$H","$Json","$S","$Template","$Window" ],
+        sClass, oClass;
+
+    for(var i=0, l=aClass.length; i<l; i++) {
+        sClass = aClass[i];
+        oClass = jindo[sClass];
+
+        if(oClass) {
+            oClass.addExtension = (function(sClass) {
+                return function(sMethod,fpFunc){
+                    jindo._p_.addExtension(sClass,sMethod,fpFunc);
+                    return this;
+                };
+            })(sClass);
+        }
+    }
+
+    // Add hook method to $Element and $Event
+    var hooks = ["$Element","$Event"];
+
+    for(var i=0, l=hooks.length; i<l; i++) {
+        var _className = hooks[i];
+        if(jindo[_className]) {
+            jindo[_className].hook = (function(className) {
+                var __hook = {};
+                return function(sName, vRevisionKey) {
+
+                    var oArgs = jindo.$Jindo.checkVarType(arguments, {
+                        'g'  : ["sName:String+"],
+                        's4var' : ["sName:String+", "vRevisionKey:Variant"],
+                        's4obj' : ["oObj:Hash+"]
+                    },"jindo."+className+".hook");
+
+                    switch(oArgs+"") {
+                        case "g":
+                            return __hook[oArgs.sName.toLowerCase()];
+                        case "s4var":
+                            if(vRevisionKey == null){
+                                delete __hook[oArgs.sName.toLowerCase()];
+                            } else {
+                                __hook[oArgs.sName.toLowerCase()] = vRevisionKey;
+                            }
+
+                            return this;
+                        case "s4obj":
+                            var oObj = oArgs.oObj;
+                            for(var i in oObj) {
+                                __hook[i.toLowerCase()] = oObj[i];
+                            }
+
+                            return this;
+                    }
+                };
+            })(_className);
+        }
+    }
+
+    //-!jindo.$Element.unload.hidden start!-//
+    if(!jindo.$Jindo.isUndefined(window)&& !(jindo._p_._j_ag.indexOf("IEMobile") == -1 && jindo._p_._j_ag.indexOf("Mobile") > -1 && jindo._p_._JINDO_IS_SP)) {
+        (new jindo.$Element(window)).attach("unload",function(e) {
+            jindo.$Element.eventManager.cleanUpAll();
+        });
+    }
+    //-!jindo.$Element.unload.hidden end!-//
+
+    if(typeof define === "function" && define.amd && define.amd.jindo) {
+        define("jindo", [], function() { return jindo; });
+    }
+}();
+</script>
+<script type="text/javascript" src="../../src/desktop/noconflict.js"></script>
+<!-- //jindo end -->
+
+<script type="text/javascript">// <![CDATA[
+var Klass1, Klass2, Klass3, Klass4, Klass5;
+var date = new Date;
+
+//
+// ]]></script>
+
+</head>
+<body>
+<!----- header ----->
+<h1 id='qunit-header'>Jindo2 Framework</h1><h2 id='qunit-banner'></h2><h2 id='qunit-userAgent'></h2><ol id='qunit-tests'></ol>
+<script type="text/javascript">
+location.href.match(/\/(\w+\.[\w\$]+)\.html/);
+var _sModule = RegExp.$1;
+jindo.$("qunit-header").innerHTML +=" : "+ _sModule;
+document.title += " : "+ _sModule;
+</script>
+<!----- //header ----->
+
+<!----- body markup for test ----->
+<div class="head"><p id="_test_2" data-id="test"><a href="http://www.w3.org/"><img width="72" height="48" src="" alt="W3C"></a></p></div>
+<a id="anchor" href="http://static.naver.com/img/some.jpg">a</A>
+<div id="dataHello" data-hello-world="world" data-HELLO="world"></div>
+<div id="property-test" class="head"><p id="_test_1" data-id="test"><a href="http://www.w3.org/"><img width="72" height="48" src="" alt="W3C"></a></p></div>
+<div id="replace_test2"></div>
+<script type="text/javascript">$Ajax.SWFRequest && $Ajax.SWFRequest.write("../ajax_1.5.0.swf");</script>
+<div id="escapetest">
+    <>
+</div>
+<div id="eventtest">
+
+</div>
+<div id="jindosus_1322">
+    <ul>
+        <li><a href="#">asdf</a></li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+<div id="custom_parent" class="parent">
+    <ul>
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+    </ul>
+    <div id="custom_child" class="child"></div>
+</div>
+<div id="areaarea" style="position:absolute; left:0; top:0;/*width:20000px; height:50000px*/"><div></div></div>
+<div id="container" style="position:relative; display:none">
+    <p id="para_a">A</p>
+    <div>
+        <p id="para_b">B</p>
+        <div id="abs" style="position:absolute; background:white; top:20px; left:10px">
+            <p id="txt" onclick="this.innerHTML='B'">C</p>
+            <div id="rel" style="position:relative; top:10px; left:20px; border:1px solid blue">relative</div>
+        </div>
+    </div>
+    <div>
+        <div id="div1">div1</div>
+    </div>
+    <p id="para_c">C</p>
+</div>
+<!-- ellipsis 테스트 용 -->
+<div id="for_ellipsis" style="overflow:hidden;height:1px;display:none">
+    <table width="200" border="1">
+        <tr id="tr_test">
+            <td>짧은 글!</td>
+        </tr>
+        <tr>
+            <td id="longtxt">아주아주 긴 글! 이 글이 말 줄임이 되면 성공입니다. 그런데 말줄임이 되는지 어떻게 알 수 있을까요?</td>
+        </tr>
+    </table>
+</div>
+<div id="clone_test">
+    <div></div>
+</div>
+<!-- $Element.text() 테스트 용 -->
+<div id="element_text_test_div">
+    john
+    doe
+</div>
+<!-- next, prev 테스트용 -->
+<div>
+    <span id="node1_1">Text1</span>
+    <span id="node1_2">Text2</span>
+    <span id="node1_3">Text3</span>
+    <span id="node1_4">Text4</span>
+</div>
+<br />
+<!-- elementlist 테스트용-->
+<div>
+    <span id="el_test1">Text1</span>
+    <span id="el_test2">Text2</span>
+    <span id="el_test3">Text3</span>
+    <span id="el_test4">Text4</span>
+</div>
+<br />
+<br />
+<br />
+<input id="attr_text" name="text" type="text" value="test"/>
+<form id="form">
+    <input name="text" type="text" />
+    <textarea name="textarea"></textarea>
+    <input name="dup" type="checkbox" value="DUP1" checked="checked" />
+    <input name="dup" type="checkbox" value="DUP2" checked="checked" />
+    <input name="dup" type="checkbox" value="DUP3" checked="checked" />
+    <input name="password" type="password" />
+    <input name="checkbox" value="CHECKBOX" type="checkbox" />
+    <input name="radio" value="R1" type="radio" />
+    <input name="radio" value="R2" type="radio" />
+    <input name="radio" value="R3" type="radio" />
+    <input name="radio2" value="R2-1" type="radio" />
+    <select name="selectbox">
+        <option value="S1">S1</option>
+        <option value="S2">S2</option>
+        <option value="S3">S3</option>
+        <option>S4</option>
+    </select>
+</form>
+<select id="select_for_attr">
+    <option value="사과">Apple</option>
+    <option value="오렌지">Orange</option>
+    <option>Pineapple</option>
+    <option>Banana</option>
+</select>
+<select id="select_for_attr2" multiple="true">
+    <option value="사과">Apple</option>
+    <option value="오렌지">Orange</option>
+    <option>Pineapple</option>
+    <option>Banana</option>
+</select>
+<span id="attrTest1" custom="value">012</span>
+<span id="classTest1" class="class1 class2">ABC</span>
+	<span id="classTest2" class="class1   class2
+	class3">DEF</span>
+<!-- $Templat code -->
+<div style="display:none">
+    <textarea id="template1">
+        Hello, world.
+    </textarea>
+    <textarea id="template2-1">
+        Hello, {=world}.
+    </textarea>
+    <textarea id="template2-2">
+        {=hi}, {=world}.
+    </textarea>
+    <textarea id="template3-1">
+        {for num in numbers}{=num}!{/for}
+    </textarea>
+    <textarea id="template3-2">
+        {for num in numbers}{=num}!{/for}
+    </textarea>
+    <textarea id="template3-3">
+        {for key:val in numbers}{=key}={=val}!{/for}
+    </textarea>
+    <textarea id="template3-4">
+        {for i:v in a}{=i}{/for}
+    </textarea>
+    <textarea id="template4-1">
+        {if num < 5}5보다 작다.{/if}
+    </textarea>
+    <textarea id="template4-2">
+        {if num < 5}5보다 작다.{else}5보다 작지 않다.{/if}
+    </textarea>
+    <textarea id="template4-3">
+        {if num > 7}7보다 크다.{elseif num < 5}5보다 작다.{else}아마 6?{/if}
+    </textarea>
+    <textarea id="template4-4">
+        {if engine == "Google"}구글{elseif engine == "Naver"}네이버{else}기타{/if}
+    </textarea>
+
+    <script type="text/template" id="template5-1">
+        Hello, world.
+    </script>
+    <script type="text/template" id="template5-2">
+        {=hi}, {=world}.
+    </script>
+    <script type="text/template" id="template5-3">
+        {for num in numbers}{=num}!{/for}
+    </script>
+    <script type="text/template" id="template5-4">
+        {if engine == "Google"}구글{elseif engine == "Naver"}네이버{else}기타{/if}
+    </script>
+    <script type="text/template" id="template5-5">
+        {for index:num in numbers}{=index}번째={=num} {/for}
+    </script>
+    <script type="text/template" id="template6-1">
+        {for dat in data}Title:{=dat.title}, Data:{for d in dat.list}{=d} {/for}<br>{/for}
+    </script>
+
+    <textarea id="template7-1"><h1>MicroTemplate</h1><ul><% for ( var i = 0; i < portals.length; i++ ) { %><li><a href="<%=portals[i].url%>"><%=portals[i].name%></a></li><% } %></ul></textarea>
+
+    <textarea id="template7-2"><h1>Handlebars</h1><ul>{{#each portals}}<li><a href="{{url}}">{{name}}</a></li>{{/each}}</ul></textarea>
+
+    <textarea id="template7-3"><h1>{{templateName}}</h1><ul><li><a href="{{url0}}">{{name0}}</a></li><li><a href="{{url1}}">{{name1}}</a></li><li><a href="{{url2}}">{{name2}}</a></li></ul></textarea>
+
+    <textarea id="template7-4"><h1>{=templateName}</h1><ul><li><a href="{=url0}">{=name0}</a></li><li><a href="{=url1}">{=name1}</a></li><li><a href="{=url2}">{=name2}</a></li></ul></textarea>
+</div>
+<div id="cssquerytest">
+    <a href="#test">test</a>
+</div>
+<div id="cssqueryrealse">
+    <a href="#test">test</a>
+</div>
+<div id="csscachetest">
+    <a href="#asdf">test</a>
+</div>
+<input type="text" id="attrtest" value="attr"/>
+<input type="text" id="attrtest2" value=""/>
+<div id="element_html">test</div>
+<div id="element_html2">test</div>
+
+<div id="element_auto_test">test</div>
+<div id="element_fire_test">test</div>
+<div id="class_api_test" class="foo">test</div>
+
+<input type="text" id="fire_test" value=""/>
+
+<iframe id="getid_insert_test" frameborder="0" src="etc/insert.html"></iframe>
+<iframe id="selector_test" frameborder="1" src="etc/selector_test2.html"></iframe>
+
+<iframe id="normal_iframe" frameborder="0" src="etc/iframe.html"></iframe>
+<iframe id="border_iframe" frameborder="1" src="etc/iframe.html"></iframe>
+
+
+<div id="element_css_test" style="position:absolute; top:10px; width:100px;height:100px"></div>
+<div id="ele_text"></div>
+<div id="show_display" style="display:inline">
+
+</div>
+<div id="opera_click">
+    d
+</div>
+<div id="class_api_update">
+    sadfasdfasdfasdfsdfsdfsd
+</div>
+<div id="ele_try" style="display:none;">
+
+</div>
+
+<div id="ele_opacity">
+
+</div>
+<div id="ele_padding_etc" style="padding:1px 2px 1px 3px;margin:1px 2px 1px 3px;" class="test">
+
+</div>
+<textarea name="text_test" rows="8" cols="40" id="text_test"></textarea>
+<input type="button" name="text_test2" value="" id="text_test2" />
+<div id="outer_html"><span>1</span></div>
+<table border="0" cellspacing="5" cellpadding="5">
+    <tr><th>Header</th></tr>
+    <tr><td id ="synapsoft">Data</td></tr>
+</table>
+<div id="html_Test"><span>1</span></div>
+<div id="element_list_value_test">
+    <div class='test'></div>
+    <div class='test'></div>
+    <div class='test'></div>
+</div>
+<div id='appendInnerHTML'><div><span>1</span></div><div><span>2</span></div></div>
+<div id='prependInnerHTML'><div><span>1</span></div><div><span>2</span></div></div>
+<div id='beforeInnerHTML1'><div><span>1</span></div><div id='beforeInnerHTML'><span>2</span></div></div>
+<div id='afterInnerHTML2'><div><span>1</span></div><div id='afterInnerHTML'><span>2</span></div></div>
+<div id="admock"></div>
+<select id="appendSelect"><option>1</option></select>
+<select id="mock_select"></select>
+
+<table id="appendTable-1" border="0"><tr><th>Header</th></tr><tr><td>Data</td></tr></table>
+<table id="appendTable-2" border="0"><tbody><tr><th>Header</th></tr><tr><td>Data</td></tr></tbody></table>
+<table border="0"><tbody id="appendTable-3"><tr><th>Header</th></tr><tr><td>Data</td></tr></tbody></table>
+<table id="prependTable-1" border="0"><tr><th>Header</th></tr><tr><td>Data</td></tr></table>
+<table id="prependTable-2" border="0"><tbody><tr><th>Header</th></tr><tr><td>Data</td></tr></tbody></table>
+<table border="0"><tbody id="prependTable-3"><tr><th>Header</th></tr><tr><td>Data</td></tr></tbody></table>
+
+<table border="0" id="mock_table"></table>
+
+<table border="0"><tbody><tr id="appendTable2"><th>Header</th></tr><tr id="appendTable3"><td>Data</td></tr></tbody></table>
+<table border="0" ><tbody><tr id="mock_table2"><th>Header</th></tr><tr id="mock_table3"><tr><td>Data</td></tr></tbody></table>
+
+<select id="prependSelect"><option>1</option></select>
+<select id="mock_prepend_select"></select>
+<table border="0"><tbody id="prependTable"><tr><th>Header</th></tr><tr><td>Data</td></tr></tbody></table>
+<table border="0" id="mock_prepend_table"></table>
+<table border="0"><tbody><tr id="prependTable2"><th>Header</th></tr><tr id="prependTable3"><td>Data</td></tr></tbody></table>
+<table border="0" ><tbody><tr id="mock_prepend_table2"><th>Header</th></tr><tr id="mock_prepend_table3"><tr><td>Data</td></tr></tbody></table>
+<div id="selector_test_child">
+    <p id="s_1"></p>
+    <p id="s_2"></p>
+    <p id="s_3"></p>
+    <p id="s_4"></p>
+    <p id="s_5"></p>
+    <p id="s_6"></p>
+    <p id="s_7"></p>
+    <p id="s_8"></p>
+    <p id="s_1"></p>
+    <p id="s_2"></p>
+    <p id="s_3"></p>
+    <p id="s_4"></p>
+    <p id="s_5"></p>
+    <p id="s_6"></p>
+    <p id="s_7"></p>
+    <p id="s_8"></p>
+    <p id="s_1"></p>
+    <p id="s_2"></p>
+    <p id="s_3"></p>
+    <p id="s_4"></p>
+    <p id="s_5"></p>
+    <p id="s_6"></p>
+    <p id="s_7"></p>
+    <p id="s_8"></p>
+</div>
+<div id="parent" class="ch1">
+    <div id="test1" class="ch1">1</div>
+    <div class="ch1">1</div>
+    <div class="ch1">2</div>
+    <div class="ch2">3</div>
+    <div class="ch2">4</div>
+    <div class="ch3">4</div>
+</div>
+<div id = "log"></div>
+<div id="csstest" style="border:1px;padding:1px;"></div>
+<div id="csstest2" style="border:1px;padding:1px;"></div>
+<input type="radio" name="radio_test" value="" id="radio_test">
+<input type="checkbox" name="check_test" value="" id="check_test">
+<select name="select_test" id="select_test">
+    <option value="option1" selected="selected">option1</option>
+    <option value="option2">option2</option>
+</select>
+<ul id="append_test">
+</ul>
+<ul id="prepand_test">
+</ul>
+<div id="replace_test"></div>
+<ul id="appendTo_test">
+    <li id="appendTo_test1"></li>
+</ul>
+<ul id="appendTo_test2"></ul>
+<ul id="after_before">
+    <li id="default_li">11</li>
+</ul>
+<ul id="wrap_test"></ul>
+<ul>
+    <li id="wrap_test_li"></li>
+</ul>
+<ul id="ele_query_test">
+    <li>1</li>
+    <li>2</li>
+</ul>
+<div>
+    <p id="foo">
+        <span></span>
+    </p>
+</div>
+<div id="ellipsis_padding" style="width:300px; border:1px solid #CCCCCC; padding:10px;">
+    NHN은 검색과 게임을 양축으로 혁신적이고 편리한 온라인 서비스를 꾸준히 선보이며 디지털 라이프를 선도하고 있습니다.
+</div>
+<div id="multiClass">
+
+</div>
+<div id="width_test">
+
+</div>
+<div id="class_remove_test" class="selected_on on">
+
+</div>
+<div id="class_remove_test2" class="selected_on on ">
+
+</div>
+<div id="class_remove_test3" class="selected_on  on ">
+
+</div>
+<div id="delegate_test">
+    <a id="a_a"><img height="70" width="26" alt="이전"></a>
+</div>
+<div id="delegate_test2">
+    <a id="b_b2"><a id="a_a2" href="#"><img height="70" width="26" alt="이전"></a></a>
+</div>
+<div id="delegate_test3">
+    <a id="a_a3"><img height="70" width="26" alt="이전"></a>
+</div>
+<div id="cssquery_id_test"><span>1</span></div>
+<div id="new_attach_test"></div>
+<input type="text" value="" id="empty_input">
+<form id="checkbox_test" name="checkbox_test">
+    <input type="checkbox" name="check_1" value="1"/>
+    <input type="checkbox" name="check_1" value="2"/>
+    <select multiple name="choice" size="3">
+        <option value="1">less than 1 year.
+        <option value="2">1-5 years.
+        <option value="3">5-10 years.
+        <option value="4">more than 10 years.
+    </select>
+</form>
+<a href="#test" id="href_test1">test</a>
+<a href="http://naver.com#test" id="href_test2">test</a>
+<a href="http://naver.com?test=1#test" id="href_test3">test</a>
+<table id="core_colgroup"></table>
+<table id="core_colgroup2">
+    <tr><td>asdf</td></tr>
+</table>
+<button id="attr_ie_bug_test" value="val1">Label1</button>
+<div id="currentElement_test"><span id="currentElement_test2"></span></div>
+<div id ="double_class" class="foo foo"></div>
+<table id="ele_attr_test"></table>
+<form id="disabledForm" method="get">
+    <input type="hidden" name="disabledA" id="disabledA" value="a"/>
+    <input type="hidden" name="disabledB" id="disabledB" value="b" disabled="true"/>
+</form>
+<div id="1234"></div>
+<div id="fireEvent_bug"></div>
+<input type="checkbox" id="fireEventTest1" />
+<input type="radio" id="fireEventTest2" />
+<section id="html5tag">
+    <input type="button" class="btn"/>
+</section>
+<div id="asdf1_return">HELLO</div>
+<div id="asdf2_return">HELLO</div>
+<div id="asdf3_return">HELLO</div>
+<div id="scope_test_click">HELLO</div>
+<div id="cssquery_id_delete_test">
+    <div><span></span></div>
+</div>
+<div id="this_test">
+    <span id="delegate_span_test"></span>
+</div>
+<div id="datatest"></div>
+<div id="datatest2" data-type="test"></div>
+<div id="datatest3" data-type='asdf' data-some='"asdf"'></div>
+<input type="text" name="some_name" />
+<div id="some_name"></div>
+<div>
+    <div id="com1">
+        <ul id='com1_test1' class='parent'>
+            <li class='child'>1</li>
+            <li>2</li>
+            <li class='child'>3<a>a</a></li>
+        </ul>
+        <ul id='com1_test2'>
+            <li>4</li>
+            <li class='child'>5</li>
+            <li>6<ul><li>6-1</li></ul></li>
+        </ul>
+        <ul class='parent'>
+            <li>7</li>
+            <li>8</li>
+            <li class='child'>9</li>
+        </ul>
+    </div>
+
+    <div class="asfasdfasdf">
+        <ul id='com2_test1' class='parent'>
+            <li class='child'>1</li>
+            <li>2</li>
+            <li class='child'>3<a>a</a></li>
+        </ul>
+        <ul id='com2_test2'>
+            <li>4</li>
+            <li class='child'>5</li>
+            <li>6<ul><li>6-1</li></ul></li>
+        </ul>
+        <ul class='parent'>
+            <li>7</li>
+            <li>8</li>
+            <li class='child'>9</li>
+        </ul>
+        <div></div>
+    </div>
+    <div></div>
+</div>
+
+<div class="property_parent">
+    <ul class="property_test">
+        <li>4</li>
+        <li class='child'>5</li>
+        <li>6<ul><li>6-1</li></ul></li>
+    </ul>
+</div>
+<ul id="number_property">
+    <li date="1212">test</li>
+</ul>
+<form id="reload" method="get" action="jindo2.spec.php">
+    <input type="hidden" name="core" id="core" value=""/>
+    <input type="hidden" name="array" id="array" value=""/>
+    <input type="hidden" name="class" id="class" value=""/>
+    <input type="hidden" name="string" id="string" value=""/>
+    <input type="hidden" name="cssquery" id="cssquery" value=""/>
+    <input type="hidden" name="element" id="element" value=""/>
+    <input type="hidden" name="function" id="function" value=""/>
+    <input type="hidden" name="agent" id="agent" value=""/>
+    <input type="hidden" name="ajax" id="ajax" value=""/>
+    <input type="hidden" name="cookie" id="cookie" value=""/>
+    <input type="hidden" name="date" id="date" value=""/>
+    <input type="hidden" name="document" id="document" value=""/>
+    <input type="hidden" name="elementlist" id="elementlist" value=""/>
+    <input type="hidden" name="events" id="events" value=""/>
+    <input type="hidden" name="form2" id="form2" value=""/>
+    <input type="hidden" name="hash" id="hash" value=""/>
+    <input type="hidden" name="template" id="template" value=""/>
+    <input type="hidden" name="window" id="window" value=""/>
+    <input type="hidden" name="json" id="json" value=""/>
+    <input type="hidden" name="etc" id="etc" value=""/>
+</form>
+<select id="select_attr">
+    <option>test</option>
+    <option value="test">aaaa</option>
+    <option value="bbb">bbb</option>
+    <option>ccc</option>
+</select>
+
+<div id="div4releaseAllChildEventHandler">
+    <div id="a0">
+        a0
+        <div id="a0-0">
+            a0-0
+        </div>
+        <div id="a0-1">
+            a0-1
+            <div id="a0-1-0">
+                a0-1-0
+            </div>
+        </div>
+    </div>
+    <div id="a1">
+        a1
+        <div id="a1-0">
+            a1-0
+        </div>
+    </div>
+</div>
+
+<div id="cssquery_903">
+    <div>1</div>
+    <div>1</div>
+    <span>1</span>
+    <span>2</span>
+</div>
+<table style="border-width: 1px 1px 0px 0px; border-style: solid solid none none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) currentColor currentColor;" class="__se_tbl" border="0" cellSpacing="0" cellPadding="0">
+    <tbody>
+    <tr>
+        <td id="paddingBug" style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); background-color: rgb(255, 255, 255);" width="370"><p>&nbsp;</p></td>
+        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); background-color: rgb(255, 255, 255);" width="370"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); background-color: rgb(255, 255, 255);" width="370"><p>&nbsp;</p></td>
+        <td style="border-width: 0px 0px 1px 1px; border-style: none none solid solid; border-color: currentColor currentColor rgb(204, 204, 204) rgb(204, 204, 204); background-color: rgb(255, 255, 255);" width="370"><p>&nbsp;</p></td>
+    </tr>
+    </tbody>
+</table>
+
+<ul class="naver_set">
+    <li class="makeHomePage hide"><a href="#mkhome" id="mkhome" onclick="clickcr(this,'top.mkhome','','',event);this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.naver.com');ToolBar.popup();return false;">네이버를 시작페이지로</a></li>
+    <li class="toolbar" queryid="C1382342929950869892"><a href="https://chrome.google.com/webstore/detail/%EB%84%A4%EC%9D%B4%EB%B2%84-%ED%88%B4%EB%B0%94/eobejphpabbjeehffmbiecckpkggpbai" onclick="clickcr(this,'top.toolbar','','',event);" target="_blank">툴바설치</a></li>
+    <li class="naverapp">
+        <a href="#" class="btn" onclick="clickcr(this,'top.app','','',event);Andro_MSG.toggle();return false;">네이버 앱 다운로드</a>
+        <div id="naverapply" class="ly_hnb hide">
+            <p class="tit">모바일 라이프의 경쟁력, <a href="http://campaign.naver.com/naverapp"><strong>네이버 앱</strong></a>을 설치하세요!</p>
+            <fieldset>
+                <legend>다운로드URL 문자받기</legend>
+                <span class="txtsm">다운로드URL 문자받기</span>
+                <label class="blind" for="app_phone">휴대폰번호 입력</label>
+                <input class="empty" type="text" value="" id="app_phone">
+                <button type="button" class="btnsm"><span class="blind">보내기</span></button>
+            </fieldset>
+
+            <p class="desc">입력하신 번호는 저장되지 않고, 전송은 무료입니다.</p>
+            <p class="qr"><img src="http://img.naver.net/static/www/dl_qr_naver.png" width="68" height="84" alt="네이버 앱 QR코드"></p>
+
+            <ul class="app">
+                <li class="f"><a href="#naver"><strong>네이버 앱</strong></a></li>
+                <li><a href="#map">지도</a></li>
+                <li><a href="#ndrive">N드라이브</a></li>
+                <li><a href="#books">북스</a></li>
+                <li><a href="#music">뮤직</a></li>
+                <li><a href="#line">라인</a></li>
+                <li><a href="#appstore">앱스토어</a><span class="new">new</span></li>
+            </ul>
+            <div class="cls"><a href="#close" title="네이버 앱 다운로드 레이어 닫기" onclick="clickcr(this,'top*m.close','','',event);Andro_MSG.close();return false;"><span class="blind">네이버 앱 다운로드 레이어 닫기</span></a></div>
+        </div>
+    </li>
+</ul>
+
+<script type="text/template" id="cbox_tpl_comment">
+    <li class=\"cbox_thumb_off\"><div class=\"cbox_comment_area\"><div class=\"cbox_info_area\">
+    </div></li>
+</script>
+<div id="delegate_combinator">
+    <div class="open_layer">
+        <a id="combinator" href="#">test</a>
+    </div>
+</div>
+<!----- //body markup for test ----->
+
+<script type="text/javascript">
+!function() {
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "tc/"+ _sModule +".js";
+
+    document.head.appendChild(s);
+}();
+
+QUnit.start();
+</script>
+</body>
+</html>

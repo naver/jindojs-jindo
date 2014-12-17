@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Jindo2 Tests</title>
+<style>
+div{
+	background-color: red;
+	padding: 1em;
+	width:100px;
+	height:100px;
+}
+</style>
+
+
+<script type="text/javascript" src="../../core.js"></script>
+<script type="text/javascript" src="../../cssquery.js"></script>
+<script type="text/javascript" src="../../agent.js"></script>
+<script type="text/javascript" src="../../array.js"></script>
+<script type="text/javascript" src="../../array.extend.js"></script>
+<script type="text/javascript" src="../../ajax.js"></script>
+<script type="text/javascript" src="../../ajax.extend.js"></script>
+<script type="text/javascript" src="../../hash.js"></script>
+<script type="text/javascript" src="../../json.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<script type="text/javascript" src="../../function.js"></script>
+<script type="text/javascript" src="../../element.js"></script>
+<script type="text/javascript" src="../../element.extend.js"></script>
+<script type="text/javascript" src="../../event.js"></script>
+<script type="text/javascript" src="../../elementlist.js"></script>
+<script type="text/javascript" src="../../string.js"></script>
+<script type="text/javascript" src="../../document.js"></script>
+<script type="text/javascript" src="../../form.js"></script>
+<script type="text/javascript" src="../../template.js"></script>
+<script type="text/javascript" src="../../date.js"></script>
+<script type="text/javascript" src="../../window.js"></script>
+<script type="text/javascript" src="../../noconflict.js"></script>
+
+
+</head>
+<body>
+	<h1>jindo2.0.0 appear - disappear</h1>
+	<div id="test1"></div>
+	<div id="test2" style="display:none;"></div>
+<script type="text/javascript">
+	var wEl = $Element("test1");
+	var wREl = wEl.disappear(1,function(self){
+		self.appear(1);
+	});
+	if(wEl!==wREl){
+		alert("같아야 함.")		
+	}
+	var wEl2 = $Element("test2");
+	var wREl2 = wEl2.appear(1,function(self){
+		self.disappear(1);
+	});
+	if(wEl2!==wREl2){
+		alert("같아야 함.");
+	}
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,293 @@
+<comments name="string">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and methods of the jindo.$S() object
+	@name string.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The jindo.$S() object provides functionality to handle a string by wrapping the String object.
+	
+	@class jindo.$S
+	@keyword string
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Creates the jindo.$S() object.
+	
+	@constructor
+	@param {String+} sStr A string to wrap
+	@example
+		var sStr = 'Hello world!';
+		var oStr = $S(sStr);            // Creates the jindo.$S() object
+		var oStr2 = new $S(sStr);        // Creates the jindo.$S() object using new
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	The $value() method returns the original string (String object) wrapped by the jindo.$S() object. It works like the toString() method.
+	
+	@method $value
+	@return {String} The original String object
+	@see jindo.$S#toString
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String String - MDN Docs
+	@example
+		var str = $S("Hello world!!");
+		str.$value();
+		
+		// Result :
+		// Hello world!!
+  ]]></comment>
+  <comment id="toString"><![CDATA[
+	The toString() method returns the original string (String object) wrapped by the jindo.$S() object. It works like the $value() method.
+	
+	@method toString
+	@return {String} The original String object
+	@see jindo.$S#$value
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String String - MDN Docs
+	@example
+		var str = $S("Hello world!!");
+		str.toString();
+		
+		// 결과 :
+		// Hello world!!
+  ]]></comment>
+  <comment id="trim"><![CDATA[
+	The trim() method removes spaces on both sides of a string.
+	
+	@method trim
+	@return {jindo.$S} A new jindo.$S() object in which spaces on both sides of a string are removed.
+	@remark The functionality to remove leading spaces is available in version 1.4.1 and higher.
+	@example
+		var str = "   I have many spaces.   ";
+		document.write ( $S(str).trim() );
+		
+		// Result :
+		// I have many spaces.
+  ]]></comment>
+  <comment id="escapeHTML"><![CDATA[
+	The escapeHTML() method converts special characters in HTML to HTML entities.
+	
+	@method escapeHTML
+	@return {jindo.$S} A new jindo.$S() object in which special characters are converted into entities.
+	@remark The following table describes the characters to be converted.<br>
+		<table class="tbl_board">
+			<caption class="hide">HTML escape character conversion</caption>
+			<thead>
+				<tr>
+					<th scope="col">Characters to be Converted</th>
+					<th scope="col">&quot;</th>
+					<th scope="col">&amp;</th>
+					<th scope="col">&lt;</th>
+					<th scope="col">&gt;</th>
+					<th scope="col">&#39;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">변환 결과</td>
+					<td>&amp;quot;</td>
+					<td>&amp;amp;</td>
+					<td>&amp;lt;</td>
+					<td>&amp;gt;</td>
+					<td>&#39;</td>
+				</tr>
+			</tbody>
+		</table>
+	@see jindo.$S#unescapeHTML
+	@see jindo.$S#escape
+	@example
+		var str = ">_<;;";
+		document.write( $S(str).escapeHTML() );
+		
+		// Result :
+		// &amp;gt;_&amp;lt;;;
+  ]]></comment>
+  <comment id="stripTags"><![CDATA[
+	The stripTags() method removes the XML or HTML tags from a string.
+	
+	@method stripTags
+	@return {jindo.$S} A new jindo.$S() object from which XML or HTML tags are removed.
+	@example
+		var str = "Meeting <b>people</b> is easy.";
+		document.write( $S(str).stripTags() );
+		
+		// Result :
+		// Meeting people is easy.
+  ]]></comment>
+  <comment id="times"><![CDATA[
+	The times() method creates a string that repeats it the specified number of times in a parameter.
+	
+	@method times
+	@param {Numeric} [nTimes=1] The number of times to repeat
+	@return {jindo.$S} A new jindo.$S() object that repeats a string the specified number of times
+	@example
+		document.write ( $S("Abc").times(3) );
+		
+		// Result : AbcAbcAbc
+  ]]></comment>
+  <comment id="unescapeHTML"><![CDATA[
+	The unescapeHTML() method converts a escaped character to the original one.
+	
+	@method unescapeHTML
+	@return {jindo.$S} A new jindo.$S() object that converts a escaped character to the original one.
+	@see jindo.$S#escapeHTML
+	@example
+		var str = "&lt;a href=&quot;http://naver.com&quot;&gt;Naver&lt;/a&gt;";
+		document.write( $S(str).unescapeHTML() );
+		
+		// Result :
+		// <a href="http://naver.com">Naver</a>
+  ]]></comment>
+  <comment id="escape"><![CDATA[
+	The escape() method encodes the Korean characters included in a string to ASCII characters and escapes non-ASCII characters.
+	
+	@method escape
+	@return {jindo.$S} A new jindo.$S() object in which a string is escaped
+	@remark The following table describes the characters to be converted.<br>
+		<table class="tbl_board">
+			<caption class="hide">Escape character conversion</caption>
+			<thead>
+				<tr>
+					<th scope="col">Characters to be Converted</th>
+					<th scope="col">\r</th>
+					<th scope="col">\n</th>
+					<th scope="col">\t</th>
+					<th scope="col">'</th>
+					<th scope="col">"</th>
+					<th scope="col">non-ASCII characters</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">Conversion Results</td>
+					<td>\\r</td>
+					<td>\\n</td>
+					<td>\\t</td>
+					<td>\'</td>
+					<td>\"</td>	
+					<td>\uXXXX</td>	
+				</tr>
+			</tbody>
+		</table>
+	@see jindo.$S#escapeHTML
+	@example
+		var str = '가"\'나\\';
+		document.write( $S(str).escape() );
+		
+		// Result :
+		// \uAC00\"\'\uB098\\
+  ]]></comment>
+  <comment id="bytes"><![CDATA[
+	The bytes() method returns the actual number of bytes of a string.
+	
+	@method bytes
+	@return {Number} Returns the number of bytes in a string.
+	@example
+		// Assumes that the document is encoded in EUC-KR.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes() );
+		
+		// Result :
+		// 37
+  ]]></comment>
+  <comment id="bytes2"><![CDATA[
+	The bytes() method trims the string as much as the size specified if the number of bytes is limited.
+	
+	@method bytes
+	@param {Numeric} nLength The number of bytes to trim
+	@return {jindo.$S} The jindo.$S() object of which string is trimmed as much as the size specified.
+	@example
+		// Assumes that the document is encoded in EUC-KR.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes(20) );
+		
+		// Result :
+		// 한글과 English가
+  ]]></comment>
+  <comment id="bytes3"><![CDATA[
+	bytes() 메서드는 지정한 인코딩 방식에 따라 한글을 비롯한 유니코드 문자열의 바이트 수를 계산한다.
+	
+	@method bytes
+	@param {Hash+} oOptions 인코딩 방식과 제한할 크기를 설정한 객체.
+		@param {String} oOptions.charset 인코딩 방식
+		@param {String} [oOptions.size]  제한할 바이트 수 (이 옵션을 지정하면 해당 크기만큼 문자열을 잘라낸 $S() 객체를 반환, 이외의 경우 문자열의 크기(Number)를 반환)
+	
+	@return {Variant} oOptions 의 size 값의 유무에 따라 다른 값을 반환한다.
+	@remark An encoding method is available in version 1.4.3 and higher.
+	@example
+		// 문서가 euc-kr 환경임을 가정합니다.
+		var str = "한글과 English가 섞인 문장...";
+		
+		document.write( $S(str).bytes({charset:'euc-kr',size:20}) );
+		
+		// Result :
+		// 한글과 English가 섞
+		
+		document.write( $S(str).bytes({charset:'euc-kr'}) );
+		
+		// Result :
+		// 29
+  ]]></comment>
+  <comment id="bytes_1"><![CDATA[
+유니코드 문자열의 바이트 수는 위키피디아를 참고했다(http://ko.wikipedia.org/wiki/UTF-8).
+  ]]></comment>
+  <comment id="parseString"><![CDATA[
+	The parseString() method parses a URL query string to an object. See the example.
+	
+	@method parseString
+	@return {Object} An object in which a string is parsed
+	@see http://en.wikipedia.org/wiki/Querystring Query String - Wikipedia
+	@example
+		var str = "aa=first&bb=second";
+		var obj = $S(str).parseString();
+		
+		// Result :
+		// obj => { aa : "first", bb : "second" }
+  ]]></comment>
+  <comment id="escapeRegex"><![CDATA[
+	escapeRegex() 메서드는 문자열을 정규식에 사용할 수 있도록 이스케이프(escape)한다. 예제를 참고한다.
+	
+	@method escapeRegex
+	@return {jindo.$S} The jindo.$S() object of which internal string is escaped
+	@since 1.2.0
+	@see http://en.wikipedia.org/wiki/Regexp Regular Expression
+	@example
+		var str = "Slash / is very important. Backslash \ is more important. +_+";
+		document.write( $S(str).escapeRegex() );
+		
+		// Result : Slash \/ is very important\. Backslash is more important\. \+_\+
+  ]]></comment>
+  <comment id="format"><![CDATA[
+	The format() method creates a new string by replacing a string with a format string. The format string starts with % and its types are the same as those are used in the sprinft() function in PHP.
+	
+	@method format
+	@param {String} sFormatString The format string to be replaced
+	@return {String} A new string created by replacing a string with a format string
+	@see http://www.php.net/manual/en/function.sprintf.php sprintf() - php.net
+	@see jindo.$S#times
+	@example
+		var str = $S("%4d년 %02d월 %02d일").format(2008, 2, 13);
+		
+		// Result :
+		// str = "2008년 02월 13일"
+		
+		var str = $S("패딩 %5s 빈공백").format("값");
+		
+		// Result :
+		// str => "패딩     값 빈공백"
+		
+		var str = $S("%b").format(10);
+		
+		// Result :
+		// str => "1010"
+		
+		var str = $S("%x").format(10);
+		
+		// Result :
+		// str => "a"
+		
+		var str = $S("%X").format(10);
+		
+		// Result :
+		// str => "A"
+  ]]></comment>
+</comments>

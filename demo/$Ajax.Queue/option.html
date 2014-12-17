@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" onclick="startAjax(); return false;" value="option값 가져오기" />
+	<div id="list"></div>
+	<br>
+	<div id="list2"></div>
+
+	<script type="text/javascript" data-jsbin="javascript">
+
+		function startAjax() {
+			//ajax_test.php는 파라미터 이름과 값을 출력함.
+			var sUrl = "/jindo_home/sample/ajax_test.php";
+			var oAjax1 = new $Ajax(sUrl, {
+				type: 'xhr',
+				method: 'get',
+				onload: function (res) {
+					//$('list').innerHTML = res.text();
+				}
+			});
+
+			var oAjax2 = new $Ajax(sUrl, {
+				type: 'xhr',
+				method: 'get',
+				onload: function (res) {
+					//$('list2').innerHTML = res.text();
+				}
+			});
+
+			var oAjaxQueue = new $Ajax.Queue({
+				async: true,
+				useResltAsParam: true,
+				stopOnFailure: false
+			});
+
+			alert('async option값 : ' + oAjaxQueue.option("async"));
+			oAjaxQueue.add(oAjax1);
+			oAjaxQueue.add(oAjax1, {
+				seq: 3
+			});
+			oAjaxQueue.add(oAjax2, {
+				seq: 1,
+				foo: 99
+			});
+
+			oAjaxQueue.request();
+		}
+		
+	</script>
+</body>
+</html>

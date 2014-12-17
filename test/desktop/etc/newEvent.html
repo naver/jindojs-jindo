@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Jindo2 Tests</title>
+<script type="text/javascript" src="../../core.js"></script>
+<script type="text/javascript" src="../../cssquery.js"></script>
+<script type="text/javascript" src="../../agent.js"></script>
+<script type="text/javascript" src="../../array.js"></script>
+<script type="text/javascript" src="../../array.extend.js"></script>
+<script type="text/javascript" src="../../ajax.js"></script>
+<script type="text/javascript" src="../../ajax.extend.js"></script>
+<script type="text/javascript" src="../../hash.js"></script>
+<script type="text/javascript" src="../../json.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<script type="text/javascript" src="../../element.js"></script>
+<script type="text/javascript" src="../../element.extend.js"></script>
+<script type="text/javascript" src="../../element.attach.patch.js"></script>
+<script type="text/javascript" src="../../function.js"></script>
+<script type="text/javascript" src="../../event.js"></script>
+<script type="text/javascript" src="../../elementlist.js"></script>
+<script type="text/javascript" src="../../string.js"></script>
+<script type="text/javascript" src="../../document.js"></script>
+<script type="text/javascript" src="../../form.js"></script>
+<script type="text/javascript" src="../../template.js"></script>
+<script type="text/javascript" src="../../date.js"></script>
+<script type="text/javascript" src="../../window.js"></script>
+<script type="text/javascript" src="../../noconflict.js"></script>
+
+</head>
+<body>
+<div id="transition_test" style="background-color:red;border:1px;width:100px;height:100px;opacity:1;">
+1111
+</div>
+
+<input type="button" name="some_name" value="aa" id="some_name" onclick="aaaa();">
+<script>
+	$Element("transition_test").
+		attach("click",a).
+		attach("click",a).
+		attach("click(test)",function(e){
+			alert(3);
+		}).
+		attach("click(test)",function(e){
+			alert(4);
+		});
+	function a(e){
+			console.log(e);
+			alert(1);
+	}
+	function aaaa(){
+		$Element("transition_test").detach("click",a);
+		$Element("transition_test").detach("click(test)");
+	}
+</script>
+
+</body>
+</html>

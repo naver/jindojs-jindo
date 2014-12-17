@@ -1,0 +1,22 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" data-jsbin="javascript">
+		
+		function printIt(value, key, object) {
+			LOG(key+ " => " + value);
+		}
+		
+		$H({one:"first", two:"second", three:"third"}).forEach(printIt);
+		
+	</script>
+</body>
+</html>

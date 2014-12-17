@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Jindo2 Tests</title>
+<style>
+#dummy1{
+	background-color: red;
+	padding: 1em;
+	width:200px;
+	height:200px;
+}
+#dummy2{
+	background-color: blue;
+	padding: 1em;
+	width:100px;
+	height:100px;
+}
+#dummy3{
+	background-color: yellow;
+	padding: 1em;
+	width:50px;
+	height:50px;
+}
+</style>
+
+
+<script type="text/javascript" src="../../core.js"></script>
+<script type="text/javascript" src="../../cssquery.js"></script>
+<script type="text/javascript" src="../../agent.js"></script>
+<script type="text/javascript" src="../../array.js"></script>
+<script type="text/javascript" src="../../array.extend.js"></script>
+<script type="text/javascript" src="../../ajax.js"></script>
+<script type="text/javascript" src="../../ajax.extend.js"></script>
+<script type="text/javascript" src="../../hash.js"></script>
+<script type="text/javascript" src="../../json.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<script type="text/javascript" src="../../function.js"></script>
+<script type="text/javascript" src="../../element.js"></script>
+<script type="text/javascript" src="../../element.extend.js"></script>
+<script type="text/javascript" src="../../event.js"></script>
+<script type="text/javascript" src="../../elementlist.js"></script>
+<script type="text/javascript" src="../../string.js"></script>
+<script type="text/javascript" src="../../document.js"></script>
+<script type="text/javascript" src="../../form.js"></script>
+<script type="text/javascript" src="../../template.js"></script>
+<script type="text/javascript" src="../../date.js"></script>
+<script type="text/javascript" src="../../window.js"></script>
+<script type="text/javascript" src="../../noconflict.js"></script>
+
+
+</head>
+<body>
+		<div id="dummy1">
+			<div id="dummy2" class="hover">
+			
+				<div id="dummy3" class="hover">
+				
+				</div>
+				<fmt:formatNumber value="${stat.count}" minIntegerDigits="3" />
+				<span id="schoolName">${it.schoolName}</span>
+			</div>
+		</div>
+		<br>
+	<script type="text/javascript">
+		$Element("dummy1").child(function(child) {
+			console.log(child.$value());
+        	// child.cssClass("hover",false);
+        });
+	</script>
+</body>
+
+
+</html>

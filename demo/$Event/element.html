@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="c1" onclick="c1Click(); return false;">c1</div>
+		<div id="c2">c2</div>
+	</div>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		function c1Click(e) {
+			alert('c1 클릭됨!');
+			alert('이벤트가 발생한 엘리먼트\n\n' + e.element);
+		}
+		
+	</script>
+</body>
+</html>

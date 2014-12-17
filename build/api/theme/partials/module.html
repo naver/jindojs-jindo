@@ -1,0 +1,96 @@
+<h1><%=this.name%></h1>
+<div class="box clearfix meta">
+    <% EACH(this.extra, function() { %>
+        <% EACH(this.selleck, function() { %>
+            <a class="button link-docs" href="/yui/docs/<%=this.name%>">User Guide &amp; Examples</a>
+        <% }); %>
+    <% }); %>
+
+    <% if (HAS(this.uses)) { %>
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                <% EACH(this.uses, function() { %>
+                    <li><%=crossLinkModule(this)%></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <% if (HAS(this.foundAt)) { %>
+        <div class="foundat">
+            Defined in: <a href="<%=this.foundAt%>">`<%=this.file%>:<%=this.line%>`</a>
+        </div>
+    <% } %>
+
+    <% if (HAS(this.since)) { %>
+        <p>Available since <%=this.since%></p>
+    <% } %>
+</div>
+
+<% if (HAS(this.deprecated)) { %>
+    <div class="box deprecated">
+        <p>
+        <% if (HAS(this.deprecationMessage)) { %>
+            <strong>Deprecated:</strong> <%=this.deprecationMessage%>
+        <% } else { %>
+            This module is deprecated.
+        <% } %>
+        </p>
+    </div>
+<% } %>
+
+<div class="box intro">
+    <%=this.moduleDescription%>
+</div>
+
+<% EACH(this.example, function() { %>
+    <div class="example">
+        <h4>Example:</h4>
+        <div class="example-content">
+            <%=this%>
+        </div>
+    </div>
+<% }); %>
+
+<div>
+    <% if (HAS(this.moduleClasses)) { %>
+    <div>
+        <p>This module provides the following classes:</p>
+
+        <ul class="module-classes">
+        <% EACH(this.moduleClasses, function(projectRoot) { %>
+            <li class="module-class">
+                <a href="<%=projectRoot%>classes/<%=this.name%>.html">
+                    <%=this.displayName%>
+                </a>
+                <p><%=this.description%></p>
+                <% if (HAS(this.screenshots)) { %>
+                    <img src="<%=this.screenshots[0].href%>" title="<%==this.screenshots[0].description%>" />
+                <% } %>
+            </li>
+        <% }, [ this.projectRoot ]); %>
+        </ul>
+    </div>
+    <% } %>
+
+    <% if (HAS(this.subModules)) { %>
+    <div>
+        <p>This module is a rollup of the following modules:</p>
+
+        <ul class="module-submodules">
+        <% EACH(this.subModules, function(projectRoot) { %>
+            <li class="module-submodule">
+                <a href="<%=projectRoot%>modules/<%=this.name%>.html">
+                    <%=this.displayName%>
+                </a>
+
+                <div class="module-submodule-description">
+                    <%=this.description%>
+                </div>
+            </li>
+        <% }, [ this.projectRoot ]); %>
+        </ul>
+    </div>
+    <% } %>
+</div>

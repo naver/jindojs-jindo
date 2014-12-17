@@ -1,0 +1,1274 @@
+<comments name="element">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and method of the jindo.$Element() object
+	@name element.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The jindo.$Element() object performs a wrapping of HTML elements and provides a function to handle the elements easily.
+	
+	@class jindo.$Element
+	@keyword element
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Create a jindo.$Element() object.
+	 
+	@constructor
+	@param {Variant} vElement A string, HTML element (Element+|Node|Document+|Window+), or the jindo.$Element() object can be specified as a parameter of the jindo.$Element() object creator.<br>
+		<ul class="disc">
+			<li>The two characteristics of a parameter that takes a character string are described below:
+				<ul class="disc">
+					<li>If the string type is "&lt;tagName&gt;", it creates an object with tagName.</li>
+					<li>In other cases, it creates the jindo.$Element() object by using HTML elements which have the specified string as its ID.</li>
+				</ul>
+			</li>
+			<li>If the parameter is the HTML element, the element is wrapped to create the $Element().</li>
+			<li>If the parameter is the $Element(), the passed parameter is returned as it is.</li>
+			<li>If the parameter of the creator is either undefined or null, null is returned.</li>
+		</ul>
+	@return {jindo.$Element} The created jindo.$Element() object
+	@example
+		var element = $Element($("box")); // Specifies the HTML element as a parameter.
+		var element = $Element("box"); // Specifies the id of the HTML element as a parameter.
+		var element = $Element("<div>"); // Specifies a tag as a parameter. Wraps by creating DIV elements.
+  ]]></comment>
+  <comment id="sign_eventBind"><![CDATA[
+	@method _eventBind
+	@ignore
+  ]]></comment>
+  <comment id="sign_unEventBind"><![CDATA[
+	@method _unEventBind
+	@ignore
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	The $value() method returns the original HTML elements.
+	
+	@method $value
+	@return {Element} The original element wrapped by the jindo.$Element() object
+	@see jindo.$Element
+	@example
+		var element = $Element("sample_div");
+		element.$value(); // Returns the original HTML elements.
+  ]]></comment>
+  <comment id="visible"><![CDATA[
+	The visible() method checks the display attributes of HTML elements.
+	
+	@method visible
+	@return {Boolean} Returns whether the element is displayed.
+	@example
+		<div id="sample_div" style="display:none">Hello world</div>
+		
+		// Searches
+		$Element("sample_div").visible(); // false
+  ]]></comment>
+  <comment id="visible2"><![CDATA[
+	The visible() method configures the display attributes of HTML elements.
+	
+	@method visible
+	@param {Boolean} bVisible Whether to display the element.<br>If the parameter is true, the display attribute is set. If false, the display attribute is changed to none. When the value is in Boolean, the result of ToBoolean is used for comparison.
+	@param {String+} sDisplay The display attribute value of the element.<br>When the value of bVisible parameter is true, the sDisplay attribute value is set to the display attribute.
+	@return {this} display 속성을 변경한 인스턴스 자신
+	@remark 
+		<ul class="disc">
+			<li>The bVisible parameter is available in version 1.1.2 and higher.</li>
+			<li>The sDisplay parameter is available in version 1.4.5 and higher.</li>
+		</ul>
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display Attributes - W3C CSS2 Specification
+	@see jindo.$Element#show
+	@see jindo.$Element#hide
+	@see jindo.$Element#toggle
+	@example
+		// Makes it visible on the screen.
+		$Element("sample_div").visible(true, 'block');
+		
+		//Before
+		<div id="sample_div" style="display:none">Hello world</div>
+		
+		//After
+		<div id="sample_div" style="display:block">Hello world</div>
+  ]]></comment>
+  <comment id="show"><![CDATA[
+	The show() method changes the display attribute in order to display HTML elements on the screen.
+	
+	@method show
+	@param {String+} [sDisplay] The value to be set as the display attribute.<br>If the parameter is not specified, it is set to its default value. It is set to "inline" if no pre-defind value exists; set to block if an error occurs.
+	@return {this} display 속성을 변경한 인스턴스 자신
+	@remark The sDisplay parameter is available in version 1.4.5 and higher.
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display Attributes - W3C CSS2 Specification
+	@see jindo.$Element#hide
+	@see jindo.$Element#toggle
+	@see jindo.$Element#visible
+	@example
+		// Makes it visible on the screen.
+		$Element("sample_div").show();
+		
+		//Before
+		<div id="sample_div" style="display:none">Hello world</div>
+		
+		//After
+		<div id="sample_div" style="display:block">Hello world</div>
+  ]]></comment>
+  <comment id="show_1"><![CDATA[
+When the value of sDisplay is abnormal in Internet Explorer, it is set to block.
+  ]]></comment>
+  <comment id="hide"><![CDATA[
+	The hide() method changes the display attribute to none to make the HTML elements invisible.
+	
+	@method hide
+	@return {this} display 속성을 none으로 변경한 인스턴스 자신
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display Attributes - W3C CSS2 Specification
+	@see jindo.$Element#show
+	@see jindo.$Element#toggle
+	@see jindo.$Element#visible
+	@example
+		// Makes it invisible on the screen.
+		$Element("sample_div").hide();
+		
+		//Before
+		<div id="sample_div" style="display:block">Hello world</div>
+		
+		//After
+		<div id="sample_div" style="display:none">Hello world</div>
+  ]]></comment>
+  <comment id="toggle"><![CDATA[
+	The toggle() method changes the display attributes of HTML elements in order to display or hide the element on the screen. This method can toggle the displayability of the element.
+	
+	@method toggle
+	@param {String+} [sDisplay] The value which will be set as the display attribute in order to display an element.<br>If the parameter is not specified, it is set to its default value. It is set to "inline" if no pre-defind value exists.
+	@return {this} display 속성을 변경한 인스턴스 자신
+	@remark In version 1.4.5 and higher, it is possible to configure the value of sDisplay attribute as the value of the display attribute to display the element.
+	@see http://www.w3.org/TR/2008/REC-CSS2-20080411/visuren.html#display-prop display Attributes< - W3C CSS2 Specification
+	@see jindo.$Element#show
+	@see jindo.$Element#hide
+	@see jindo.$Element#visible
+	@example
+		// Makes it visiable or invisible on the screen.
+		$Element("sample_div1").toggle();
+		$Element("sample_div2").toggle();
+		
+		//Before
+		<div id="sample_div1" style="display:block">Hello</div>
+		<div id="sample_div2" style="display:none">Good Bye</div>
+		
+		//After
+		<div id="sample_div1" style="display:none">Hello</div>
+		<div id="sample_div2" style="display:block">Good Bye</div>
+  ]]></comment>
+  <comment id="opacity"><![CDATA[
+	The opacity() method retrieves the transparency (the opacity attribute) of HTML elements.
+	
+	@method opacity
+	@return {Numeric} Return the opacity value.
+	@example
+		<div id="sample" style="background-color:#2B81AF; width:20px; height:20px;"></div>
+		
+		// Searches
+		$Element("sample").opacity();	// 1
+  ]]></comment>
+  <comment id="opacity2"><![CDATA[
+	The opacity() method configures the transparency (the opacity attribute) of HTML elements.
+	
+	@method opacity
+	@param {Variant} vValue The transparency value to be set(String|Numeric).<br>Specify the value as a real number between 0 and 1. The value will be set to 0 if the value of the parameter is less than 0, and set to 1 if the value of the parameter is greater than 1. If empty string is given, then remove opacity property from the element.
+	@return {this} Opacity value changed instance of itself.
+	@example
+		// Configures the opacity value.
+		$Element("sample").opacity(0.4);
+		
+		//Before
+		<div style="background-color: rgb(43, 129, 175); width: 20px; height: 20px;" id="sample"></div>
+		
+		//After
+		<div style="background-color: rgb(43, 129, 175); width: 20px; height: 20px; opacity: 0.4;" id="sample"></div>
+  ]]></comment>
+  <comment id="opacity_1"><![CDATA[
+If IE does not have layout, opacity is not applied.
+  ]]></comment>
+    <comment id="opacity_2"><![CDATA[
+If parameter value is empty string, then remove opacity property from the element.
+  ]]></comment>
+  <comment id="hook"><![CDATA[
+	hook() 메서드는 CSS명을 조회한다.
+	@method hook
+	@syntax vName
+	@static
+	@param {String+} vName CSS property name(String)
+	@remark 2.7.0부터 사용가능하다.
+	@return {Variant} CSS를 나타내는 값 혹은 함수.
+	@example
+		$Element.hook("textShadow");
+		//webkitTextShadow
+	
+  ]]></comment>
+  <comment id="hook2"><![CDATA[
+	hook() 메서드는 개발자가 CSS를 만들면 진도에서 해당 CSS가 들어왔을 때 변경하여 사용한다.
+	@method hook
+	@syntax vName, vValue
+	@syntax oList
+	@static
+	@param {String+} vName CSS명(String)
+	@param {Variant} vValue 변경할 CSS명(String|Function)
+	@param {Hash+} oList 하나 이상의 CSS 명과 값을 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@remark 2.7.0부터 사용가능하다.
+	@return {$Element} $Element
+	
+	
+	@example
+		$Element.hook("textShadow","webkitTextShadow");
+		
+		$Element("some").css("textShadow");
+		//이렇게 하면 진도에서는 webkitTextShadow의 값을 반환.
+	@example
+		//함수도 할당할 수 있다.
+		$Element.hook("textShadow",function(){
+			if(isIE&&version>10){
+				return "MsTextShadow";
+			}else if(isSafari){
+				return "webkitTextShadow";
+			}else{
+				return "textShadow";
+			}
+		});
+		
+		$Element("some").css("textShadow");
+		///IE이고 버전이 10이상인 경우는 MsTextShadow값을 가져옴
+		//Safari인 경우 webkitTextShadow값으로 가져옴
+
+  ]]></comment>
+  <comment id="css"><![CDATA[
+	The css() method retrieves the CSS attributes of HTML elements.
+	
+	@method css
+	@param {String+} vName The name (String) of the CSS attribute
+	@return {String} Returns the value of the CSS attribute.
+	@throws {jindo.$Except.NOT_USE_CSS} The exception occurs when the element cannot use css.
+	@remark 
+		<ul class="disc">
+			<li>To execute the method, the CSS attribute uses Camel Notation. For example, the border-width-bottom attribute can be specified with borderWidthBottom.</li>
+			<li>2.6.0 이상에서는 일반적은 스타일 문법과 카멜 표기번 모두 사용가능하다.예를 들면 border-width-bottom, borderWidthBottom 모두 가능하다.</li>
+			<li>The css method uses cssFloat instead of float, because the float attribute is a reserved word in JavaScript. The method uses styleFloat in IE, and cssFloat in all other browsers.</li>
+		</ul>
+	@see jindo.$Element#attr
+	@example
+		<style type="text/css">
+			#btn {
+				width: 120px;
+				height: 30px;
+				background-color: blue;
+			}
+		</style>
+		
+		<span id="btn"></span>
+		
+		// Searches the value of the CSS attribute.
+		$Element('btn').css('backgroundColor');		// rgb (0, 0, 255)
+  ]]></comment>
+  <comment id="css2"><![CDATA[
+	The css() method configures the CSS attributes of HTML elements.
+	
+	@method css
+	@syntax vName, vValue
+	@syntax oList
+	@param {String+} vName The name (String) of the CSS attribute
+	@param {String+ | Numeric} vValue The value to be configured in the CSS attribute.<br>Uses either numbers or character strings that include the unit.
+	@param {Hash+} oList An object or hash object (jindo.$H() object) that has one or more CSS attributes and values.
+	@return {this} CSS 속성 값을 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_USE_CSS} The exception occurs when the element cannot use css.
+	@remark 
+		<ul class="disc">
+			<li>To execute the method, the CSS attribute uses Camel Notation. For example, the border-width-bottom attribute can be specified with borderWidthBottom.</li>
+			<li>2.6.0 이상에서는 일반적은 스타일 문법과 카멜 표기번 모두 사용가능하다.예를 들면 border-width-bottom, borderWidthBottom 모두 가능하다.</li>
+			<li>The css method uses cssFloat instead of float, because the float attribute is a reserved word in JavaScript. The method uses styleFloat in IE, and cssFloat in all other browsers.</li>
+		</ul>
+	@see jindo.$Element#attr
+	@example
+		// Configures the value of the CSS attribute.
+		$Element('btn').css('backgroundColor', 'red');
+		
+		//Before
+		<span id="btn"></span>
+		
+		//After
+		<span id="btn" style="background-color: red;"></span>
+	@example
+		// Configures multiple CSS attribute values.
+		$Element('btn').css({
+			width: "200px",		// 200
+			height: "80px"  	// The result would be same if it is set to 80.
+		});
+		
+		//Before
+		<span id="btn" style="background-color: red;"></span>
+		
+		//After
+		<span id="btn" style="background-color: red; width: 200px; height: 80px;"></span>
+  ]]></comment>
+  <comment id="sign_getCss"><![CDATA[
+	A function to use in css
+	
+	@method _getCss
+	@ignore
+	@param {Element} e
+	@param {String} sName
+  ]]></comment>
+  <comment id="sign_setCss"><![CDATA[
+	A function to configure css in css
+	
+	@method _setCss
+	@ignore
+	@param {Element} e
+	@param {String} k
+  ]]></comment>
+  <comment id="attr"><![CDATA[
+	The attr() method retrieves the attribute of HTML elements. If only one parameter is used, returns the value of the specified attribute; returns null if corresponding attribute exists.
+	
+	@method attr
+	@param {String+} sName The name of the attribute (String)
+	@return {String+} Returns the attribute value.
+	@remark 2.2.0 버전 부터 &lt;select&gt; 엘리먼트에 사용시, 옵션값을 가져올 수 있다.
+	@example
+		<a href="http://www.naver.com" id="sample_a" target="_blank">Naver</a>
+		
+		$Element("sample_a").attr("href"); // http://www.naver.com
+  ]]></comment>
+  <comment id="attr2"><![CDATA[
+	The attr() method configures the attribute of HTML elements.
+	
+	@method attr
+	@syntax sName, vValue
+	@syntax oList
+	@param {String+} sName The name of the attribute (String)
+	@param {Variant} vValue The value to be configured in the attribute. Uses either numbers or character strings that include the unit. If the configuration value is set to null, it deletes the HTML attribute.
+	@param {Hash+} oList An object or hash object (jindo.$H() object) that has one or more attributes and values.
+	@return {this} 속성 값을 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_USE_CSS} The exception occurs when sName is not characters, object, or $Hash.
+	@remark 2.2.0 버전 부터 &lt;select&gt; 엘리먼트에 사용시, 옵션값을 설정할 수 있다.
+	@see jindo.$Element#css
+	@example
+		$Element("sample_a").attr("href", "http://www.hangame.com/");
+		
+		//Before
+		<a href="http://www.naver.com" id="sample_a" target="_blank">Naver</a>
+		
+		//After
+		<a href="http://www.hangame.com" id="sample_a" target="_blank">Naver</a>
+	@example
+		$Element("sample_a").attr({
+		    "href" : "http://www.hangame.com",
+		    "target" : "_self"
+		})
+		
+		//Before
+		<a href="http://www.naver.com" id="sample_a" target="_blank">Naver</a>
+		
+		//After
+		<a href="http://www.hangame.com" id="sample_a" target="_self">Naver</a>
+	@example
+		<select id="select">
+			<option value="naver">naver</option>
+			<option value="hangame">hangame</option>
+			<option>juniornaver</option>
+		</select>
+		<script type="text/javascript">
+			var wel = $Element("select");
+			wel.attr("value"); // "naver"
+			wel.attr("value", null).attr("value"); // null
+			wel.attr("value", "hangame").attr("value"); // "hangame"
+			wel.attr("value", "juniornaver").attr("value"); // "juniornaver"
+			wel.attr("value", "naver").attr("value"); // "naver"
+			wel.attr("value", ["hangame"]).attr("value"); // null
+		</script>
+	@example
+		<select id="select" multiple="true">
+			<option value="naver">naver</option>
+			<option value="hangame">hangame</option>
+			<option>juniornaver</option>
+		</select>
+		<script type="text/javascript">
+			var wel = $Element("select");
+			wel.attr("value"); // null
+			wel.attr("value", "naver").attr("value"); // ["naver"]
+			wel.attr("value", null).attr("value"); // null
+			wel.attr("value", ["hangame"]).attr("value"); // ["hangame"]
+			wel.attr("value", []).attr("value"); // null
+			wel.attr("value", ["naver", "hangame"]).attr("value"); // ["naver", "hangame"]
+			wel.attr("value", ["juniornaver", "me2day"]).attr("value"); // ["juniornaver"]
+			wel.attr("value", ["naver", "happybean"]).attr("value"); // ["naver"]
+		</script>
+  ]]></comment>
+  <comment id="width"><![CDATA[
+	The width() method retrieves the width of HTML elements.
+	
+	@method width
+	@return {Number} Returns the real width (number) of HTML elements.
+	@remark Each browser calculates the size of the Box model in a different manner. For this reason, the value of the width attribute of CSS may be different from the value returned by the width() method.
+	@see jindo.$Element#height
+	@example
+		<style type="text/css">
+			div { width:70px; height:50px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<div id="sample_div"></div>
+		
+		// Searches
+		$Element("sample_div").width();	// 80
+  ]]></comment>
+  <comment id="width2"><![CDATA[
+	The width() method configures the width of HTML elements.
+	
+	@method width
+	@param {Numeric} nWidth	The width value to be set in pixels.<br>The value of the parameter is numerics.
+	@return {this} width 속성 값을 반영한 인스턴스 자신
+	@remark Each browser calculates the size of the Box model in a different manner. For this reason, the value of the width attribute of CSS may be different from the value returned by the width() method.
+	@see jindo.$Element#height
+	@example
+		// Configures the width value in HTML Elements described above.
+		$Element("sample_div").width(200);
+		
+		//Before
+		<style type="text/css">
+			div { width:70px; height:50px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<div id="sample_div"></div>
+		
+		//After
+		<div id="sample_div" style="width: 190px"></div>
+  ]]></comment>
+  <comment id="height"><![CDATA[
+	The height() method retrieves the real height of HTML elements.
+	
+	@method height
+	@return {Number} Returns the real height (number) of HTML elements.
+	@remark Each browser calculates the size of the Box model in a different manner. For this reason, the value of the height attribute of CSS may be different from the value returned by the height method.
+	@see jindo.$Element#width
+	@example
+		<style type="text/css">
+			div { width:70px; height:50px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<div id="sample_div"></div>
+		
+		// Searches
+		$Element("sample_div").height(); // 60
+  ]]></comment>
+  <comment id="height2"><![CDATA[
+	The height() method configures the real height of HTML elements.
+	
+	@method height
+	@param {Number} nHeight The height value to be set in pixels.<br>The value of the parameter is numerics. If the parameter is omitted, returns the height value.
+	@return {this} height 속성 값을 반영한 인스턴스 자신
+	@remark Each browser calculates the size of the Box model in a different manner. For this reason, the value of the height attribute of CSS may be different from the value returned by the height method.
+	@see jindo.$Element#width
+	@example
+		// Configures the height value of HTML Elements described above.
+		$Element("sample_div").height(100);
+		
+		//Before
+		<style type="text/css">
+			div { width:70px; height:50px; padding:5px; margin:5px; background:red; }
+		</style>
+		
+		<div id="sample_div"></div>
+		
+		//After
+		<div id="sample_div" style="height: 90px"></div>
+  ]]></comment>
+  <comment id="className"><![CDATA[
+	The className() retrieves the name of a class in HTML elements.
+	
+	@method className
+	@return {String} Returns the Class name. When one or more classes have been specified, a character string that is separated with space is returned.
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@see jindo.$Element#toggleClass
+	@example
+		<style type="text/css">
+		p { margin: 8px; font-size:16px; }
+		.selected { color:#0077FF; }
+		.highlight { background:#C6E746; }
+		</style>
+		
+		<p>Hello and <span id="sample_span" class="selected">Goodbye</span></p>
+		
+		// Searches a class name.
+		$Element("sample_span").className(); // selected
+  ]]></comment>
+  <comment id="className2"><![CDATA[
+	The className() configures the name of a class in HTML elements.
+	
+	@method className
+	@param {String+} sClass The class name to be specified. To specify one or more classes, list the class names by separating them with a single space.
+	@return {this} 지정한 클래스를 반영한 인스턴스 자신
+	@throws {jindo.$Except.NOT_FOUND_ARGUMENT} The exception occurs when no parameters exist.
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@see jindo.$Element#toggleClass
+	@example
+		// Configures class names in HTML elements described above.
+		$Element("sample_span").className("highlight");
+		
+		//Before
+		<style type="text/css">
+		p { margin: 8px; font-size:16px; }
+		.selected { color:#0077FF; }
+		.highlight { background:#C6E746; }
+		</style>
+		
+		<p>Hello and <span id="sample_span" class="selected">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span" class="highlight">Goodbye</span></p>
+  ]]></comment>
+  <comment id="hasClass"><![CDATA[
+	The hasClass() method checks whether a specific class in HTML elements is used.
+	
+	@method hasClass
+	@param {String+} sClass Class name to be checked
+	@return {Boolean} Returns whether the class is used.
+	@see jindo.$Element#className
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@see jindo.$Element#toggleClass
+	@example
+		<style type="text/css">
+			p { margin: 8px; font-size:16px; }
+			.selected { color:#0077FF; }
+			.highlight { background:#C6E746; }
+		</style>
+		
+		<p>Hello and <span id="sample_span" class="selected highlight">Goodbye</span></p>
+		
+		// Checks whether to use a class.
+		var welSample = $Element("sample_span");
+		welSample.hasClass("selected"); 			// true
+		welSample.hasClass("highlight"); 			// true
+  ]]></comment>
+  <comment id="addClass"><![CDATA[
+	The addClass() method adds classes in HTML elements.
+	
+	@method addClass
+	@param {String+} sClass Class name to be added. A space is used to add multiple class names.
+	@return {this} 지정한 클래스를 추가한 인스턴스 자신
+	@see jindo.$Element#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#removeClass
+	@see jindo.$Element#toggleClass
+	@example
+		// Adds a class.
+		$Element("sample_span1").addClass("selected");
+		$Element("sample_span2").addClass("selected highlight");
+		
+		//Before
+		<p>Hello and <span id="sample_span1">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span1" class="selected">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2" class="selected highlight">Goodbye</span></p>
+  ]]></comment>
+  <comment id="removeClass"><![CDATA[
+	The removeClass() method removes specific classes from HTML elements.
+	
+	@method removeClass
+	@param {String+} sClass Class name to be removed. A space is used to remove multiple class names.
+	@return {this} 지정한 클래스를 제거한 인스턴스 자신
+	@see jindo.$Element#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$Element#toggleClass
+	@example
+		// Removing a class.
+		$Element("sample_span").removeClass("selected");
+		
+		//Before
+		<p>Hello and <span id="sample_span" class="selected highlight">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span" class="highlight">Goodbye</span></p>
+	@example
+		// Removes multiple classes.
+		$Element("sample_span").removeClass("selected highlight");
+		$Element("sample_span").removeClass("highlight selected");
+		
+		//Before
+		<p>Hello and <span id="sample_span" class="selected highlight">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span" class="">Goodbye</span></p>
+  ]]></comment>
+  <comment id="toggleClass"><![CDATA[
+	The toggleClass() method removes a class if that class has already been applied to the HTML element, or adds a class if none are.<br>
+	When only one parameter is entered, removes the class specified as a parameter if the class is being used. If the class is not used, adds the class. If two parameters are entered, removes the class that is being used and adds the other.
+	
+	@method toggleClass
+	@param {String+} sClass Class name to be added or removed
+	@param {String+} [sClass2] Class name to be added or removed
+	@return {this} 지정한 클래스를 추가 혹은 제거한 인스턴스 자신
+	@import core.$Element[hasClass,addClass,removeClass]
+	@see jindo.$Element#className
+	@see jindo.$Element#hasClass
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@example
+		// If one parameter exists
+		$Element("sample_span1").toggleClass("highlight");
+		$Element("sample_span2").toggleClass("highlight");
+		
+		//Before
+		<p>Hello and <span id="sample_span1" class="selected highlight">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2" class="selected">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span1" class="selected">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2" class="selected highlight">Goodbye</span></p>
+	@example
+		// If there are two parameters
+		$Element("sample_span1").toggleClass("selected", "highlight");
+		$Element("sample_span2").toggleClass("selected", "highlight");
+		
+		//Before
+		<p>Hello and <span id="sample_span1" class="highlight">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2" class="selected">Goodbye</span></p>
+		
+		//After
+		<p>Hello and <span id="sample_span1" class="selected">Goodbye</span></p>
+		<p>Hello and <span id="sample_span2" class="highlight">Goodbye</span></p>
+  ]]></comment>
+  <comment id="cssClass"><![CDATA[
+	cssClass는 클래스의 유무를 확인한다.
+	
+	@method cssClass
+	@param {String+} sName Class name
+	@return {Boolean} Returns the Boolean value displaying the existence of the class.
+	@since 2.0.0
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@example
+		// When only the first parameter has been entered
+		<div id="sample_span1"/>
+		$Element("sample_span1").cssClass("highlight");// false
+  ]]></comment>
+  <comment id="cssClass2"><![CDATA[
+	The cssClass can add, remove a class.
+	
+	@method cssClass
+	@syntax sName, bClassType
+	@syntax oList
+	@param {String+} sName Class name
+	@param {Boolean} bClassType If the value is true, adds a class. If false, removes the class.
+	@param {Hash+} oList An object or hash object (jindo.$H() object) that has one or more attributes and Boolean values.
+	@return {this} 지정한 클래스를 추가/삭제한 인스턴스 자신
+	@since 2.0.0
+	@see jindo.$Element#addClass
+	@see jindo.$Element#removeClass
+	@example
+		// When the second parameter has also been entered
+		$Element("sample_span1").cssClass("highlight",true);
+		-> <div id="sample_span1" class="highlight"/>
+		
+		$Element("sample_span1").cssClass("highlight",false);
+		-> <div id="sample_span1" class=""/>
+	@example
+		// When the first parameter has been entered as an object.
+		<div id="sample_span1" class="bar"/>
+		
+		$Element("sample_span1").cssClass({
+			"foo": true,
+			"bar" : false
+		});
+		-> <div id="sample_span1" class="foo"/>
+  ]]></comment>
+  <comment id="text"><![CDATA[
+	The text() method retrieves the text node value of HTML elements.
+	
+	@method text
+	@return {String} Returns the text node (string) of HTML elements.
+	@example
+		<ul id="sample_ul">
+			<li>One</li>
+			<li>Two</li>
+			<li>Three</li>
+			<li>Four</li>
+		</ul>
+		
+		// Searches the text node value.
+		$Element("sample_ul").text();
+		// Results
+		//	One
+		//	Two
+		//	Three
+		//	Four
+  ]]></comment>
+  <comment id="text2"><![CDATA[
+	The text() method configures the text node value of HTML elements.
+	
+	@method text
+	@param {String+} sText Text to be specified
+	@return {this} 지정한 값을 설정한 인스턴스 자신
+	@example
+		// Configures the text node value
+		$Element("sample_ul").text('Five');
+		
+		//Before
+		<ul id="sample_ul">
+			<li>One</li>
+			<li>Two</li>
+			<li>Three</li>
+			<li>Four</li>
+		</ul>
+		
+		//After
+		<ul id="sample_ul">Five</ul>
+	@example
+		// Configures the text node value.
+		$Element("sample_p").text("New Content");
+		
+		//Before
+		<p id="sample_p">
+			Old Content
+		</p>
+		
+		//After
+		<p id="sample_p">
+			New Content
+		</p>
+  ]]></comment>
+  <comment id="text_1"><![CDATA[
+ * Does not operates normally when the textContext is Get in Opera version 11.01. For this reason, when it is set to get, innerText is used. When it is set to set, textContent is used (http:devcafe.nhncorp.com/ajaxui/295768).
+  ]]></comment>
+  <comment id="html"><![CDATA[
+	The html() method retrieves the inner HTML code of HTML elements.
+	
+	@method html
+	@return {String} Returns the inner HTML (string).
+	@see https://developer.mozilla.org/en/DOM/element.innerHTML element.innerHTML - MDN Docs
+	@see jindo.$Element#outerHTML
+	@example
+		<div id="sample_container">
+			<p><em>Old</em> content</p>
+		</div>
+		
+		// Searches inner HTML values.
+		$Element("sample_container").html(); // <p><em>Old</em> content</p>
+  ]]></comment>
+  <comment id="html2"><![CDATA[
+	The html() method configures the inner HTML code of HTML elements. 이때 모든 하위 요소의 모든 이벤트 핸들러를 제거한다.
+	
+	@method html
+	@param {String+} sHTML The HTML character string to be set as the inner HTML code.
+	@return {this} 지정한 값을 설정한 인스턴스 자신
+	@remark When modifying the col of colgroup in Internet Explorer 8, delete and recreate the colgroup and then add col. 
+	@see https://developer.mozilla.org/en/DOM/element.innerHTML element.innerHTML - MDN Docs
+	@see jindo.$Element#outerHTML
+	@example
+		// Searches inner HTML values.
+		$Element("sample_container").html("<p>New <em>content</em></p>");
+		
+		//Before
+		<div id="sample_container">
+		 	<p><em>Old</em> content</p>
+		</div>
+		
+		//After
+		<div id="sample_container">
+		 	<p>New <em>content</em></p>
+		</div>
+  ]]></comment>
+  <comment id="html_1"><![CDATA[
+ * Fixes it so as to ensure that no problem exists even if setting innerHTML in Select tag or TABLE, TR, THEAD
+ * and TBODY tag in some situations of IE or FireFox - hooriza
+  ]]></comment>
+  <comment id="html_2"><![CDATA[
+* For the select tag in IE, if there is a selected option among the options,
+* the options before it are all set to true if selected is in the middle;
+* to solve this, use cloneNode and change selected after copying the option. - mixed
+  ]]></comment>
+  <comment id="outerHTML"><![CDATA[
+	The outerHTML() method returns the HTML code including the inner HTML code of the HTML element and its tag.
+	
+	@method outerHTML
+	@return {String} HTML code.
+	@see jindo.$Element#html
+	@example
+		<h2 id="sample0">Today is...</h2>
+		
+		<div id="sample1">
+		  	<p><span id="sample2">Sample</span> content</p>
+		</div>
+		
+		// Searches outer HTML values.
+		$Element("sample0").outerHTML(); // <h2 id="sample0">Today is...</h2>
+		$Element("sample1").outerHTML(); // <div id="sample1">  <p><span id="sample2">Sample</span> content</p>  </div>
+		$Element("sample2").outerHTML(); // <span id="sample2">Sample</span>
+  ]]></comment>
+  <comment id="outerHTML_1"><![CDATA[
+      Returns innerHTML if no supernodes exist.
+  ]]></comment>
+  <comment id="toString"><![CDATA[
+	The toString() method converts the code of the element to a string and returns it (same with the outerHTML method).
+	
+	@method toString
+	@return {String} HTML codes.
+	@see jindo.$Element#outerHTML
+  ]]></comment>
+  <comment id="attach"><![CDATA[
+	The attach() method  assigns an event to the element.
+	@syntax sEvent, fpCallback
+	@syntax oList
+	@method attach
+	@param {String+} sEvent Event name
+		<ul class="disc">
+			<li>The "on" prefix must not be used as part of an event name.</li>
+			<li>Use "mousewheel" to handle mouse wheel scroll events.</li>
+			<li>The domready, mouseenter, mouseleave, and mousewheel events can be used in addition to the basic events.</li>
+			<li>delegate의 기능이 추가됨 (@을 구분자로 selector을 같이 사용할 수 있다.)</li>
+		</ul>
+	@param {Function+} fpCallback The callback function to be executed when an event occurs.
+	@param {Hash+} oList 하나 이상의 이벤트명과 함수를 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@return {this} 이벤트를 할당한 인스턴스 자신
+	@throws {jindo.$Except.NOT_WORK_DOMREADY} The exception occurs when the domready function is used within the frame in Internet Explorer.
+	@since 2.0.0
+	@remark 2.2.0 버전부터, load와 domready이벤트는 각각 Window와 Document에서 발생하는 이벤트이지만 서로를 교차해서 등록하여도 이벤트가 올바르게 발생한다.
+	@remark 2.5.0 버전부터 @을 구분자로 delegate처럼 사용할 수 있다.
+	@see jindo.$Element#detach
+	@see jindo.$Element#delegate
+	@see jindo.$Element#undelegate
+	@example
+		function normalEvent(e){
+			alert("click");
+		}
+		function groupEvent(e){
+			alert("group click");
+		}
+		
+		//Allocates general events.
+		$Element("some_id").attach("click",normalEvent);
+	@example
+		function normalEvent(e){
+			alert("click");
+		}
+		
+		//delegate처럼 사용하기 위해서는 @을 구분자로 사용가능.
+		$Element("some_id").attach("click@.selected",normalEvent);
+		
+		
+		$Element("some_id").attach({
+			"click@.selected":normalEvent,
+			"click@.checked":normalEvent2,
+			"click@.something":normalEvent3
+		});
+	@example
+		function loadHandler(e){
+			// empty
+		}
+		function domreadyHandler(e){
+			// empty
+		}
+		var welDoc = $Element(document);
+		var welWin = $Element(window);
+		
+		// document에 load 이벤트 핸들러 등록
+		welDoc.attach("load", loadHandler);
+		welDoc.hasEventListener("load"); // true
+		welWin.hasEventListener("load"); // true
+		
+		// detach는 document, window 어느것에서 해도 상관없다.
+		welDoc.detach("load", loadHandler);
+		welDoc.hasEventListener("load"); // false
+		welWin.hasEventListener("load"); // false
+		
+		// window에 domready 이벤트 핸들러 등록
+		welWin.attach("domready", domreadyHandler);
+		welWin.hasEventListener("domready"); // true
+		welDoc.hasEventListener("domready"); // true
+		
+		// detach는 document, window 어느것에서 해도 상관없다.
+		welWin.detach("domready", domreadyHandler);
+		welWin.hasEventListener("domready"); // false
+		welDoc.hasEventListener("domready"); // false
+  ]]></comment>
+  <comment id="detach"><![CDATA[
+	The detach() method unregisters the event handler that has been registered to the element.
+	@syntax sEvent, fpCallback
+	@syntax oList
+	@method detach
+	@param {String+} sEvent Event nane
+	@param {Function+} fpCallback The callback function to be executed when an event occurs.
+	@param {Hash+} oList 하나 이상의 이벤트명과 함수를 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@return {this} 이벤트 핸들러를 등록 해제한 인스턴스 자신
+	@remark 2.2.0 버전부터, load와 domready이벤트는 각각 Window와 Document에서 발생하는 이벤트이지만 서로를 교차해서 등록하여도 이벤트가 올바르게 발생한다.
+	@remark 2.5.0 버전부터 @을 구분자로 delegate처럼 사용할 수 있다.
+	@see jindo.$Element#detach
+	@see jindo.$Element#delegate
+	@see jindo.$Element#undelegate
+	@since 2.0.0
+	@example
+		function normalEvent(e){
+			alert("click");
+		}
+		function groupEvent(e){
+			alert("group click");
+		}
+		function groupEvent2(e){
+			alert("group2 click");
+		}
+		function groupEvent3(e){
+			alert("group3 click");
+		}
+		
+		//Allocates general events.
+		$Element("some_id").attach("click",normalEvent);
+		
+		//General event deallocation. General events must have a function for it to be deallocated.
+		$Element("some_id").detach("click",normalEvent);
+   @example
+		function normalEvent(e){
+			alert("click");
+		}
+		
+		//undelegate처럼 사용하기 위해서는 @을 구분자로 사용가능.
+		$Element("some_id").attach("click@.selected",normalEvent);
+		$Element("some_id").detach("click@.selected",normalEvent);
+  ]]></comment>
+  <comment id="delegate"><![CDATA[
+	The delegate() method handles events through event delegation.<br>
+	The event delegation is an efficient way to manage events, by delegating event management to the upper element with event bubbling
+	
+	@method delegate
+	@param {String+} sEvent The event name.<br>The "on" prefix must be omitted.
+	@param {Variant} vFilter A filter that is used to execute the event handler for specific HTML elements only.<br>
+	The filter can be specified by using the CSS selector (string) and a function.
+		<ul class="disc">
+			<li>When the string is entered, the element to execute the event handler can be configured by using the CSS selector.</li>
+			<li>The function that returns the Boolean value can be entered as a parameter. If this function is used, the callback function (fCallback) that will be executed when the function returns true must be specified as an additional parameter.</li>
+		</ul>
+	@param {Function+} [fCallback] The callback function to be executed when the function specified in the vFilter returns true.
+	@return {this} 이벤트 위임을 적용한 인스턴스 자신
+	@remark The domready, mousewheel, mouseleave, and mouseenter events are available in version 2.0.0 and higher.
+	@since 1.4.6
+	@see jindo.$Element#attach
+	@see jindo.$Element#detach
+	@see jindo.$Element#undelegate
+	@example
+		<ul id="parent">
+			<li class="odd">1</li>
+			<li>2</li>
+			<li class="odd">3</li>
+			<li>4</li>
+		</ul>
+	
+		// When using a CSS selector as a filter
+		$Element("parent").delegate("click",
+			".odd", 			// Filter
+			function(eEvent){	// Callback function
+				alert("Executes it when li that has the odd class is clicked");
+			});
+	@example
+		<ul id="parent">
+			<li class="odd">1</li>
+			<li>2</li>
+			<li class="odd">3</li>
+			<li>4</li>
+		</ul>
+	
+		// When using a function as a filter
+		$Element("parent").delegate("click",
+			function(oEle,oClickEle){	// Filter
+				return oClickEle.innerHTML == "2"
+			},
+			function(eEvent){			// Callback function
+				alert("Executes it if the innerHTML of the clicked element is 2");
+			});
+  ]]></comment>
+  <comment id="undelegate"><![CDATA[
+	The undelegate() method undelegates the event delegation made by using the delegate() method.
+	
+	@method undelegate
+	@param {String+} sEvent The event name that is used to register event delegation.<br>The "on" prefix must be omitted. 
+	@param {Variant} [vFilter] The filter specified while registering event delegation. If this filter is not entered, all conditions of a specific event among events allocated as delegate will be removed.
+	@param {Function+} [fCallback] The callback function specified while registering event delegation.
+	@return {this} 이벤트 위임을 해제한 인스턴스 자신
+	@since 1.4.6
+	@see jindo.$Element#attach
+	@see jindo.$Element#detach
+	@see jindo.$Element#delegate
+	@example
+		<ul id="parent">
+			<li class="odd">1</li>
+			<li>2</li>
+			<li class="odd">3</li>
+			<li>4</li>
+		</ul>
+		
+		// Callback function
+		function fnOddClass(eEvent){
+			alert("Executes it when li that has the odd class is clicked");
+		};
+		function fnOddClass2(eEvent){
+			alert("Executes it when li that has the odd class is clicked2");
+		};
+		function fnOddClass3(eEvent){
+			alert("Executes it when li that has the odd class is clicked3");
+		};
+		
+		// Uses event delegation
+		$Element("parent").delegate("click", ".odd", fnOddClass);
+		
+		// Releases the event with fnOddClass only
+		$Element("parent").undelegate("click", ".odd", fnOddClass);
+  ]]></comment>
+  <comment id="_add"><![CDATA[
+	Internal function that adds events
+	
+	@method _add
+	@ignore
+	@param {String} sType Checks whether the event is delegate or general.
+	@param {String} sEvent Event name
+	@param {String | Function} vFilter Filter function
+	@param {Function} fpCallback Event callback function
+	@return {this} 인스턴스 자신
+  ]]></comment>
+  <comment id="_del"><![CDATA[
+	The internal function used to delete events
+	
+	@method _del
+	@ignore
+	@param {String} sType Checks whether the event is delegate or general.
+	@param {String} sEvent sType Checks whether the event is delegate or general.
+	@param {String|Function} vFilter Filter function
+	@param {Function} fpCallback Event callback function
+	@return {this} 인스턴스 자신
+  ]]></comment>
+  <comment id="eventManager"><![CDATA[
+	The object that manages the events of $Element.
+	
+	@ignore
+  ]]></comment>
+  <comment id="revisionCallback"><![CDATA[
+	A function that adjusts the callback function to be operated when an event is allocated to the browser where the mouseenter or mouseleave event does not exist.
+	Used when mouseenter or mouseleave is used for delegate in Internet Explorer. 
+	
+	@method revisionCallback
+	@ignore
+	@param {String} sType Checks whether the event is delegate or general.
+	@param {String} sEvent Event name
+	@param {Function} fpCallback Event callback function
+  ]]></comment>
+  <comment id="_fireWhenElementBoundary"><![CDATA[
+	The function that emulates a browser that does not have mouseenter or mouseleave events
+	
+	@method _fireWhenElementBoundary
+	@ignore
+	@param {String} sType Checks whether the event is delegate or general.
+	@param {Function} fpCallback Event callback function
+  ]]></comment>
+  <comment id="revisionEvent"><![CDATA[
+	The function that is used to adjust the event names, for they are different by browser.
+	
+	@method revisionEvent
+	@ignore
+	@param {String} sType Checks whether the event is delegate or general.
+	@param {String} sEvent Event name
+  ]]></comment>
+  <comment id="revisionEvent_1"><![CDATA[
+ * DOMMouseScroll does not work as well in IE 9.
+  ]]></comment>
+    <comment id="revisionEvent_2"><![CDATA[
+ * On IE9 and above version need to implement 'oninput' event fallback.
+    Since IE9 support oninput event, but IE9 has buggy implementation. When delete contents(ex. using backspace key) on input element it doesn't apply changes correctly.
+    So, on IE9 use 'keyup', and the above versions use 'propertychange' instead of using 'oninput' event.
+  ]]></comment>
+  <comment id="revisionEvent_3"><![CDATA[
+ * When the mouseenter or mouseleave is used for delegate in Internet Explorer, it must be modified so that emulation is done by using mouseover or mouseleave.
+  ]]></comment>
+  <comment id="test"><![CDATA[
+			A function for testing
+			
+			@method test
+			@ignore
+  ]]></comment>
+  <comment id="isInit"><![CDATA[
+			A function to check whether the function that corresponds to the key has been initialized
+			
+			@method isInit
+			@ignore
+			@param {String} sKey Element key value
+  ]]></comment>
+  <comment id="init"><![CDATA[
+			A function to initialize
+			
+			@method init
+			@ignore
+			@param {String} sKey Element key value
+			@param {Element} eEle Element
+  ]]></comment>
+  <comment id="getEventConfig"><![CDATA[
+			Returns the information of the key value.
+			
+			@method getEventConfig
+			@ignore
+			@param {String} sKey Element key value
+  ]]></comment>
+  <comment id="hasEvent"><![CDATA[
+			A function to check whether the key has an event. 
+			
+			@method  hasEvent
+			@ignore
+			@param {String} sKey Element key value
+			@param {String} sEvent Event name
+  ]]></comment>
+  <comment id="hasGroup"><![CDATA[
+			A function to check whether a group exists
+			
+			@method hasGroup
+			@ignore
+			@param {String} sKey Element key value 
+			@param {String} sEvent Event name
+			@param {String} sEvent Group name
+  ]]></comment>
+  <comment id="initEvent"><![CDATA[
+			A function that initializes events
+			
+			@method initEvent
+			@ignore
+			@param {Hash+} oThis this object
+			@param {String} sEvent Event name
+			@param {String} sEvent Group name
+  ]]></comment>
+  <comment id="initGroup"><![CDATA[
+			A function that initializes groups
+			
+			@method initGroup
+			@ignore
+			@param {String} sKey Element key value
+			@param {String} sEvent Event name
+			@param {String} sEvent Group name
+  ]]></comment>
+  <comment id="addEventListener"><![CDATA[
+			A function that adds an event
+			
+			@method addEventListener
+			@ignore
+			@param {String} ssKey Element key value
+			@param {String} sEvent Event name
+			@param {String} sGroup Group name
+			@param {String} sType Checks whether the event is delegate or general.
+			@param {Function} vFilter A CSS selector to filter or a filter function
+			@param {Function} fpCallback Callback function
+  ]]></comment>
+  <comment id="hasDelegate"><![CDATA[
+			A function to check whether delegate exists
+			
+			@method hasDelegate
+			@ignore
+			@param {Hash+} oEventInfo Event information object
+			@param {Function} vFilter A CSS selector or filter function for filtering
+  ]]></comment>
+  <comment id="initDelegate"><![CDATA[
+			A function to initialize delegate
+			
+			@method initDelegate
+			@ignore
+			@param {Hash+} eOwnEle
+			@param {Hash+} oEventInfo Event information object
+			@param {Function} vFilter A CSS selector or filter function for filtering
+  ]]></comment>
+  <comment id="addDelegate"><![CDATA[
+			A function to add delegate
+			
+			@method addDelegate
+			@ignore
+			@param {Hash+} oEventInfo Event information object
+			@param {Function} vFilter A CSS selector to filter or a filter function
+			@param {Function} fpCallback Callback function
+  ]]></comment>
+  <comment id="removeEventListener"><![CDATA[
+			A function that releases an event
+			
+			@method removeEventListener
+			@ignore
+			@param {String} ssKey Element key value
+			@param {String} sEvent Event name
+			@param {String} sGroup Group name
+			@param {String} sType Checks whether the event is delegate or general.
+			@param {Function} vFilter A CSS selector to filter or a filter function
+			@param {Function} fpCallback Callback function
+  ]]></comment>
+  <comment id="cleanUpAll"><![CDATA[
+			A function that releases all events (Do not use this function).
+			
+			@method cleanUpAll
+			@ignore
+  ]]></comment>
+  <comment id="cleanUpUsingKey"><![CDATA[
+			Used to delete all events by using the element key.
+			
+			@method cleanUpUsingKey
+			@ignore
+			@param {String} sKey
+  ]]></comment>
+  <comment id="cleanUp"><![CDATA[
+			A function that releases all events corresponding to the key (Do not use this function)
+			
+			@method cleanUp
+			@ignore
+			@param {String} ssKey Element key value
+			@param {String} sEvent Event name
+			@param {Boolean} bForce Whether to release them forcibly
+  ]]></comment>
+  <comment id="splitGroup"><![CDATA[
+			A function that separates the event name from the group
+			
+			@method splitGroup
+			@ignore
+			@param {String} sEvent Event name
+  ]]></comment>
+  <comment id="_getParent"><![CDATA[
+			A function that searches for the parent from delegate
+			
+			@method _getParent
+			@ignore
+			@param {Element} oOwnEle Its own element
+			@param {Element} oEle Element for comparison
+  ]]></comment>
+  <comment id="element_attach_data"><![CDATA[
+// The storage structure of $Element.
+//
+// {
+//	"key" : {
+//		"ele" : ele,
+//		"event" : {
+//			"click":{
+//				"listener" : function(){},
+//				"type":{
+//					"-none-" : {
+//						"normal" : [],
+//						"delegate" :{
+//							"vFilter" :{
+//								"checker" : function(){},
+//								"callback" : [function(){}]
+//							}
+//							
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
+  ]]></comment>
+  <comment id="sign_domready"><![CDATA[
+	Emulates the domready (=DOMContentLoaded) event in Internet Explorer.
+	
+	@method _domready
+	@filter desktop
+	@ignore
+  ]]></comment>
+  <comment id="element_unload"><![CDATA[
+ * Added logic that releases events while unloading them in Internet Explorer to prevent memory leak.
+ * Configuring unload in mobile Safari for iOS version 5 or lower will prevent cache from being used.
+  ]]></comment>
+</comments>

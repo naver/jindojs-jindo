@@ -1,0 +1,118 @@
+<comments name="document">
+  <comment id="title"><![CDATA[
+	@fileOverview $Document 생성자 및 메서드를 정의한 파일
+	@name document.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$Document 객체는 문서와 관련된 정보를 제공한다.
+	
+	@class jindo.$Document
+	@keyword document
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$Document 객체를 생성한다. 파라미터를 생략하면 기본값으로 현재 문서의 document 요소가 입력된다.
+	
+	@constructor
+	@syntax elDocument
+	@param {Element} [elDocument] 정보를 확인할 document 요소.
+  ]]></comment>
+  <comment id="value"><![CDATA[
+	$value() 메서드는 원본 document 요소를 반환한다.
+	
+	@method $value
+	@return {Element} document 요소
+  ]]></comment>
+  <comment id="scrollSize"><![CDATA[
+	scrollSize() 메서드는 문서의 가로 크기와 세로 크기 정보를 담은 객체를 반환한다.
+	
+	@method scrollSize
+	@return {Object} 문서의 가로, 세로 크기 정보를 담고 있는 객체.
+		@return {Number} .width 문서의 가로 크기 정보. (단위 px)
+		@return {Number} .height 문서의 세로 크기 정보. (단위 px)
+	@see jindo.$Document#clientSize
+	@example
+		var size = $Document().scrollSize();
+		alert('가로 : ' + size.width + ' / 세로 : ' + size.height);
+  ]]></comment>
+  <comment id="scrollSize_1"><![CDATA[
+webkit 계열에서는 Standard 모드라도 body를 사용해야 정상적인 scroll Size를 얻어온다.
+  ]]></comment>
+  <comment id="scrollPosition"><![CDATA[
+	scrollPosition() 메서드는 현재 문서에서 스크롤바의 위치를 구한다.
+	
+	@method scrollPosition
+	@return {Object} 가로 위치는 left, 세로위치는 top 라는 키값으로 리턴된다.
+		@return {Number} .left 수평 스크롤바의 가로 위치. (단위 px)
+		@return {Number} .top 수직 스크롤바의 세로 위치. (단위 px)
+	@since 1.3.5
+	@example
+		var size = $Document().scrollPosition();
+		alert('가로 : ' + size.left + ' / 세로 : ' + size.top);
+  ]]></comment>
+  <comment id="scrollPosition_1"><![CDATA[
+webkit 계열에서는 Standard 모드라도 body를 사용해야 정상적인 scroll Size를 얻어온다.
+  ]]></comment>
+  <comment id="clientSize"><![CDATA[
+	clientSize() 메서드는 문서에서 스크롤바가 생겨 보이지 않는 부분을 제외한 영역의 가로 크기와 세로 크기 정보를 담은 객체를 반환한다.
+	(*viewport에 대한 크기를 구하고자 한다면, native API인 window.innerWidth/innerHeight 값을 사용하라)
+	
+	@method clientSize
+	@return {Object} 화면에 보이는 부분의 크기를 저장하고 있는 객체.
+		@return {Number} .width 화면에 보이는 부분의 가로 크기. (단위 px)
+		@return {Number} .height 화면에 보이는 부분의 세로 크기. (단위 px)
+	@see jindo.$Document#scrollSize
+	@example
+		var size = $Document(document).clientSize();
+		alert('가로 : ' + size.width + ' / 세로 : ' + size.height);
+  ]]></comment>
+  <comment id="renderingMode"><![CDATA[
+	renderingMode() 메서드는 문서가 렌더링된 방식을 검사하여 반환한다.
+	
+	@method renderingMode
+	@return {String} 렌더링 모드.
+		@return {String} ."Standards" 표준 렌더링 모드
+		@return {String} ."Almost" 유사 표준 렌더링 모드. 인터넷 익스플로러 외의 브라우저에서 DTD를 올바르게 지정하지 않았을 때 반환된다.
+		@return {String} ."Quirks" 비표준 렌더링 모드
+	@filter desktop
+	@see http://hsivonen.iki.fi/doctype/ DTD와 브라우저에 따른 렌더링 차이 설명
+	@example
+		var mode = $Document().renderingMode();
+		alert('렌더링 방식 : ' + mode);
+  ]]></comment>
+  <comment id="queryAll"><![CDATA[
+	문서를 대상으로 지정한 선택자를 만족시키는 요소의 배열을 반환한다. 만족하는 요소가 존재하지 않으면 빈 배열을 반환한다. $$() 함수에서 elBaseElement 파라미터에 문서를 지정한 것과 같은 의미이다.
+	
+	@method queryAll
+	@param {String+} sSelector CSS 선택자(CSS Selector). CSS 선택자로 사용할 수 있는 패턴은 표준 패턴과 비표준 패턴이 있다. 표준 패턴은 CSS Level3 명세서에 있는 패턴을 지원한다. 선택자의 패턴에 대한 설명은 $$() 함수와 See Also 항목을 참고한다.
+	@return {Array} 조건을 만족하는 요소의 배열
+	@see _global_.html#$$
+	@see http://www.w3.org/TR/css3-selectors/ CSS Level3 명세서 - W3C
+	@example
+		$Document().queryAll("span");  // 문서 내에 모든 <span> 요소를 선택한다.
+  ]]></comment>
+  <comment id="query"><![CDATA[
+	문서를 대상으로 지정한 선택자를 만족시키는 첫 번째 요소를 반환한다. 만족하는 요소가 존재하지 않으면 null을 반환한다. $$.getSingle 함수에서 elBaseElement 파라미터에 문서를 지정한 것과 같은 의미이다.
+	
+	@method query
+	@param {String+} sSelector CSS 선택자(CSS Selector). CSS 선택자로 사용할 수 있는 패턴은 표준 패턴과 비표준 패턴이 있다. 표준 패턴은 CSS Level3 명세서에 있는 패턴을 지원한다. 선택자의 패턴에 대한 설명은 $$() 함수와 See Also 항목을 참고한다.
+	@return {Element} 선택자 조건을 만족하는 첫 번째 요소.
+	@see _global_.html#.$$.getSingle
+	@see _global_.html#$$
+	@see http://www.w3.org/TR/css3-selectors/ CSS Level3 명세서 - W3C
+	@example
+		$Document().query("body");  // <body> 요소를 선택한다.
+  ]]></comment>
+  <comment id="xpathAll"><![CDATA[
+	문서를 대상으로 XPath 문법을 만족하는 요소를 가져온다. 지원하는 문법이 제한적이므로 특수한 경우에만 사용할 것을 권장한다. $$.xpath() 함수에서 elBaseElement 파라미터에 문서를 지정한 것과 같은 의미이다.
+	
+	@method xpathAll
+	@param {String+} sXPath XPath 값.
+	@return {Array} XPath 문법을 만족하는 요소를 원소로 하는 배열.
+	@see _global_.html#.$$.xpath
+	@see http://www.w3.org/standards/techs/xpath#w3c_all XPath 문서 - W3C
+	@example
+		var oDocument = $Document();
+		alert (oDocument.xpathAll("body/div/div").length);
+  ]]></comment>
+</comments>

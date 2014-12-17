@@ -1,0 +1,589 @@
+<comments name="date">
+  <comment id="title"><![CDATA[
+	@fileOverview A file to define the constructor and method of the jindo.$Date() object
+	@name date.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	The jindo.$Date() object provides an expanded function to wrap the Date object and process the date and time.
+	
+	@class jindo.$Date
+	@keyword date
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	Creates a jindo.$Date() object. The jindo.$Date() object can be created without any parameters, or with the ISO Date format or an integer in millisecond as the parameters of the constructor. If the ISO Date format character has been entered, the date is calculated based on the $Date.utc attribute.
+	
+	@constructor
+	@syntax
+	@syntax sDate
+	@syntax nDate
+	@syntax oDate
+	@param {String+} sDate Date String in date format
+	@param {Number} nDate TimeStamp as integers in milliseconds
+	@param {Date+} oDate Date or the jindo.$Date() object
+	@syntax nYear, nMonth, nDate, nHour, nMinute, nSecond, nMiliSec
+	@param {Numeric} nYear Year as integers (Number)
+	@param {Numeric} nMonth nMonth Month as integers (Number)
+	@param {Numeric} [nDate=1] nDate Day as integers (Number) 
+	@param {Numeric} [nHour=1] nHour Hour as integers (Number) 
+	@param {Numeric} [nMinute=1] nMinute Minute as integers (Number) 
+	@param {Numeric} [nSecond=1] nSecond Second as integers (Number)
+	@param {Numeric} [nMiliSec=1] nMiliSec Millisecond as integers (Number)
+	@remark $Date can be used without date in version 1.4.6 and higher. It will be set to 1 if no value is provided.
+	@see jindo.$Date.utc
+	@see jindo.$Date#format
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date Date - MDN Docs
+	@see http://ko.wikipedia.org/wiki/ISO_8601 ISO 8601 - W3C
+	@example
+		$Date();
+		$Date(milliseconds);
+		$Date(dateString);
+		
+		// It can be used in version 1.4.6 and higher
+		$Date(2010,6);// This is the same as $Date (2010,6,1,1,1,1,1);.
+  ]]></comment>
+  <comment id="constructor_1"><![CDATA[
+If iso string
+  ]]></comment>
+  <comment id="constructor_2"><![CDATA[
+Calculates in milliseconds when it consists of one digit number.
+  ]]></comment>
+  <comment id="names"><![CDATA[
+	The names attribute stores the strings that is used to display the month, date, and AM/PM used in the jindo.$Date() object. Names with the prefix 's_' are abbreviations.
+	
+	@property names
+	@type Object
+	@static
+	@remark  <h5>Month, Date, AM/PM representation string</h5>
+		<table class="tbl_board">
+			<caption class="hide">Month, Date, AM/PM representation string</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Category</th>
+					<th scope="col">String</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">month</td>
+					<td class="txt">January, Febrary, March, April, May, June, July, August, September, October, Novermber, December</td>
+				</tr>
+				<tr>
+					<td class="txt bold">s_month</td>
+					<td class="txt">Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</td>
+				</tr>
+				<tr>
+					<td class="txt bold">day</td>
+					<td class="txt">Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday</td>
+				</tr>
+				<tr>
+					<td class="txt bold">s_day</td>
+					<td class="txt">Sun, Mon, Tue, Wed, Thu, Fri, Sat</td>
+				</tr>
+				<tr>
+					<td class="txt bold">ampm</td>
+					<td class="txt">AM, PM</td>
+				</tr>
+			</tbody>
+		</table>
+  ]]></comment>
+  <comment id="utc"><![CDATA[
+	The utc attribute stores the coordinated universal time and the time difference. The default value is based on client's locale time.
+	
+	@property utc
+	@type Number
+	@static
+	@see http://ko.wikipedia.org/wiki/UTC Coordinated Universal Time
+	@example
+		$Date.utc = -10; // It is calculated based on Hawaiian standard.
+  ]]></comment>
+  <comment id="now"><![CDATA[
+	The now() method returns the current time as an integer in milliseconds.
+	
+	@method now
+	@static
+	@return {Numeric} The current time as an integer in milliseconds
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/now Date.now() - MDN Docs
+	@example
+		$Date().now(); //sample : 1304907432081
+  ]]></comment>
+  <comment id="name"><![CDATA[
+	name() method return date names values defined in names property.
+	
+	@method name
+	@param {String+} vName Name of the names attribute (String)
+	@return {Variant} Returns the value of the names attribute.
+	@since 1.4.1
+	@see jindo.$Date.names
+	@example
+	    $Date().name("ampm | day | month | s_day | s_month");
+  ]]></comment>
+  <comment id="name2"><![CDATA[
+	name() 메서드는 names 속성에 정의된 달, 요일, 오전/오후를 표시하는 문자열의 값을 설정한다.
+	
+	@method name
+	@syntax vName, aValue
+	@syntax oNames
+	@param {String+} vName The name of the names attribute (String)
+	@param {Array+} aValue A value to be set in the names attribute
+	@param {Hash+} oNames An object or the jindo.$H() object that has one or more names attributes and values
+	@return {this} 값을 반영한 인스턴스 자신
+	@since 1.4.1
+	@see jindo.$Date.names
+  ]]></comment>
+  <comment id="parse"><![CDATA[
+	The parse() method parses the specified character string in a parameter and creates a jindo.$Date() object.
+	
+	@method parse
+	@static
+	@param {String+} sDate A string in date or time format
+	@return {Object} The Date object
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when date format is inappropriate.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date Date - MDN Docs
+  ]]></comment>
+  <comment id="value"><![CDATA[
+	The $value() method returns the original Date object, which was enclosed by the $Date() object.
+	
+	@method $value
+	@return {Object} The original Date object
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date Date - MDN Docs
+  ]]></comment>
+  <comment id="format"><![CDATA[
+	The format() method converts the time stored in the jindo.$Date() object according to the format specifier that specifies the time stored in the object as a parameter.
+	
+	@method format
+	@param {String+} sFormat  Format Specifier
+	@return {String} A character string that has been converted according to the format specifier
+	@remark The supported format string is the same as the date() function of PHP.<br>
+		<h5>Date</h5>
+		<table class="tbl_board">
+			<caption class="hide">Date</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Characters</th>
+					<th scope="col" style="width:40%">Description</th>
+					<th scope="col">Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">d</td>
+					<td class="txt">Two-digit date</td>
+					<td class="txt">01 ~ 31</td>
+				</tr>
+				<tr>
+					<td class="txt bold">j</td>
+					<td class="txt">0-excluded date</td>
+					<td class="txt">1 ~ 31</td>
+				</tr>
+				<tr>
+					<td class="txt bold">l (lowercase L)</td>
+					<td class="txt">Full date</td>
+					<td class="txt">Date specified in $Date.names.day</td>
+				</tr>
+				<tr>
+					<td class="txt bold">D</td>
+					<td class="txt">Summarized date</td>
+					<td class="txt">Date specified in $Date.names.s_day</td>
+				</tr>
+				<tr>
+					<td class="txt bold">w</td>
+					<td class="txt">The nth day of the week</td>
+					<td class="txt">0 (Sunday) ~ 6 (Saturday)</td>
+				</tr>
+				<tr>
+					<td class="txt bold">N</td>
+					<td class="txt">The nth day of the ISO-8601 week</td>
+					<td class="txt">1 (Monday) ~ 7 (Sunday)</td>
+				</tr>
+				<tr>
+					<td class="txt bold">S</td>
+					<td class="txt">Ordinal types of two characters</td>
+					<td class="txt">st, nd, rd, th</td>
+				</tr>
+				<tr>
+					<td class="txt bold">z</td>
+					<td class="txt">The nth day of the year (from 0)</td>
+					<td class="txt">0 ~ 365</td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>Month</h5>
+		<table class="tbl_board">
+			<caption class="hide">Month</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Characters</th>
+					<th scope="col" style="width:40%">Description</th>
+					<th scope="col">Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">m</td>
+					<td class="txt">Two-digit month format</td>
+					<td class="txt">01 ~ 12</td>
+				</tr>
+				<tr>
+					<td class="txt bold">n</td>
+					<td class="txt">Month in which the leading zero is removed</td>
+					<td class="txt">1 ~ 12</td>
+				</tr>
+				<tr>
+					<td class="txt bold">F</td>
+					<td class="txt">The full name of the month.</td>
+					<td class="txt">January ~ December</td>
+				</tr>
+				<tr>
+					<td class="txt bold">M</td>
+					<td class="txt">The abbreviated name of the month.</td>
+					<td class="txt">Jan ~ Dec</td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>Year</h5>
+		<table class="tbl_board">
+			<caption class="hide">Year</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Characters</th>
+					<th scope="col" style="width:40%">Description</th>
+					<th scope="col">Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">L</td>
+					<td class="txt">Leap year</td>
+					<td class="txt">true, false</td>
+				</tr>
+				<tr>
+					<td class="txt bold">o</td>
+					<td class="txt">Four-digit year format</td>
+					<td class="txt">2010</td>
+				</tr>
+				<tr>
+					<td class="txt bold">Y</td>
+					<td class="txt">Same as o</td>
+					<td class="txt">2010</td>
+				</tr>
+				<tr>
+					<td class="txt bold">y</td>
+					<td class="txt">Two-digit year format</td>
+					<td class="txt">10</td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>Minute</h5>
+		<table class="tbl_board">
+			<caption class="hide">Minute</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Characters</th>
+					<th scope="col" style="width:40%">Description</th>
+					<th scope="col">Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">a</td>
+					<td class="txt">Lowercase am/pm</td>
+					<td class="txt">am,pm</td>
+				</tr>
+				<tr>
+					<td class="txt bold">A</td>
+					<td class="txt">Uppercase AM/PM</td>
+					<td class="txt">AM,PM</td>
+				</tr>
+				<tr>
+					<td class="txt bold">g</td>
+					<td class="txt">(12-hour clock) 0-excluded two-digit hour format</td>
+					<td class="txt">1~12</td>
+				</tr>
+				<tr>
+					<td class="txt bold">G</td>
+					<td class="txt">(24-hour clock) 0-excluded two-digit hour format</td>
+					<td class="txt">0~24</td>
+				</tr>
+				<tr>
+					<td class="txt bold">h</td>
+					<td class="txt">(12-hour clock) 0-included two-digit hour format</td>
+					<td class="txt">01~12</td>
+				</tr>
+				<tr>
+					<td class="txt bold">H</td>
+					<td class="txt">(24-hour clock) 0-included two-digit hour format</td>
+					<td class="txt">00~24</td>
+				</tr>
+				<tr>
+					<td class="txt bold">i</td>
+					<td class="txt">0-included two-digit minute format</td>
+					<td class="txt">00~59</td>
+				</tr>
+				<tr>
+					<td class="txt bold">s</td>
+					<td class="txt">0-included two-digit second format</td>
+					<td class="txt">00~59</td>
+				</tr>
+				<tr>
+					<td class="txt bold">u</td>
+					<td class="txt">microseconds</td>
+					<td class="txt">654321</td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>Note</h5>
+		<table class="tbl_board">
+			<caption class="hide">Note</caption>
+			<thead>
+				<tr>
+					<th scope="col" style="width:20%">Characters</th>
+					<th scope="col" style="width:40%">Description</th>
+					<th scope="col">Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="txt bold">U</td>
+					<td class="txt">Unix Time(1970 00:00:00 GMT) </td>
+					<td class="txt"></td>
+				</tr>
+			</tbody>
+		</table>
+	@see http://kr2.php.net/manual/en/function.date.php date() - php.net
+	@example
+		var oDate = $Date("Jun 17 2009 12:02:54");
+		oDate.format("Y.m.d(D) A H:i"); => "2009.06.17(Wed) PM 12:02"
+  ]]></comment>
+  <comment id="time"><![CDATA[
+	time() 메서드는 jindo.$Date() 객체가 가지고 있는 GMT(1970/01/01 00:00:00)를 기준으로 현재 시간까지 경과한 시간 값을 가져온다.
+	
+	@method time
+	@return {Number} Returns the timeStamp value of the jindo.$Date() object in milliseconds.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getTime Date.getTime() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setTime Date.setTime() - MDN
+	@see http://ko.wikipedia.org/wiki/GMT GMT
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.time(); // sample : 1304908070435
+  ]]></comment>
+  <comment id="time2"><![CDATA[
+	time() 메서드는 GMT(1970/01/01 00:00:00)를 기준으로 경과한 시간을 jindo.$Date() 객체에 설정한다.
+	
+	@method time
+	@param {Numeric} nTimeStamp Integers in milliseconds
+	@return {this} GMT를 기준으로 파라미터에 지정한 시간만큼 경과한 시간을 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getTime Date.getTime() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setTime Date.setTime() - MDN
+	@see http://ko.wikipedia.org/wiki/GMT GMT
+  ]]></comment>
+  <comment id="year"><![CDATA[
+	year() 메서드는 jindo.$Date() 객체가 저장하고 있는 시각의 연도(year)를 가져온다.
+	
+	@method year
+	@return {Number} Returns the year of the jindo.$Date() object. The year format is a four-digit integer.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getFullYear Date.getFullYear() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setFullYear Date.setFullYear() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.year(); // sample : 2011
+  ]]></comment>
+  <comment id="year2"><![CDATA[
+	year() 메서드는 jindo.$Date() 객체의 연도(year)를 지정한 값으로 설정한다.
+	
+	@method year
+	@param {Numeric} nYear The year to be set in the jindo.$Date() object. The year format is a four-digit integer.
+	@return {this} 연도를 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getFullYear Date.getFullYear() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setFullYear Date.setFullYear() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.year(1984);
+		oDate.year(); // 1984
+  ]]></comment>
+  <comment id="month"><![CDATA[
+	month() 메서드는 jindo.$Date() 객체가 저장하고 있는 시각의 달(month)을 가져온다.
+	
+	@method month
+	@return {Number} Returns the month of the jindo.$Date() object. The range of month value is an integer from 0 (Jan.) to 11 (Dec.).
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getMonth Date.getMonth() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setMonth Date.setMonth() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.month(); // sample : 4 (May)
+  ]]></comment>
+  <comment id="month2"><![CDATA[
+	month() 메서드는 jindo.$Date() 객체의 달(month)을 지정한 값으로 설정한다.
+	
+	@method month
+	@param {Numeric} nMon The month to be set in the jindo.$Date() object. The range of month value is an integer from 0 (Jan.) to 11 (Dec.).
+	@return {this} 달을 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getMonth Date.getMonth() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setMonth Date.setMonth() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.month(1);
+		oDate.month(); // 3 (April)
+  ]]></comment>
+  <comment id="date"><![CDATA[
+	date() 메서드는 jindo.$Date() 객체가 저장하고 있는 시각의 날짜(day of the month)를 가져온다.
+	
+	@method date
+	@return {Number} Returns the day of the jindo.$Date() object. The range of day of the month value is an integer from 1 to 31.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getDate Date.getDate() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setDate Date.setDate() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.date(); // sample : 9 (9th day)
+  ]]></comment>
+  <comment id="date2"><![CDATA[
+	date() 메서드는 jindo.$Date() 객체의 날짜(day of the month)를 지정한 값으로 설정한다.
+	
+	@method date
+	@param {Numeric} nDate The day of the month to be set in the jindo.$Date() object. The range of day of the month value is an integer from 1 to 31.
+	@return {this} 날짜를 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getDate Date.getDate() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setDate Date.setDate() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.date(15);
+		oDate.date(); // 15 (15th day)
+  ]]></comment>
+  <comment id="day"><![CDATA[
+	The day() method retrieves the day of the week specified in the jindo.$Date() object.
+	
+	@method day
+	@return {Number} Returns the day of the week (0~6) of the jindo.$Date() object. The range of the day of the week is an integer from 0 (Sunday) to 6 (Saturday).
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see jindo.$Date#Date
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getDay Date.getDay() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.date(); // sample : 9 (9th day)
+		oDate.day(); // sample : 1 (Monday)
+		oDate.date(10);
+		oDate.day(); // 2 (Tuesday)
+  ]]></comment>
+  <comment id="hours"><![CDATA[
+	The hours() method retrieves the hour stored in the jindo.$Date() object or sets it to the specified value. When a parameter is entered, it sets the hour specified in the jindo.$Date() object. If it is omitted, returns the hour stored in the jindo.$Date() object.
+	
+	@method hours
+	@return {Number} Returns the time of the jindo.$Date() object. The range of hour value is an integer from 0 to 23.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getHours Date.getHours() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setHours Date.setHours() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.hours(); // sample : 11 (11 o'clock)
+  ]]></comment>
+  <comment id="hours2"><![CDATA[
+	hours() 메서드는 jindo.$Date() 객체의 시간(hour)을 지정한 값으로 설정한다.
+	
+	@method hours
+	@param {Numeric} nHour  The hour to be set in the jindo.$Date() object. The range of hour value is an integer from 0 to 23.
+	@return {this} 시간을 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getHours Date.getHours() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setHours Date.setHours() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.hours(19);
+		oDate.hours(); // 19 (19 o'clock)
+  ]]></comment>
+  <comment id="minutes"><![CDATA[
+	minutes() 메서드는 jindo.$Date() 객체가 저장하고 있는 시각의 분(minute)을 가져온다.
+	
+	@method minutes
+	@return {Number} Returns the minute of the jindo.$Date() object. The range of minute value is an integer from 0 to 59.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getMinutes Date.getMinutes() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setMinutes Date.setMinutes() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.minutes(); // sample : 53 (53 minutes)
+  ]]></comment>
+  <comment id="minutes2"><![CDATA[
+	minutes() 메서드는 jindo.$Date() 객체의 분(minute)을 지정한 값으로 설정한다. 
+	
+	@method minutes
+	@param {Numeric} nMin The minute to be set in the jindo.$Date() object. The range of minute value is an integer from 0 to 59.
+	@return {this} 분을 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getMinutes Date.getMinutes() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setMinutes Date.setMinutes() - MDN
+	@example
+		var oDate = new $Date(Date.now());
+		oDate.minutes(0);
+		oDate.minutes(); // 0 (0 minutes)
+  ]]></comment>
+  <comment id="seconds"><![CDATA[
+	seconds() 메서드는 jindo.$Date() 객체가 저장하고 있는 시각의 초(second)를 가져온다.
+	
+	@method seconds
+	@return {Number} Returns the second of the jindo.$Date() object. The range of second value is an integer from 0 to 59.
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getSeconds Date.getSeconds() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setSeconds Date.setSeconds() - MDN
+	@example 
+		var oDate = new $Date(Date.now());
+		oDate.seconds(); // sample : 23 (23 seconds)
+  ]]></comment>
+  <comment id="seconds2"><![CDATA[
+	seconds() 메서드는 jindo.$Date() 객체의 초(second)를 지정한 값으로 설정한다.
+	
+	@method seconds
+	@param {Numeric} nSec The second to be set in the jindo.$Date() object. The range of second value is an integer from 0 to 59.
+	@return {this} 초를 새로 설정한 인스턴스 자신
+	@throws {jindo.$Except.INVALID_DATE} The exception occurs when it is not a parameter or number. 
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getSeconds Date.getSeconds() - MDN
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/setSeconds Date.setSeconds() - MDN
+	@example 
+		var oDate = new $Date(Date.now());
+		oDate.seconds(0);
+		oDate.seconds(); // 0 (0 seconds)
+  ]]></comment>
+  <comment id="isLeapYear"><![CDATA[
+	The isLeapYear() method checks whether the year of the time stored in the jindo.$Date() object is a leap year.
+	
+	@method isLeapYear
+	@return {Boolean} If the year stored in the $Date() is a leap year, returns true, otherwise, returns false.
+	@see http://en.wikipedia.org/wiki/Leap_year - Wikipedia
+	@example
+		var oDate = new $Date(Date.now());
+		
+		oDate.year(); // 2011
+		oDate.isLeapYear(); // false
+		
+		oDate.year(1984);
+		oDate.isLeapYear(); // true
+		
+		oDate.year(1900);
+		oDate.isLeapYear(); // false
+		
+		oDate.year(2000);
+		oDate.isLeapYear(); // true
+  ]]></comment>
+  <comment id="compare"><![CDATA[
+	The compare() method calculates the difference the given parameter value from current time value and returns the number value.
+	
+	@method compare
+	@param {Date+} oDate The date to be compared
+	@param {String+} [sOption=천 분의 1초까지 비교] Specifies the unit to be used when comparing the time.
+		@param {String+} sOption."y" year
+		@param {String+} sOption."m" month
+		@param {String+} sOption."d" day
+		@param {String+} sOption."h" hour
+		@param {String+} sOption."i" minute
+		@param {String+} sOption."s" second
+	@return {Number} Returns the difference as a number in comparison unit.
+	@since 2.0.0
+	@example
+		var oDate = new $Date(new Date());
+		oDate.compare(oDate);-> 0//same
+		var oCurrentDate = new Date();
+		oDate.compare(oCurrnetDate); -> 3 // 3ms later
+		$Date(oCurrnetDate).compare(oDate); -> -3 // 3ms before
+		oDate.compare(oCurrnetDate,"h"); -> 0 //0 because time is the same
+  ]]></comment>
+</comments>

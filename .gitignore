@@ -1,0 +1,6 @@
+.*
+!.gitignore
+!.jshintrc
+dist
+node_modules
+*.iml

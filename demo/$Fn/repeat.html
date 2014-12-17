@@ -1,0 +1,24 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	3초 간격으로 repeat함수가 실행됩니다.
+	<script type="text/javascript" data-jsbin="javascript">
+		
+		function func(a, b) {
+			LOG(a+b);
+		}
+		
+		$Fn(func).repeat(3, [3, 5]);
+		//3초 간격으로 3, 5 값을 매개변수로 하는 함수 func를 호출한다.
+		
+	</script>
+</body>
+</html>

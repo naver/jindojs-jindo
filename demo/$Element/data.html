@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<li id="folder" data-count="123" data-info="{\"some1\":1,\"some2\":2}">Read</li> 
+	<script type="text/javascript" data-jsbin="javascript">
+
+		var res = $Element("folder").data("count"); 
+		LOG("data-count is " + res);
+
+	</script>
+</body>
+</html>

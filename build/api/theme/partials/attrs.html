@@ -1,0 +1,151 @@
+<div id="attr_<%=this.name%>" class="attr item<% if (HAS(this.access)) { %> <%=this.access%><% } %><% if (HAS(this.deprecated)) { %> deprecated-item<% } %><% if (HAS(this.extended_from)) { %> inherited-item<% } %>">
+
+    <h3 class="name">
+        <%=this.name%>
+        <span class="type">&lt;<%=crossLink(this.type)%>&gt;</span>
+        
+        <% if (HAS(this.deprecated)) { %>
+            <span class="flag deprecated" title="<%==this.deprecationMessage||'deprecated'%>"><span class="blind">deprecated</span></span>
+        <% } %>
+    
+        <% if (HAS(this.access)) { %>
+            <span class="flag <%=this.access%>"><span class="blind"><%=this.access%></span></span>
+        <% } %>
+    
+        <% if (HAS(this.final)) { %>
+            <span class="flag final"><span class="blind">final</span></span>
+        <% } %>
+    
+        <% if (HAS(this.static)) { %>
+            <span class="flag static"><span class="blind">static</span></span>
+        <% } %>
+    
+        <% if (HAS(this.optional)) { %>
+            <span class="flag optional"><span class="blind">optional</span></span>
+        <% } %>
+    
+        <% if (HAS(this.required)) { %>
+            <span class="flag required"><span class="blind">required</span></span>
+        <% } %>
+    
+        <span class="foundAt"><a href="<%=this.foundAt%>" title="<%==this.file%>:<%=this.line%>">소스코드</a></span>
+    </h3>
+
+    <div class="description">
+        <%=this.attrDescription%>
+    </div>
+
+	<% if (HAS(this.remark)) { %>
+	<div class="remark">
+		<h4>중요</h4>
+    	<%=this.remark%>
+	</div>
+	<% } %>
+	
+	<% if (HAS(this.overwritten_from) || HAS(this.extended_from) || HAS(this.since)) { %>
+    <dl class="relation">
+        
+        <% if (HAS(this.overwritten_from)) { %>
+            <dt>상속</dt>
+            <dd>
+                <a href="<%=crossLinkRaw(this.overwritten_from.class)%>#method_<%=this.overwritten_from.name%>">
+                    <%=this.overwritten_from.class%>
+                </a>
+            </dd>
+        <% } else if (HAS(this.extended_from)) { %>
+            <dt>상속</dt>
+            <dd>
+                <a href="<%=crossLinkRaw(this.extended_from)%>#method_<%=this.name%>">
+                    <%=this.extended_from%>
+                </a>
+            </dd>
+        <% } %>
+        
+        <% if (HAS(this.since)) { %>
+            <dt>호환성</dt>
+            <dd><%=this.since%>~</dd>
+        <% } %>
+    </dl>
+    <% } %>
+
+    <% if (HAS(this.default)) { %>
+        <h4>기본값</h4>
+        <p class="default"><%==this.default%></p>
+    <% } %>
+
+    <% if (HAS(this.see)) { %>
+        <div class="see">
+            <h4>참고</h4>
+		    <% EACH(this.see, function() { %>
+	            <div class="example-content">
+	                <a href="<%=this.href%>" target="<%=this.target%>"><%=this.description%></a>
+	            </div>
+		    <% }); %>
+        </div>
+    <% } %>
+    
+    <!--
+    <% if (HAS(this.emit)) { %>
+        <div class="emits box">
+            <h4>Fires event <code><%=this.name%>Change</code></h4>
+
+            <p>
+            Fires when the value for the configuration attribute `<%=this.name%>` is
+            changed. You can listen for the event using the `on` method if you
+            wish to be notified before the attribute's value has changed, or
+            using the `after` method if you wish to be notified after the
+            attribute's value has changed.
+            </p>
+
+            <div class="params">
+                <h4>Parameters:</h4>
+
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><%=crossLink("EventFacade")%></span>
+
+                        <div class="param-description">
+                            An Event Facade object with the following
+                            attribute-specific properties added:
+                        </div>
+
+                        <ul class="params-list">
+                            <li class="param">
+                                <code class="param-name">prevVal</code>
+                                <span class="type">Any</span>
+                                <div class="param-description">The value of the attribute, prior to it being set.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">newVal</code>
+                                <span class="type">Any</span>
+                                <div class="param-description">The value the attribute is to be set to.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">attrName</code>
+                                <span class="type"><%=crossLink("String")%></span>
+                                <div class="param-description">The name of the attribute being set.</div>
+                            </li>
+                            <li class="param">
+                                <code class="param-name">subAttrName</code>
+                                <span class="type"><%=crossLink("String")%></span>
+                                <div class="param-description">If setting a property within the attribute's value, the name of the sub-attribute property being set.</div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <% } %>
+    -->
+
+    <% EACH(this.example, function() { %>
+        <div class="example">
+            <h4>예제</h4>
+
+            <div class="example-content">
+                <%=this%>
+            </div>
+        </div>
+    <% }); %>
+</div>

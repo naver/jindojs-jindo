@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Jindo2 Tests</title>
+<script type="text/javascript" src="../../core.js"></script>
+<script type="text/javascript" src="../../cssquery.js"></script>
+<script type="text/javascript" src="../../agent.js"></script>
+<script type="text/javascript" src="../../array.js"></script>
+<script type="text/javascript" src="../../array.extend.js"></script>
+<script type="text/javascript" src="../../ajax.js"></script>
+<script type="text/javascript" src="../../ajax.extend.js"></script>
+<script type="text/javascript" src="../../hash.js"></script>
+<script type="text/javascript" src="../../json.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<script type="text/javascript" src="../../element.js"></script>
+<script type="text/javascript" src="../../function.js"></script>
+<script type="text/javascript" src="../../element.extend.js"></script>
+<script type="text/javascript" src="../../event.js"></script>
+<script type="text/javascript" src="../../elementlist.js"></script>
+<script type="text/javascript" src="../../string.js"></script>
+<script type="text/javascript" src="../../document.js"></script>
+<script type="text/javascript" src="../../form.js"></script>
+<script type="text/javascript" src="../../template.js"></script>
+<script type="text/javascript" src="../../date.js"></script>
+<script type="text/javascript" src="../../window.js"></script>
+<script type="text/javascript" src="../../noconflict.js"></script>
+
+
+
+</head>
+<body>
+<div id="transition_test" style="background-color:red;border:1px;width:100px;height:100px;opacity:1;"></div>
+<script type="text/javascript" charset="utf-8">
+$Ajax.SWFRequest.write("../../ajax_1.5.0.swf");
+</script>
+  <div><p id="foo"><span></span></p></div>
+<script type="text/javascript" charset="utf-8">
+
+var xhrErrorAjax = $Ajax("../error.php",{
+		type:"xhr",
+		onload:function(){
+			console.log("load");
+		},
+		onerror:function(req){
+			console.log(req.text());
+		}
+	});
+	xhrErrorAjax.request();
+	
+	
+</script>
+<input type="button" name="some_name" value="flash" id="some_name" onclick="flash_ajax();">
+<input type="button" name="some_name" value="xhr" id="some_name" onclick="xhr_ajax();">
+<input type="button" name="some_name" value="jsonp" id="some_name" onclick="jsonp_ajax();">
+<input type="button" name="some_name" value="xhr2" id="some_name" onclick="xhr2_ajax();">
+<ul id="log"></ul>
+</body>
+</html>

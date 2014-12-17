@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<ul id="test">
+		<li><a href="#nhn">nhn</a></li>
+		<li><a href="#naver">naver</a></li>
+		<li><a href="#hangame">hangame</a></li>
+	</ul> 
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		$Element("test").preventTapHighlight(true);//이렇게 하면 모바일에서 test에 하이라이트가 되는 것을 막는다.
+		$Element("test").delegate("click","a",function(e){});
+
+	</script>
+</body>
+</html>

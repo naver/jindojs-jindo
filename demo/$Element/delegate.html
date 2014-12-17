@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<ul id="parent">
+		<li class="odd">1 (odd class)</li>
+ 		<li>2</li>
+ 		<li class="odd">3 (odd class)</li>
+ 		<li>4</li>
+	</ul>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		// CSS 셀렉터를 필터로 사용하는 경우
+		$Element("parent").delegate(
+			"click",
+			".odd", // filter
+			function(eEvent) { // 콜백 함수
+				alert("odd 클래스를 가진 li가 클릭 될 때 실행");
+			}
+		);
+
+	</script>
+</body>
+</html>

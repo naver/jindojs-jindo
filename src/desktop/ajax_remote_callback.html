@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function $A(array){if(typeof array=='undefined')array=new Array;if(array instanceof $A)return array;if(window===this)return new $A(array);if(array instanceof Array){this._array=array}else{this._array=new Array;for(var i=0;i<array.length;i++){this._array[this._array.length]=array[i]}}};$A.prototype.$value=function(){return this._array};function $Fn(func,thisObject){if(this===window)return new $Fn(func,thisObject);if(typeof func=="function"){this._func=func;this._this=thisObject}else if(typeof func=="string"&&typeof thisObject=="string"){this._func=new Function(func,thisObject)}};$Fn.prototype.$value=function(){return this._func};$Fn.prototype.bind=function(){var a=$A(arguments).$value();var f=this._func;var t=this._this;var b=function(){var args=a.concat($A(arguments).$value());return f.apply(t,args)};return b};
+function $Ajax(url,option){if(this===window)return new $Ajax(url,option);function _getXHR(){if(window.XMLHttpRequest){return new XMLHttpRequest()}else if(ActiveXObject){try{return new ActiveXObject('MSXML2.XMLHTTP')}catch(e){return new ActiveXObject('Microsoft.XMLHTTP')};return null}};this._url=url;this._request=_getXHR();this._options=new Object;this._headers=new Object;this.option({type:"post",timeout:0,onload:function(){}});this.option(option)};$Ajax.prototype._onload=function(){if(this._request.readyState==4){this._options.onload($Ajax.Response(this._request))}};$Ajax.prototype.request=function(oData){var req=this._request;var opt=this._options;var data,v,a=[],data="";if(typeof oData=="undefined"||oData==null){data=null}else{for(var k in oData){v=oData[k];if(typeof v=="function")v=v();a[a.length]=k+"="+encodeURIComponent(v)};data=a.join("&")};req.open(opt.type.toUpperCase(),this._url,true);req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");req.setRequestHeader("charset", "utf-8");for(var x in this._headers){if(typeof this._headers[x]=="function")continue;req.setRequestHeader(x,String(this._headers[x]))};if(typeof req.onload!="undefined"){req.onload=$Fn(this._onload,this).bind()}else{req.onreadystatechange=$Fn(this._onload,this).bind()};req.send(data)};$Ajax.prototype.abort=function(){this._request.abort()};$Ajax.prototype.option=function(name,value){if(typeof name=="undefined")return "";if(typeof name=="string"){if(typeof value=="undefined")return this._options[name];this._options[name]=value;return this};try{for(var x in name)this._options[x]=name[x]}catch(e){};return this};$Ajax.prototype.header=function(name,value){if(typeof name=="undefined")return "";if(typeof name=="string"){if(typeof value=="undefined")return this._headers[name];this._headers[name]=value;return this};try{for(var x in name)this._headers[x]=name[x]}catch(e){};return this};$Ajax.Response=function(req){if(this===$Ajax)return new $Ajax.Response(req);this._response=req};$Ajax.Response.prototype.xml=function(){return this._response.responseXML};$Ajax.Response.prototype.text=function(){return this._response.responseText};$Ajax.Response.prototype.header=function(name){if(typeof name=="string")return this._response.getResponseHeader(name);return this._response.getAllResponseHeaders()};
+
+var se = location.search.substr(1);
+var qa = {}; // query array
+        
+se.replace(/([^=]+)=([^&]*)(&|$)/g, function(){
+    qa[arguments[1]] = arguments[2];
+
+    return arguments[0];
+});
+
+var callback = function(res) {
+	var data   = encodeURIComponent(res.text());
+	var header = encodeURIComponent(res.header());
+
+	if (typeof qa.domain == "undefined") qa.domain = "";
+	qa.proxy = decodeURIComponent(qa.proxy);
+
+	location.replace(qa.proxy+'?id='+qa.id+'&domain='+qa.domain+'&header='+header+'#'+data);
+}
+
+// parse header
+var oHeader = {};
+if (qa.header) {
+	try {
+		oHeader = eval("("+decodeURIComponent(qa.header)+")");
+	} catch(e){}
+}
+
+// parse data
+var sData = decodeURIComponent(location.hash.substr(1)).split('&');
+var oData = new Object;
+var pos;
+
+for(var i=0; i < sData.length; i++) {
+	pos = sData[i].indexOf('=');
+	oData[sData[i].substring(0,pos)] = decodeURIComponent(sData[i].substr(pos+1));
+}
+
+try {
+	var ajax = $Ajax(decodeURIComponent(qa.url), {type:qa.method, onload:callback});
+	ajax.header(oHeader);
+	ajax.request(oData);
+} catch(e){ alert(e) }
+</script>
+</head>
+<body>
+<script>document.write(location.href)</script>
+</body>
+</html>

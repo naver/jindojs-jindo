@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" onclick="startAjax(); return false;" value="응답을 문자열로 리턴" />
+	<div id="list"></div>
+	<script type="text/javascript" data-jsbin="javascript">
+
+		function startAjax() {
+			var sUrl = "/jindo_home/sample/texttest.php";
+			var oAjax = new $Ajax(sUrl, {
+				type: 'xhr',
+				method: 'get',
+				onload: function (res) {
+					$('list').innerHTML = res.text();
+				},
+				timeout: 3,
+				ontimeout: function () {
+					alert("Timeout!");
+				},
+				async: true
+			});
+			oAjax.request();
+		}
+	
+	</script>
+</body>
+</html>

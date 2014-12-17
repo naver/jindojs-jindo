@@ -1,0 +1,1400 @@
+<comments name="element.extend">
+  <comment id="title"><![CDATA[
+	@fileOverview $Element의 확장 메서드를 정의한 파일
+	@name element.extend.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="sign_getTransition"><![CDATA[
+	appear ,disappear에서 사용되는 함수로 현재 transition을 사용 할수 있는지를 학인한다.
+	
+	@method _getTransition
+	@ignore
+  ]]></comment>
+  <comment id="sign_getTransition_1"><![CDATA[
+아직 firefox는 transitionEnd API를 지원 하지 않음.
+  ]]></comment>
+  <comment id="appear"><![CDATA[
+	appear() 메서드는 HTML 요소를 서서히 나타나게 한다(Fade-in 효과)
+	
+	@method appear
+	@param {Numeric} [nDuration] HTML 요소가 완전히 나타날 때까지 걸리는 시간. 단위는 초(second)이다.
+	@param {Function} [fCallback] HTML 요소가 완전히 나타난 후에 실행할 콜백 함수.
+	@return {this} Fade-in 효과를 적용한 인스턴스 자신
+	@remark
+		<ul class="disc">
+			<li>인터넷 익스플로러 6 버전에서 filter를 사용하면서 해당 요소가 position 속성을 가지고 있으며 사라지는 문제가 있다. 이 경우에는 HTML 요소에 position 속성이 없어야 정상적으로 사용할 수 있다.</li>
+			<li>Webkit 기반의 브라우저(Safari 5 버전 이상, Mobile Safari, Chrome, Mobile Webkit), Opear 10.60 버전 이상의 브라우저에서는 CSS3 transition 속성을 사용한다. 그 이외의 브라우저에서는 자바스크립트를 사용한다.</li>
+		</ul>
+	@see http://www.w3.org/TR/css3-transitions/ CSS Transitions - W3C
+	@see jindo.$Element#show
+	@see jindo.$Element#disappear
+	@example
+		$Element("sample1").appear(5, function(){
+			$Element("sample2").appear(3);
+		});
+		
+		//Before
+		<div style="display: none; background-color: rgb(51, 51, 153); width: 100px; height: 50px;" id="sample1">
+			<div style="display: none; background-color: rgb(165, 10, 81); width: 50px; height: 20px;" id="sample2">
+			</div>
+		</div>
+		
+		//After(1) : sample1 요소가 나타남
+		<div style="display: block; background-color: rgb(51, 51, 153); width: 100px; height: 50px; opacity: 1;" id="sample1">
+			<div style="display: none; background-color: rgb(165, 10, 81); width: 50px; height: 20px;" id="sample2">
+			</div>
+		</div>
+		
+		//After(2) : sample2 요소가 나타남
+		<div style="display: block; background-color: rgb(51, 51, 153); width: 100px; height: 50px; opacity: 1;" id="sample1">
+			<div style="display: block; background-color: rgb(165, 10, 81); width: 50px; height: 20px; opacity: 1;" id="sample2">
+			</div>
+		</div>
+  ]]></comment>
+  <comment id="disappear"><![CDATA[
+	disappear() 메서드는 HTML 요소를 서서히 사라지게 한다(Fade-out 효과).
+	
+	@method disappear
+	@param {Numeric} [nDuration] HTML 요소 완전히 사라질 때까지 걸리는 시간. (단위 초)
+	@param {Function} [fCallback] HTML 요소가 완전히 사라진 후에 실행할 콜백 함수.
+	@return {this} Fade-out 효과를 적용한 인스턴스 자신
+	@remark
+		<ul class="disc">
+			<li>HTML 요소가 완전히 사라지면 해당 요소의 display 속성은 none으로 변한다.</li>
+			<li>Webkit 기반의 브라우저(Safari 5 버전 이상, Mobile Safari, Chrome, Mobile Webkit), Opear 10.6 버전 이상의 브라우저에서는 CSS3 transition 속성을 사용한다. 그 이외의 브라우저에서는 자바스크립트를 사용한다.</li>
+		</ul>
+	@see http://www.w3.org/TR/css3-transitions/ CSS Transitions - W3C
+	@see jindo.$Element#hide
+	@see jindo.$Element#appear
+	@example
+		$Element("sample1").disappear(5, function(){
+			$Element("sample2").disappear(3);
+		});
+		
+		//Before
+		<div id="sample1" style="background-color: rgb(51, 51, 153); width: 100px; height: 50px;">
+		</div>
+		<div id="sample2" style="background-color: rgb(165, 10, 81); width: 100px; height: 50px;">
+		</div>
+		
+		//After(1) : sample1 요소가 사라짐
+		<div id="sample1" style="background-color: rgb(51, 51, 153); width: 100px; height: 50px; opacity: 1; display: none;">
+		</div>
+		<div id="sample2" style="background-color: rgb(165, 10, 81); width: 100px; height: 50px;">
+		</div>
+		
+		//After(2) : sample2 요소가 사라짐
+		<div id="sample1" style="background-color: rgb(51, 51, 153); width: 100px; height: 50px; opacity: 1; display: none;">
+		</div>
+		<div id="sample2" style="background-color: rgb(165, 10, 81); width: 100px; height: 50px; opacity: 1; display: none;">
+		</div>
+  ]]></comment>
+  <comment id="disappear_1"><![CDATA[
+opera 버그로 인하여 아래와 같이 처리함.
+  ]]></comment>
+  <comment id="offset"><![CDATA[
+	offset() 메서드는 HTML 요소의 위치를 가져온다.
+	
+	@method offset
+	@return {Object} HTML 요소의 위치 값을 객체로 반환한다.
+		@return {Number} .top 문서의 맨 위에서 HTML 요소의 윗 부분까지의 거리
+		@return {Number} .left 문서의 왼쪽 가장자리에서 HTML 요소의 왼쪽 가장자리까지의 거리
+	@remark
+		<ul class="disc">
+			<li>위치를 결정하는 기준점은 브라우저가 페이지를 표시하는 화면의 왼쪽 위 모서리이다.</li>
+			<li>HTML 요소가 보이는 상태(display)에서 적용해야 한다. 요소가 화면에 보이지 않으면 정상적으로 동작하지 않을 수 있다.</li>
+			<li>일부 브라우저와 일부 상황에서 inline 요소에 대한 위치를 올바르게 구하지 못하는 문제가 있으며, 이 경우 해당 요소의 position 속성을 relative 값으로 바꿔서 해결할 수 있다.</li>
+		</ul>
+	@example
+		<style type="text/css">
+			div { background-color:#2B81AF; width:20px; height:20px; float:left; left:100px; top:50px; position:absolute;}
+		</style>
+		
+		<div id="sample"></div>
+		
+		// 위치 값 조회
+		$Element("sample").offset(); // { left=100, top=50 }
+  ]]></comment>
+  <comment id="offset2"><![CDATA[
+	offset() 메서드는 HTML 요소의 위치를 설정한다.
+	
+	@method offset
+	@param {Numeric} nTop 문서의 맨 위에서 HTML 요소의 윗 부분까지의 거리. 단위는 픽셀(px)이다.
+	@param {Numeric} nLeft 문서의 왼쪽 가장자리에서 HTML 요소의 왼쪽 가장자리까지의 거리. 단위는 픽셀(px)이다.
+	@return {this} 위치 값을 반영한 인스턴스 자신
+	@remark
+		<ul class="disc">
+			<li>위치를 결정하는 기준점은 브라우저가 페이지를 표시하는 화면의 왼쪽 위 모서리이다.</li>
+			<li>HTML 요소가 보이는 상태(display)에서 적용해야 한다. 요소가 화면에 보이지 않으면 정상적으로 동작하지 않을 수 있다.</li>
+			<li>일부 브라우저와 일부 상황에서 inline 요소에 대한 위치를 올바르게 구하지 못하는 문제가 있으며, 이 경우 해당 요소의 position 속성을 relative 값으로 바꿔서 해결할 수 있다.</li>
+		</ul>
+	@example
+		<style type="text/css">
+			div { background-color:#2B81AF; width:20px; height:20px; float:left; left:100px; top:50px; position:absolute;}
+		</style>
+		
+		<div id="sample"></div>
+		
+		// 위치 값 설정
+		$Element("sample").offset(40, 30);
+		
+		//Before
+		<div id="sample"></div>
+		
+		//After
+		<div id="sample" style="top: 40px; left: 30px;"></div>
+  ]]></comment>
+  <comment id="evalScripts"><![CDATA[
+	evalScripts() 메서드는 문자열에 포함된 JavaScript 코드를 실행한다.<br>
+	&lt;script&gt; 태그가 포함된 문자열을 파라미터로 지정하면, &lt;script&gt; 안에 있는 내용을 파싱하여 eval() 메서드를 수행한다.
+	
+	@method evalScripts
+	@param {String+} sHTML &lt;script&gt; 요소가 포함된 HTML 문자열.
+	@return {this} 인스턴스 자신
+	@example
+		// script 태그가 포함된 문자열을 지정
+		var response = "<script type='text/javascript'>$Element('sample').appendHTML('<li>4</li>')</script>";
+		
+		$Element("sample").evalScripts(response);
+		
+		//Before
+		<ul id="sample">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		
+		//After
+		<ul id="sample">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		<li>4</li></ul>
+  ]]></comment>
+  <comment id="clone"><![CDATA[
+  	cloneNode와 같이 element을 복제하는 메서드이다.  
+  	@method clone
+  	@since 2.8.0
+	@param {Boolean} [bDeep=true] 자식노드까지 복수할지 여부(
+	@return {jindo.$Element} 복제된 $Element
+	@example
+
+		<div id="sample">
+		    <div>Hello</div>
+		</div>
+		
+		//자식노드까지 복제
+		$Element("sample").clone(); 
+		-> 
+		$Element(
+			<div id="sample">
+	    		<div>Hello</div>
+			</div>
+		);
+		
+		//본인노드만 복제
+		$Element("sample").clone(false); 
+		-> 
+		$Element(
+			<div id="sample">
+			</div>
+		);
+  ]]></comment>
+  <comment id="sign_append"><![CDATA[
+	element를 뒤에 붙일때 사용되는 함수.
+
+	@method _append
+	@param {Element} elBase 기준 엘리먼트
+	@param {Element} elAppend 붙일 엘리먼트
+	@return {jindo.$Element} 두번째 파라미터의 엘리먼트
+	@ignore
+  ]]></comment>
+  <comment id="sign_prepend"><![CDATA[
+	element를 앞에 붙일때 사용되는 함수.
+	
+	@method _prepend
+	@param {Element} elBase 기준 엘리먼트
+	@param {Element} elAppend 붙일 엘리먼트
+	@return {jindo.$Element} 두번째 파라미터의 엘리먼트
+	@ignore
+  ]]></comment>
+  <comment id="append"><![CDATA[
+	append() 메서드는 jindo.$Element() 객체에 있는 요소의 마지막 자식 노드로 파라미터로 지정한 HTML 요소를 배정한다.
+	
+	@method append
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 마지막 자식 노드로 배정할 HTML 요소의 ID
+	@param {Element+ | Node} vElement 마지막 자식 노드로 배정할 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#prepend
+	@see jindo.$Element#before
+	@see jindo.$Element#after
+	@see jindo.$Element#appendTo
+	@see jindo.$Element#prependTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample1인 HTML 요소에
+		// ID가 sample2인 HTML 요소를 추가
+		$Element("sample1").append("sample2");
+		
+		//Before
+		<div id="sample2">
+		    <div>Hello 2</div>
+		</div>
+		<div id="sample1">
+		    <div>Hello 1</div>
+		</div>
+		
+		//After
+		<div id="sample1">
+			<div>Hello 1</div>
+			<div id="sample2">
+				<div>Hello 2</div>
+			</div>
+		</div>
+	@example
+		// ID가 sample인 HTML 요소에
+		// 새로운 DIV 요소를 추가
+		var elChild = $("<div>Hello New</div>");
+		$Element("sample").append(elChild);
+		
+		//Before
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+		
+		//After
+		<div id="sample">
+			<div>Hello </div>
+			<div>Hello New</div>
+		</div>
+  ]]></comment>
+  <comment id="prepend"><![CDATA[
+	prepend() 메서드는 jindo.$Element() 객체에 있는 요소의 첫 번째 자식 노드로 파라미터로 지정한 HTML 요소를 배정한다.
+	
+	@method prepend
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 첫 번째 자식 노드로 배정할 HTML 요소의 ID
+	@param {Element+ | Node} vElement 첫 번째 자식 노드로 배정할 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#append
+	@see jindo.$Element#before
+	@see jindo.$Element#after
+	@see jindo.$Element#appendTo
+	@see jindo.$Element#prependTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample1인 HTML 요소에서
+		// ID가 sample2인 HTML 요소를 첫 번째 자식 노드로 이동
+		$Element("sample1").prepend("sample2");
+		
+		//Before
+		<div id="sample1">
+		    <div>Hello 1</div>
+			<div id="sample2">
+			    <div>Hello 2</div>
+			</div>
+		</div>
+		
+		//After
+		<div id="sample1">
+			<div id="sample2">
+			    <div>Hello 2</div>
+			</div>
+		    <div>Hello 1</div>
+		</div>
+	@example
+		// ID가 sample인 HTML 요소에
+		// 새로운 DIV 요소를 추가
+		var elChild = $("<div>Hello New</div>");
+		$Element("sample").prepend(elChild);
+		
+		//Before
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+		
+		//After
+		<div id="sample">
+			<div>Hello New</div>
+			<div>Hello</div>
+		</div>
+  ]]></comment>
+  <comment id="replace"><![CDATA[
+	replace() 메서드는 jindo.$Element() 객체 내부의 HTML 요소를 지정한 파라미터의 요소로 대체한다.
+	
+	@method replace
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 대체할 HTML 요소의 ID
+	@param {Element+ | Node} vElement 대체할 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@example
+		// ID가 sample1인 HTML 요소에서
+		// ID가 sample2인 HTML 요소로 대체
+		$Element('sample1').replace('sample2');
+		
+		//Before
+		<div>
+			<div id="sample1">Sample1</div>
+		</div>
+		<div id="sample2">Sample2</div>
+		
+		//After
+		<div>
+			<div id="sample2">Sample2</div>
+		</div>
+	@example
+		// 새로운 DIV 요소로 대체
+		$Element("btn").replace($("<div>Sample</div>"));
+		
+		//Before
+		<button id="btn">Sample</button>
+		
+		//After
+		<div>Sample</div>
+  ]]></comment>
+  <comment id="appendTo"><![CDATA[
+	appendTo() 메서드는 jindo.$Element() 객체에 있는 요소를 파라미터로 지정한 요소의 마지막 자식 요소로 배정한다.
+	
+	@method appendTo
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 마지막 자식 노드가 배정 될 HTML 요소의 ID
+	@param {Element+ | Node} vElement 마지막 자식 노드가 배정 될 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#append
+	@see jindo.$Element#prepend
+	@see jindo.$Element#before
+	@see jindo.$Element#after
+	@see jindo.$Element#prependTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample2인 HTML 요소에
+		// ID가 sample1인 HTML 요소를 추가
+		$Element("sample1").appendTo("sample2");
+		
+		//Before
+		<div id="sample1">
+		    <div>Hello 1</div>
+		</div>
+		<div id="sample2">
+		    <div>Hello 2</div>
+		</div>
+		
+		//After
+		<div id="sample2">
+		    <div>Hello 2</div>
+			<div id="sample1">
+			    <div>Hello 1</div>
+			</div>
+		</div>
+  ]]></comment>
+  <comment id="prependTo"><![CDATA[
+	prependTo() 메서드는 jindo.$Element() 객체에 있는 요소를 파라미터로 지정한 요소의 첫 번째 자식 노드로 배정한다.
+	
+	@method prependTo
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 첫 번째 자식 노드가 배정 될 HTML 요소의 ID
+	@param {Element+ | Node} vElement 첫 번째 자식 노드가 배정 될 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#append
+	@see jindo.$Element#prepend
+	@see jindo.$Element#before
+	@see jindo.$Element#after
+	@see jindo.$Element#appendTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample2인 HTML 요소에
+		// ID가 sample1인 HTML 요소를 추가
+		$Element("sample1").prependTo("sample2");
+		
+		//Before
+		<div id="sample1">
+		    <div>Hello 1</div>
+		</div>
+		<div id="sample2">
+		    <div>Hello 2</div>
+		</div>
+		
+		//After
+		<div id="sample2">
+			<div id="sample1">
+			    <div>Hello 1</div>
+			</div>
+		    <div>Hello 2</div>
+		</div>
+  ]]></comment>
+  <comment id="before"><![CDATA[
+	before() 메서드는 jindo.$Element() 객체에 있는 요소의 이전 형제 노드(previousSibling)로 파라미터로 지정한 요소를 배정한다.
+	
+	@method before
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 이전 형제 노드로 배정할 HTML 요소의 ID
+	@param {Element+ | Node} vElement 이전 형제 노드로 배정할 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#append
+	@see jindo.$Element#prepend
+	@see jindo.$Element#after
+	@see jindo.$Element#appendTo
+	@see jindo.$Element#prependTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample1인 HTML 요소 앞에
+		// ID가 sample2인 HTML 요소를 추가 함
+		$Element("sample1").before("sample2"); // sample2를 래핑한 $Element 를 반환
+		
+		//Before
+		<div id="sample1">
+		    <div>Hello 1</div>
+			<div id="sample2">
+			    <div>Hello 2</div>
+			</div>
+		</div>
+		
+		//After
+		<div id="sample2">
+			<div>Hello 2</div>
+		</div>
+		<div id="sample1">
+		  <div>Hello 1</div>
+		</div>
+	@example
+		// 새로운 DIV 요소를 추가
+		var elNew = $("<div>Hello New</div>");
+		$Element("sample").before(elNew); // elNew 요소를 래핑한 $Element 를 반환
+		
+		//Before
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+		
+		//After
+		<div>Hello New</div>
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+  ]]></comment>
+  <comment id="after"><![CDATA[
+	after() 메서드는 jindo.$Element() 객체에 있는 요소의 다음 형제 노드(nextSibling)로 파라미터로 지정한 요소를 배정한다.
+	
+	@method after
+	@syntax sId
+	@syntax vElement
+	@param {String+} sId 다음 형제 노드로 배정할 HTML 요소의 ID
+	@param {Element+ | Node} vElement 다음 형제 노드로 배정할 HTML 요소(Element) 또는 jindo.$Element() 객체를 파라미터로 지정할 수 있다.
+	@return {this} 인스턴스 자신
+	@see jindo.$Element#append
+	@see jindo.$Element#prepend
+	@see jindo.$Element#before
+	@see jindo.$Element#appendTo
+	@see jindo.$Element#prependTo
+	@see jindo.$Element#wrap
+	@example
+		// ID가 sample1인 HTML 요소 뒤에
+		// ID가 sample2인 HTML 요소를 추가 함
+		$Element("sample1").after("sample2");  // sample2를 래핑한 $Element 를 반환
+		
+		//Before
+		<div id="sample1">
+		    <div>Hello 1</div>
+			<div id="sample2">
+			    <div>Hello 2</div>
+			</div>
+		</div>
+		
+		//After
+		<div id="sample1">
+			<div>Hello 1</div>
+		</div>
+		<div id="sample2">
+			<div>Hello 2</div>
+		</div>
+	@example
+		// 새로운 DIV 요소를 추가
+		var elNew = $("<div>Hello New</div>");
+		$Element("sample").after(elNew); // elNew 요소를 래핑한 $Element 를 반환
+		
+		//Before
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+		
+		//After
+		<div id="sample">
+			<div>Hello</div>
+		</div>
+		<div>Hello New</div>
+  ]]></comment>
+  <comment id="parent"><![CDATA[
+	parent() 메서드는 HTML 요소의 상위 노드에 해당하는 요소를 검색한다.
+	
+	@method parent
+	@param {Function+} [fCallback] 상위 요소의 검색 조건을 지정한 콜백 함수.<br>파라미터를 생략하면 부모 요소를 반환하고, 파라미터로 콜백 함수를 지정하면 콜백 함수의 실행 결과가 true를 반환하는 상위 요소를 반환한다. 이때 콜백 함수는 결과를 배열로 반환한다. 콜백 함수의 파라미터로 탐색 중인 상위 요소의 jindo.$Element() 객체가 입력된다.
+	@param {Numeric} [nLimit] 탐색할 상위 요소의 레벨.<br>파라미터를 생략하면 모든 상위 요소를 탐색한다. fCallback 파라미터를 null로 설정하고 nLimit 파라미터를 설정하면 제한된 레벨의 상위 요소를 조건없이 검색한다.
+	@return {Variant} 부모 요소가 담긴 jindo.$Element() 객체 혹은 조건을 만족하는 상위 요소의 배열(Array).<br>파라미터를 생략하여 부모 요소를 반환하는 경우, jindo.$Element() 객체로 반환하고 그 이외에는 jindo.$Element() 객체를 원소로 갖는 배열로 반환한다.
+	@see jindo.$Element#child
+	@see jindo.$Element#prev
+	@see jindo.$Element#next
+	@see jindo.$Element#first
+	@see jindo.$Element#last
+	@see jindo.$Element#indexOf
+	@example
+		<div class="sample" id="div1">
+			<div id="div2">
+				<div class="sample" id="div3">
+					<div id="target">
+						Sample
+						<div id="div4">
+							Sample
+						</div>
+						<div class="sample" id="div5">
+							Sample
+						</div>
+					</div>
+					<div class="sample" id="div6">
+						Sample
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var welTarget = $Element("target");
+			var parent = welTarget.parent();
+			// ID가 div3인 DIV를 래핑한 $Element를 반환
+		
+			parent = welTarget.parent(function(v){
+			        return v.hasClass("sample");
+			    });
+			// ID가 div3인 DIV를 래핑한 $Element와
+			// ID가 div1인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		
+			parent = welTarget.parent(function(v){
+			        return v.hasClass("sample");
+			    }, 1);
+			// ID가 div3인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		</script>
+  ]]></comment>
+  <comment id="child"><![CDATA[
+	child() 메서드는 HTML 요소의 하위 노드에 해당하는 요소를 검색한다.
+	
+	@method child
+	@param {Function+} [fCallback] 하위 요소의 검색 조건을 지정한 콜백 함수.<br>파라미터를 생략하면 자식 요소를 반환하고, 파라미터로 콜백 함수를 지정하면 콜백 함수의 실행 결과가 true를 반환하는 하위 요소를 반환한다. 이때 콜백 함수는 결과를 배열로 반환한다. 콜백 함수의 파라미터로 탐색 중인 하위 요소의 jindo.$Element() 객체가 입력된다.
+	@param {Numeric} [nLimit] 탐색할 하위 요소의 레벨.<br>파라미터를 생략하면 모든 하위 요소를 탐색한다. fCallback 파라미터를 null로 설정하고 nLimit 파라미터를 설정하면 제한된 레벨의 하위 요소를 조건없이 검색한다.
+	@return {Variant} 자식 요소가 담긴 배열(Array) 혹은 조건을 만족하는 하위 요소의 배열(Array).<br>하나의 하위 요소를 반환할 때는 jindo.$Element() 객체를 반환하고 그 이외에는 jindo.$Element() 객체를 원소로 갖는 배열로 반환한다.
+	@see jindo.$Element#parent
+	@see jindo.$Element#prev
+	@see jindo.$Element#next
+	@see jindo.$Element#first
+	@see jindo.$Element#last
+	@see jindo.$Element#indexOf
+	@example
+		<div class="sample" id="target">
+			<div id="div1">
+				<div class="sample" id="div2">
+					<div id="div3">
+						Sample
+						<div id="div4">
+							Sample
+						</div>
+						<div class="sample" id="div5">
+							Sample
+							<div class="sample" id="div6">
+								Sample
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sample" id="div7">
+				Sample
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var welTarget = $Element("target");
+			var child = welTarget.child();
+			// ID가 div1인 DIV를 래핑한 $Element와
+			// ID가 div7인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		
+			child = welTarget.child(function(v){
+			        return v.hasClass("sample");
+			    });
+			// ID가 div2인 DIV를 래핑한 $Element와
+			// ID가 div5인 DIV를 래핑한 $Element와
+			// ID가 div6인 DIV를 래핑한 $Element와
+			// ID가 div7인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		
+			child = welTarget.child(function(v){
+			        return v.hasClass("sample");
+			    }, 1);
+			// ID가 div7인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		
+			child = welTarget.child(function(v){
+			        return v.hasClass("sample");
+			    }, 2);
+			// ID가 div2인 DIV를 래핑한 $Element와
+			// ID가 div7인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		</script>
+  ]]></comment>
+  <comment id="prev"><![CDATA[
+	prev() 메서드는 HTML 요소의 이전 형제 노드에 해당하는 요소를 검색한다.
+	
+	@method prev
+	@param {Function+} [fCallback] 이전 형제 요소의 검색 조건을 지정한 콜백 함수.<br>파라미터로 콜백 함수를 지정하면 콜백 함수의 실행 결과가 true를 반환하는 이전 형제 요소를 반환한다. 이때 콜백 함수는 결과를 배열로 반환한다. 콜백 함수의 파라미터로 탐색 중인 이전 형제 요소의 jindo.$Element() 객체가 입력된다.
+	@return {Variant} 조건을 만족하는 이전 형제 요소(jindo.$Element() 객체)를 원소로 갖는 배열(Array).<br>fCallback이 null인 경우 모든 이전 형제 요소의 배열(Array)을 반환한다. 파라미터를 생략하면 바로 이전 형제 요소가 담긴 jindo.$Element() 객체. 만약 엘리먼트가 없으면 null을 반환한다.
+	@see jindo.$Element#parent
+	@see jindo.$Element#child
+	@see jindo.$Element#next
+	@see jindo.$Element#first
+	@see jindo.$Element#last
+	@see jindo.$Element#indexOf
+	@example
+		<div class="sample" id="sample_div1">
+			<div id="sample_div2">
+				<div class="sample" id="sample_div3">
+					Sample1
+				</div>
+				<div id="sample_div4">
+					Sample2
+				</div>
+				<div class="sample" id="sample_div5">
+					Sample3
+				</div>
+				<div id="sample_div">
+					Sample4
+					<div id="sample_div6">
+						Sample5
+					</div>
+				</div>
+				<div id="sample_div7">
+					Sample6
+				</div>
+				<div class="sample" id="sample_div8">
+					Sample7
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var sibling = $Element("sample_div").prev();
+			// ID가 sample_div5인 DIV를 래핑한 $Element를 반환
+		
+			sibling = $Element("sample_div").prev(function(v){
+			    return $Element(v).hasClass("sample");
+			});
+			// ID가 sample_div5인 DIV를 래핑한 $Element와
+			// ID가 sample_div3인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		</script>
+  ]]></comment>
+  <comment id="next"><![CDATA[
+	next() 메서드는 HTML 요소의 다음 형제 노드에 해당하는 요소를 검색한다.
+	
+	@method next
+	@param {Function+} [fCallback] 다음 형제 요소의 검색 조건을 지정한 콜백 함수.<br>파라미터로 콜백 함수를 지정하면 콜백 함수의 실행 결과가 true를 반환하는 다음 형제 요소를 반환한다. 이때 콜백 함수는 결과를 배열로 반환한다. 콜백 함수의 파라미터로 탐색 중인 다음 형제 요소의 jindo.$Element() 객체가 입력된다.
+	@return {Variant} 조건을 만족하는 다음 형제 요소(jindo.$Element() 객체)를 원소로 갖는 배열(Array).<br>fCallback이 null인 경우 모든 다음 형제 요소의 배열(Array)을 반환한다. 파라미터를 생략하면 바로 다음 형제 요소가 담긴 jindo.$Element() 객체. 만약 엘리먼트가 없으면 null을 반환한다.
+	@see jindo.$Element#parent
+	@see jindo.$Element#child
+	@see jindo.$Element#prev
+	@see jindo.$Element#first
+	@see jindo.$Element#last
+	@see jindo.$Element#indexOf
+	@example
+		<div class="sample" id="sample_div1">
+			<div id="sample_div2">
+				<div class="sample" id="sample_div3">
+					Sample1
+				</div>
+				<div id="sample_div4">
+					Sample2
+				</div>
+				<div class="sample" id="sample_div5">
+					Sample3
+				</div>
+				<div id="sample_div">
+					Sample4
+					<div id="sample_div6">
+						Sample5
+					</div>
+				</div>
+				<div id="sample_div7">
+					Sample6
+				</div>
+				<div class="sample" id="sample_div8">
+					Sample7
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var sibling = $Element("sample_div").next();
+			// ID가 sample_div7인 DIV를 래핑한 $Element를 반환
+		
+			sibling = $Element("sample_div").next(function(v){
+			    return $Element(v).hasClass("sample");
+			});
+			// ID가 sample_div8인 DIV를 래핑한 $Element를 원소로 하는 배열을 반환
+		</script>
+  ]]></comment>
+  <comment id="first"><![CDATA[
+	first() 메서드는 HTML 요소의 첫 번째 자식 노드에 해당하는 요소를 반환한다.
+	
+	@method first
+	@return {jindo.$Element} 첫 번째 자식 노드에 해당하는 요소. 만약 엘리먼트가 없으면 null을 반환.
+	@since 1.2.0
+	@see jindo.$Element#parent
+	@see jindo.$Element#child
+	@see jindo.$Element#prev
+	@see jindo.$Element#next
+	@see jindo.$Element#last
+	@see jindo.$Element#indexOf
+	@example
+		<div id="sample_div1">
+			<div id="sample_div2">
+				<div id="sample_div">
+					Sample1
+					<div id="sample_div3">
+						<div id="sample_div4">
+							Sample2
+						</div>
+						Sample3
+					</div>
+					<div id="sample_div5">
+						Sample4
+						<div id="sample_div6">
+							Sample5
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var firstChild = $Element("sample_div").first();
+			// ID가 sample_div3인 DIV를 래핑한 $Element를 반환
+		</script>
+  ]]></comment>
+  <comment id="last"><![CDATA[
+	last() 메서드는 HTML 요소의 마지막 자식 노드에 해당하는 요소를 반환한다.
+	
+	@method last
+	@return {jindo.$Element} 마지막 자식 노드에 해당하는 요소. 만약 엘리먼트가 없으면 null을 반환.
+	@since 1.2.0
+	@see jindo.$Element#parent
+	@see jindo.$Element#child
+	@see jindo.$Element#prev
+	@see jindo.$Element#next
+	@see jindo.$Element#first
+	@see jindo.$Element#indexOf
+	@example
+		<div id="sample_div1">
+			<div id="sample_div2">
+				<div id="sample_div">
+					Sample1
+					<div id="sample_div3">
+						<div id="sample_div4">
+							Sample2
+						</div>
+						Sample3
+					</div>
+					<div id="sample_div5">
+						Sample4
+						<div id="sample_div6">
+							Sample5
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var lastChild = $Element("sample_div").last();
+			// ID가 sample_div5인 DIV를 래핑한 $Element를 반환
+		</script>
+  ]]></comment>
+  <comment id="sign_contain"><![CDATA[
+	isChildOf , isParentOf의 기본이 되는 API (IE에서는 contains,기타 브라우져에는 compareDocumentPosition을 사용하고 둘다 없는 경우는 기존 레거시 API사용.)
+	
+	@method _contain
+	@param {HTMLElement} eParent	부모노드
+	@param {HTMLElement} eChild	자식노드
+	@ignore
+  ]]></comment>
+  <comment id="isChildOf"><![CDATA[
+	isChildOf() 메서드는 파라미터로 지정한 요소가 HTML 요소의 부모 노드인지 검사한다.
+	
+	@method isChildOf
+	@syntax sElement
+	@syntax elElement
+	@param {String+} sElement 부모 노드인지 검사할 HTML 요소의 ID
+	@param {Element+} elElement 부모 노드인지 검사할 HTML 요소
+	@return {Boolean} 지정한 요소가 부모 요소이면 true, 그렇지 않으면 false를 반환한다.
+	@see jindo.$Element#isParentOf
+	@example
+		<div id="parent">
+			<div id="child">
+				<div id="grandchild"></div>
+			</div>
+		</div>
+		<div id="others"></div>
+		
+		// 부모/자식 확인하기
+		$Element("child").isChildOf("parent");		// 결과 : true
+		$Element("others").isChildOf("parent");		// 결과 : false
+		$Element("grandchild").isChildOf("parent");	// 결과 : true
+  ]]></comment>
+  <comment id="isParentOf"><![CDATA[
+	isParentOf() 메서드는 파라미터로 지정한 요소가 HTML 요소의 자식 노드인지 검사한다.
+	
+	@method isParentOf
+	@syntax sElement
+	@syntax elElement
+	@param {String+} sElement 자식 노드인지 검사할 HTML 요소의 ID
+	@param {Element+} elElement 자식 노드인지 검사할 HTML 요소
+	@return {Boolean} 지정한 요소가 자식 요소이면 true, 그렇지 않으면 false를 반환한다.
+	@see jindo.$Element#isChildOf
+	@example
+		<div id="parent">
+			<div id="child"></div>
+		</div>
+		<div id="others"></div>
+		
+		// 부모/자식 확인하기
+		$Element("parent").isParentOf("child");		// 결과 : true
+		$Element("others").isParentOf("child");		// 결과 : false
+		$Element("parent").isParentOf("grandchild");// 결과 : true
+  ]]></comment>
+  <comment id="isEqual"><![CDATA[
+	isEqual() 메서드는 파라미터로 지정한 요소가 HTML 요소와 같은 요소인지 검사한다.
+	
+	@method isEqual
+	@syntax sElement
+	@syntax vElement
+	@param {String+} sElement 같은 요소인지 비교할 HTML 요소의 ID.
+	@param {Element+} vElement 같은 요소인지 비교할 HTML 요소.
+	@return {Boolean} 지정한 요소와 같은 요소이면 true, 그렇지 않으면 false를 반환한다.
+	@remark 
+		<ul class="disc">
+			<li>DOM Level 3 명세의 API 중 isSameNode 함수와 같은 메서드로 레퍼런스까지 확인한다.</li>
+			<li>isEqualNode() 메서드와는 다른 함수이기 때문에 주의한다.</li>
+		</ul>
+	@see http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-isSameNode isSameNode - W3C DOM Level 3 Specification
+	@see jindo.$Element#isEqualnode
+	@example
+		<div id="sample1"><span>Sample</span></div>
+		<div id="sample2"><span>Sample</span></div>
+		
+		// 같은 HTML 요소인지 확인
+		var welSpan1 = $Element("sample1").first();	// <span>Sample</span>
+		var welSpan2 = $Element("sample2").first();	// <span>Sample</span>
+		
+		welSpan1.isEqual(welSpan2); // 결과 : false
+		welSpan1.isEqual(welSpan1); // 결과 : true
+  ]]></comment>
+  <comment id="fireEvent"><![CDATA[
+	fireEvent() 메서드는 HTML 요소에 이벤트를 발생시킨다. 파라미터로 발생시킬 이벤트 종류와 이벤트 객체의 속성을 지정할 수 있다.
+	
+	@method fireEvent
+	@param {String+} sEvent 발생시킬 이벤트 이름. on 접두사는 생략한다.
+	@param {Hash+} [oProps] 이벤트 객체의 속성을 지정한 객체. 이벤트를 발생시킬 때 속성을 설정할 수 있다.
+	@return {jindo.$Element} 이벤트가 발생한 HTML 요소의 jindo.$Element() 객체.
+	@remark 
+		<ul class="disc">
+			<li>1.4.1 버전부터 keyCode 값을 설정할 수 있다.</li>
+			<li>WebKit 계열에서는 이벤트 객체의 keyCode가 읽기 전용(read-only)인 관계로 key 이벤트를 발생시킬 경우 keyCode 값을 설정할 수 없었다.</li>
+		</ul>
+	@example
+		// click 이벤트 발생
+		$Element("div").fireEvent("click", {left : true, middle : false, right : false});
+		
+		// mouseover 이벤트 발생
+		$Element("div").fireEvent("mouseover", {screenX : 50, screenY : 50, clientX : 50, clientY : 50});
+		
+		// keydown 이벤트 발생
+		$Element("div").fireEvent("keydown", {keyCode : 13, alt : true, shift : false ,meta : false, ctrl : true});
+  ]]></comment>
+  <comment id="empty_1"><![CDATA[
+	empty() 메서드는 HTML 요소의 자식 요소와 그 자식 요소들에 등록된 모든 이벤트 핸들러까지 제거한다.
+	
+	@method empty
+	@return {this} 자식 노드를 모두 제거한 인스턴스 자신
+	@see jindo.$Element#leave
+	@see jindo.$Element#remove
+	@example
+		// 자식 노드를 모두 제거
+		$Element("sample").empty();
+		
+		//Before
+		<div id="sample"><span>노드</span> <span>모두</span> 삭제하기 </div>
+		
+		//After
+		<div id="sample"></div>
+  ]]></comment>
+  <comment id="remove"><![CDATA[
+	remove() 메서드는 HTML 요소의 특정 자식 노드를 제거한다. 파라미터로 지정한 자식 요소를 제거하며 제거되는 자식 요소의 이벤트 핸들러와 그 자식 요소의 모든 하위 요소의 모든 이벤트 핸들러도 제거한다.
+	
+	@method remove
+	@syntax sElement
+	@syntax vElement
+	@param {String+} sElement 자식 요소에서 제거할 HTML 요소의 ID.
+	@param {Element+} vElement 자식 요소에서 제거할 HTML 요소.
+	@return {this} 지정한 자식 노드를 제거한 인스턴스 자신
+	@see jindo.$Element#empty
+	@see jindo.$Element#leave
+	@example
+		// 특정 자식 노드를 제거
+		$Element("sample").remove("child2");
+		
+		//Before
+		<div id="sample"><span id="child1">노드</span> <span id="child2">삭제하기</span></div>
+		
+		//After
+		<div id="sample"><span id="child1">노드</span> </div>
+  ]]></comment>
+  <comment id="leave"><![CDATA[
+	leave() 메서드는 HTML 요소를 자신의 부모 요소에서 제거한다. HTML 요소에 등록된 이벤트 핸들러, 그리고 그 요소의 모든 자식요소의 모든 이벤트 핸들러도 제거한다.
+	
+	@method leave
+	@return {this} 부모 요소에서 제거된 인스턴스 자신
+	@see jindo.$Element#empty
+	@see jindo.$Element#remove
+	@example
+		// 부모 요소 노드에서 제거
+		$Element("sample").leave();
+		
+		//Before
+		<div>
+			<div id="sample"><span>노드</span> <span>모두</span> 삭제하기 </div>
+		</div>
+		
+		//After : <div id="sample"><span>노드</span> <span>모두</span> 삭제하기 </div>를 래핑한 $Element가 반환된다
+		<div>
+		
+		</div>
+  ]]></comment>
+  <comment id="wrap"><![CDATA[
+	wrap() 메서드는 HTML 요소를 지정한 요소로 감싼다. HTML 요소는 지정한 요소의 마지막 자식 요소가 된다.
+	
+	@method wrap
+	@syntax sElement
+	@syntax vElement
+	@param {String+} sElement 부모가 될 HTML 요소의 ID.
+	@param {Element+ | Node} vElement 부모가 될 HTML 요소.
+	@return {jindo.$Element} 지정한 요소로 감싸진 jindo.$Element() 객체.
+	@example
+		$Element("sample1").wrap("sample2");
+		
+		//Before
+		<div id="sample1"><span>Sample</span></div>
+		<div id="sample2"><span>Sample</span></div>
+		
+		//After
+		<div id="sample2"><span>Sample</span><div id="sample1"><span>Sample</span></div></div>
+	@example
+		$Element("box").wrap($('<DIV>'));
+		
+		//Before
+		<span id="box"></span>
+		
+		//After
+		<div><span id="box"></span></div>
+  ]]></comment>
+  <comment id="ellipsis"><![CDATA[
+	ellipsis() 메서드는 HTML 요소의 텍스트 노드가 브라우저에서 한 줄로 보이도록 길이를 조절한다.
+	
+	@method ellipsis
+	@param {String+} [sTail="..."] 말줄임 표시자. 파라미터에 지정한 문자열을 텍스트 노드 끝에 붙이고 텍스트 노드의 길이를 조절한다.
+	@return {this} 인스턴스 자신
+	@remark 
+		<ul class="disc">
+			<li>이 메서드는 HTML 요소가 텍스트 노드만을 포함한다고 가정하고 동작한다. 따라서, 이 외의 상황에서는 사용을 자제한다.</li>
+			<li>브라우저에서 HTML 요소의 너비를 기준으로 텍스트 노드의 길이를 정하므로 HTML 요소는 반드시 보이는 상태(display)여야 한다. 화면에 전체 텍스트 노드가 보였다가 줄어드는 경우가 있다. 이 경우, HTML 요소에 overflow 속성의 값을 hidden으로 지정하면 해결할 수 있다.</li>
+		</ul>
+	@example
+		$Element("sample_span").ellipsis();
+		
+		//Before
+		<div style="width:300px; border:1px solid #ccc padding:10px">
+			<span id="sample_span">NHN은 검색과 게임을 양축으로 혁신적이고 편리한 온라인 서비스를 꾸준히 선보이며 디지털 라이프를 선도하고 있습니다.</span>
+		</div>
+		
+		//After
+		<div style="width:300px; border:1px solid #ccc; padding:10px">
+			<span id="sample_span">NHN은 검색과 게임을 양축으로 혁신적...</span>
+		</div>
+  ]]></comment>
+  <comment id="indexOf"><![CDATA[
+	indexOf() 메서드는 HTML 요소에서 파라미터로 지정한 요소가 몇 번째 자식인지 확인하여 인덱스를 반환한다.
+	
+	@method indexOf
+	@syntax sElement
+	@syntax vElement
+	@param {String+} sElement 몇 번째 자식인지 검색할 요소의 ID
+	@param {Element+} vElement 몇 번째 자식인지 검색할 요소.
+	@return {Numeric} 검색 결과 인덱스. 인덱스는 0부터 시작하며, 찾지 못한 경우에는 -1 을 반환한다.
+	@since 1.2.0
+	@see jindo.$Element#parent
+	@see jindo.$Element#child
+	@see jindo.$Element#prev
+	@see jindo.$Element#next
+	@see jindo.$Element#first
+	@see jindo.$Element#last
+	@example
+		<div id="sample_div1">
+			<div id="sample_div">
+				<div id="sample_div2">
+					Sample1
+				</div>
+				<div id="sample_div3">
+					<div id="sample_div4">
+						Sample2
+					</div>
+					Sample3
+				</div>
+				<div id="sample_div5">
+					Sample4
+					<div id="sample_div6">
+						Sample5
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var welSample = $Element("sample_div");
+			welSample.indexOf($Element("sample_div1"));	// 결과 : -1
+			welSample.indexOf($Element("sample_div2"));	// 결과 : 0
+			welSample.indexOf($Element("sample_div3"));	// 결과 : 1
+			welSample.indexOf($Element("sample_div4"));	// 결과 : -1
+			welSample.indexOf($Element("sample_div5"));	// 결과 : 2
+			welSample.indexOf($Element("sample_div6"));	// 결과 : -1
+		</script>
+  ]]></comment>
+  <comment id="queryAll"><![CDATA[
+	queryAll() 메서드는 HTML 요소에서 특정 CSS 선택자(CSS Selector)를 만족하는 하위 요소를 찾는다.
+	
+	@method queryAll
+	@param {String+} sSelector CSS 선택자. CSS 선택자로 사용할 수 있는 패턴은 표준 패턴과 비표준 패턴이 있다. 표준 패턴은 CSS Level3 명세서에 있는 패턴을 지원한다.
+	@return {Array} CSS 셀렉터 조건을 만족하는 HTML 요소(jindo.$Element() 객체)를 배열로 반환한다. 만족하는 HTML 요소가 존재하지 않으면 빈 배열을 반환한다.
+	@see jindo.$Element#query
+	@see jindo.$Element#queryAll
+	@see http://www.w3.org/TR/css3-selectors/ CSS Level3 명세서 - W3C
+	@example
+		<div id="sample">
+			<div></div>
+			<div class="pink"></div>
+			<div></div>
+			<div class="pink"></div>
+			<div></div>
+			<div class="blue"></div>
+			<div class="blue"></div>
+		</div>
+		
+		<script type="text/javascript">
+			$Element("sample").queryAll(".pink");
+			// <div class="pink"></div>와 <div class="pink"></div>를 원소로 하는 배열을 반환
+		
+			$Element("sample").queryAll(".green");
+			// [] 빈 배열을 반환
+		</script>
+  ]]></comment>
+  <comment id="query"><![CDATA[
+	query() 메서드는 HTML 요소에서 특정 CSS 선택자(CSS Selector)를 만족하는 첫 번째 하위 요소를 반환한다.
+	
+	@method query
+	@param {String+} sSelector CSS 선택자. CSS 선택자로 사용할 수 있는 패턴은 표준 패턴과 비표준 패턴이 있다. 표준 패턴은 CSS Level3 명세서에 있는 패턴을 지원한다.
+	@return {jindo.$Element} CSS 선택자의 조건을 만족하는 첫 번째 HTML 요소의 $Element인스턴스. 만족하는 HTML 요소가 존재하지 않으면 null을 반환한다.
+	@see jindo.$Element#test
+	@see jindo.$Element#queryAll
+	@see http://www.w3.org/TR/css3-selectors/ CSS Level3 명세서 - W3C
+	@example
+		<div id="sample">
+			<div></div>
+			<div class="pink"></div>
+			<div></div>
+			<div class="pink"></div>
+			<div></div>
+			<div class="blue"></div>
+			<div class="blue"></div>
+		</div>
+		
+		<script type="text/javascript">
+			$Element("sample").query(".pink");
+			// 첫 번째 <div class="pink"></div> DIV 요소를 반환
+		
+			$Element("sample").query(".green");
+			// null 을 반환
+		</script>
+  ]]></comment>
+  <comment id="test"><![CDATA[
+	test() 메서드는 HTML 요소에서 특정 CSS 선택자(CSS Selector)를 만족하는지 확인한다.
+	
+	@method test
+	@param {String+} sSelector CSS 선택자. CSS 선택자로 사용할 수 있는 패턴은 표준 패턴과 비표준 패턴이 있다. 표준 패턴은 CSS Level3 명세서에 있는 패턴을 지원한다.
+	@return {Boolean} CSS 선택자의 조건을 만족하면 true, 그렇지 않으면 false를 반환한다.
+	@see jindo.$Element#query
+	@see jindo.$Element#queryAll
+	@see http://www.w3.org/TR/css3-selectors/ CSS Level3 명세서 - W3C
+	@example
+		<div id="sample" class="blue"></div>
+		
+		<script type="text/javascript">
+			$Element("sample").test(".blue");	// 결과 : true
+			$Element("sample").test(".red");	// 결과 : false
+		</script>
+  ]]></comment>
+  <comment id="xpathAll"><![CDATA[
+	xpathAll() 메서드는 HTML 요소를 기준으로 XPath 문법을 만족하는 요소를 가져온다.
+	
+	@method xpathAll
+	@param {String+} sXPath XPath 값.
+	@return {Array} XPath 문법을 만족하는 요소(jindo.$Element() 객체)를 원소로 하는 배열.
+	@remark 지원하는 문법이 제한적이므로 특수한 경우에만 사용할 것을 권장한다.
+	@see jindo.$$
+	@example
+		<div id="sample">
+			<div>
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+				<div>4</div>
+				<div>5</div>
+				<div>6</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$Element("sample").xpathAll("div/div[5]");
+			// <div>5</div> 요소를 원소로 하는 배열이 반환 됨
+		</script>
+  ]]></comment>
+  <comment id="insertAdjacentHTML"><![CDATA[
+	insertAdjacentHTML 함수. 직접사용하지 못함.
+	
+	@method insertAdjacentHTML
+	@ignore
+  ]]></comment>
+  <comment id="appendHTML"><![CDATA[
+	appendHTML() 메서드는 내부 HTML 코드(innerHTML)의 뒤에 파라미터로 지정한 HTML 코드를 덧붙인다.
+	
+	@method appendHTML
+	@param {String+} sHTML 덧붙일 HTML 문자열.
+	@return {this} 내부 HTML 코드를 변경한 인스턴스 자신
+	@remark 1.4.8 버전부터 jindo.$Element() 객체를 반환한다.
+	@since 1.4.6
+	@see jindo.$Element#prependHTML
+	@see jindo.$Element#beforeHTML
+	@see jindo.$Element#afterHTML
+	@example
+		// 내부 HTML 가장 뒤에 덧붙이기
+		$Element("sample_ul").appendHTML("<li>3</li><li>4</li>");
+		
+		//Before
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+		
+		//After
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+  ]]></comment>
+  <comment id="prependHTML"><![CDATA[
+	prependHTML() 메서드는 내부 HTML 코드(innerHTML)의 앞에 파라미터로 지정한 HTML 코드를 삽입한다.
+	
+	@method prependHTML
+	@param {String+} sHTML 삽입할 HTML 문자열.
+	@return {this} 인스턴스 자신
+	@remark 1.4.8 버전부터 jindo.$Element() 객체를 반환한다.
+	@since 1.4.6
+	@see jindo.$Element#appendHTML
+	@see jindo.$Element#beforeHTML
+	@see jindo.$Element#afterHTML
+	@example
+		// 내부 HTML 가장 앞에 삽입
+		$Element("sample_ul").prependHTML("<li>3</li><li>4</li>");
+		
+		//Before
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+		
+		//After
+		<ul id="sample_ul">
+			<li>4</li>
+			<li>3</li>
+			<li>1</li>
+			<li>2</li>
+		</ul>
+  ]]></comment>
+  <comment id="beforeHTML"><![CDATA[
+	beforeHTML() 메서드는 HTML 코드(outerHTML)의 앞에 파라미터로 지정한 HTML 코드를 삽입한다.
+	
+	@method beforeHTML
+	@param {String+} sHTML 삽입할 HTML 문자열.
+	@return {this} 인스턴스 자신
+	@remark 1.4.8 부터 jindo.$Element() 객체를 반환한다.
+	@since 1.4.6
+	@see jindo.$Element#appendHTML
+	@see jindo.$Element#prependHTML
+	@see jindo.$Element#afterHTML
+	@example
+		var welSample = $Element("sample_ul");
+		
+		welSample.beforeHTML("<ul><li>3</li><li>4</li></ul>");
+		welSample.beforeHTML("<ul><li>5</li><li>6</li></ul>");
+		
+		//Before
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+		
+		//After
+		<ul>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+		<ul>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+  ]]></comment>
+  <comment id="afterHTML"><![CDATA[
+	afterHTML() 메서드는 HTML 코드(outerHTML)의 뒤에 파라미터로 지정한 HTML 코드를 삽입한다.
+	
+	@method afterHTML
+	@param {String+} sHTML 삽입할 HTML 문자열.
+	@return {this} 내부 HTML 코드를 변경한 인스턴스 자신
+	@since 1.4.8 버전부터 jindo.$Element() 객체를 반환한다.
+	@since 1.4.6
+	@see jindo.$Element#appendHTML
+	@see jindo.$Element#prependHTML
+	@see jindo.$Element#beforeHTML
+	@example
+		var welSample = $Element("sample_ul");
+		
+		welSample.afterHTML("<ul><li>3</li><li>4</li></ul>");
+		welSample.afterHTML("<ul><li>5</li><li>6</li></ul>");
+		
+		//Before
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+		
+		//After
+		<ul id="sample_ul">
+			<li>1</li>
+			<li>2</li>
+		</ul>
+		<ul>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<ul>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+  ]]></comment>
+  <comment id="hasEventListener"><![CDATA[
+	엘리먼트에 해당 이벤트가 할당되어 있는지를 확인.
+	
+	@method hasEventListener
+	@param {String+} sEvent 이벤트명
+	@return {Boolean} 이벤트 할당 유무
+	@remark 2.2.0 버전부터, load와 domready이벤트는 각각 Window와 Document에서 발생하는 이벤트이지만 서로를 교차해서 등록하여도 이벤트가 올바르게 발생한다.
+	@since 2.0.0
+	@example
+		$Element("test").attach("click",function(){});
+		
+		$Element("test").hasEventListener("click"); //true
+		$Element("test").hasEventListener("mousemove"); //false
+  ]]></comment>
+  <comment id="preventTapHighlight"><![CDATA[
+	모바일에서 이벤트 델리게이트를 사용했을때 부모 엘리먼트에 하이라이트가 되는 것을 막는다.
+	
+	@method preventTapHighlight
+	@param {Boolean} bType 하이라이트를 막을지 유무
+	@return {this} 인스턴스 자신
+	@since 2.0.0
+	@example
+		<ul id="test">
+			<li><a href="#nhn">nhn</a></li>
+			<li><a href="#naver">naver</a></li>
+			<li><a href="#hangame">hangame</a></li>
+		</ul>
+		
+		$Element("test").preventTapHighlight(true); // 이렇게 하면 모바일에서 test에 하이라이트가 되는 것을 막는다.
+		$Element("test").delegate("click","a",function(e){});
+  ]]></comment>
+ <comment id="data"><![CDATA[
+	data() 메서드는 dataset의 속성을 가져온다.
+	
+	@method data
+	@param {String+} sName dataset 이름
+	@return {Variant} dataset 값을 반환. set할 때 넣은 타입으로 반환하고, 해당 속성이 없다면 null을 반환한다. 단, JSON.stringfly의 반환 값이 undefined인 경우는 설정되지 않는다.
+	@see jindo.$Element#attr
+  ]]></comment>
+ <comment id="data2"><![CDATA[
+	data() 메서드는 dataset의 속성을 설정한다.
+	
+	@method data
+	@syntax sName, vValue
+	@syntax oList
+	@param {String+} sName dataset 이름.
+	@param {Variant} vValue dataset에 설정할 값. dataset의 값을 null로 설정하면 해당 dataset을 삭제한다.
+	@param {Hash+} oList 하나 이상의 dataset과 값을 가지는 객체(Object) 또는 해시 객체(jindo.$H() 객체).
+	@return {this} dataset의 속성을 설정한 인스턴스 자신
+	@see jindo.$Element#attr
+	@example
+		//Set
+		//Before
+		<ul id="maillist">
+			<li id="folder">Read</li>
+		</ul>
+		
+		//Do
+		$Element("folder").data("count",123);
+		$Element("folder").data("info",{
+			"some1" : 1,
+			"some2" : 2
+		});
+		
+		//After
+		<li id="folder" data-count="123" data-info="{\"some1\":1,\"some2\":2}">Read</li>
+	@example
+		//Get
+		//Before
+		<li id="folder" data-count="123" data-info="{\"some1\":1,\"some2\":2}">Read</li>
+		
+		//Do
+		$Element("folder").data("count"); -> 123//Number
+		$Element("folder").data("info"); -> {"some1":1, "some2":2} //Object
+	@example
+		//Delete
+		//Before
+		<li id="folder" data-count="123" data-info="{\"some1\":1,\"some2\":2}">Read</li>
+		
+		//Do
+		$Element("folder").data("count",null);
+		$Element("folder").data("info",null);
+		
+		//After
+		<li id="folder">Read</li>
+  ]]></comment>
+</comments>

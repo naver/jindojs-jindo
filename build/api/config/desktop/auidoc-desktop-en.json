@@ -1,0 +1,35 @@
+{
+	"name": "Jindo",
+	"description": "Jindo API Documentation",
+	"version": "2.12.0-pre",
+	"url": "http://dev.naver.com/projects/jindo",
+	"logo": "./asset/logo.png",
+	"support": "http://dev.naver.com/projects/jindo/issue",
+	"index": "index-external-en",
+	"options": {
+		"linkNatives": "true",
+		"exclude": ".git",
+		"paths": "./dist/desktop/en",
+		"outdir": "./dist/doc/desktop/en",
+		"themedir": "./build/api/theme",
+		"filter": "desktop"
+	},
+	"types": {
+		"String+": "Include String and $S of Jindo",
+		"Array+": "Include Array and $A of Jindo",
+		"Function+": "Include Function and $Fn of Jindo",
+		"Hash": "Object",
+		"Hash+": "Include Object and $H of Jindo",
+		"Element": "Must be has nodetype is 1",
+		"Element+": "Include Element and $Element of Jindo",
+		"Document": "Must be has nodetype is 9",
+		"Document+": "Include Document and $Document of Jindo",
+		"Window": "Window",
+		"Window+": "Include Window and $Window of Jindo",
+		"$Class": "$Class",
+		"Variant": "Any Type Allow",
+		"Node": "Must be has nodetype",
+		"ArrayStyle": "It has index. but not array",
+		"Numeric": "Number, Number Style String('1', '2'), The '2px' is not allow"
+	}
+}

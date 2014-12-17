@@ -1,0 +1,8 @@
+<comments name="compat">
+  <comment id="title"><![CDATA[
+	IE 5 이하를 위한 호환성 함수
+	
+	@id core.ie5
+	@import core.ie55
+  ]]></comment>
+</comments>

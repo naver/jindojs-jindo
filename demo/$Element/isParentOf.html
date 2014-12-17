@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://jindo.dev.naver.com/jindo_home/download/download.php?filename=jindo.desktop.all.js"></script>
+	<script type="text/javascript" src="../asset/log.js"></script>
+	<style type="text/css" data-jsbin="css">
+		
+	</style>
+</head>
+<body>
+	<div id="parent">
+		<div id="child"></div>
+	</div>
+	<div id="others"></div>
+	<script type="text/javascript" data-jsbin="javascript">
+	
+		LOG($Element("child").isChildOf("parent"));
+		LOG($Element("others").isChildOf("parent"));
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<comments name="array">
+  <comment id="title"><![CDATA[
+	@fileOverview jindo.$A() 객체의 생성자 및 메서드를 정의한 파일
+	@name array.js
+	@author NAVER Ajax Platform
+  ]]></comment>
+  <comment id="desc"><![CDATA[
+	jindo.$A() 객체는 배열(Array)을 좀 더 편리하게 다룰 수 있도록 메서드를 제공한다. jindo.$A() 객체를 생성할 때 원본 배열 객체를 래핑(warpping)하여 생성한다. 여기서 래핑이란 자바스크립트의 함수를 감싸 본래 함수의 기능에 새로운 확장 기능을 추가하는 것을 말한다.
+	
+	@class jindo.$A
+	@keyword array, 배열 
+  ]]></comment>
+  <comment id="constructor"><![CDATA[
+	jindo.$A() 객체를 생성한다.
+	
+	@constructor
+	@param {Null | Undefined | Array+ | ArrayStyle} [vArray] 없거나 null, undefined인 경우는 빈배열이 할당됨.
+	@return {jindo.$A} jindo.$A() 객체를 반환한다.
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		var waZoo = $A(zoo); // ["zebra", "giraffe", "bear", "monkey"]를 래핑한 jindo.$A() 객체를 생성하여 반환
+  ]]></comment>
+  <comment id="toString"><![CDATA[
+	toString() 메서드는 내부 배열을 문자열로 변환한다. 자바스크립트의 Array.toString() 메서드를 사용한다.
+	
+	@method toString
+	@return {String} 내부 배열을 변환한 문자열.
+	@See https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/toString array.toString() - MDN Docs
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		$A(zoo).toString();
+		// 결과 : zebra,giraffe,bear,monkey
+  ]]></comment>
+  <comment id="get"><![CDATA[
+	get() 메서드는 파라미터로 지정한 인덱스로 내부 배열의 원소 값을 조회한다.
+	
+	@method get
+	@param {Numeric} nIndex 조회할 원소의 인덱스. 인덱스는 0부터 시작한다.
+	@return {Variant} 배열에서의 해당 인덱스의 원소 값.
+	@since 1.4.2
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		var waZoo = $A(zoo);
+		
+		// 원소 값 조회
+		waZoo.get(1); // 결과 : giraffe
+		waZoo.get(3); // 결과 : monkey
+  ]]></comment>
+  <comment id="set"><![CDATA[
+	set() 메서드는 인덱스와 값을 지정하여 값을 셋팅한다.
+	
+	@method set
+	@param {Numeric} nIndex 인덱스
+	@param {Variant} vValue 다양한 값.
+	@return {this} 해당 인덱스의 값을 지정한 인스턴스 자신
+	@since 2.0.0
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		var waZoo = $A(zoo);
+		
+		// 값 셋팅
+		waZoo.set(1,"pig"); // 결과 : $A(["zebra", "pig", "bear", "monkey"]);
+  ]]></comment>
+  <comment id="length"><![CDATA[
+	length() 메서드는 네이티브 length의 속성과 같이 내부 배열 크기를 조회한다.
+	
+	@method length
+	@return {Number} 현재 내부 배열의 크기(Number)를 반환한다.
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		
+		// 배열의 크기 조회
+		$A(zoo).length(); // 결과 : 4
+  ]]></comment>
+  <comment id="length2"><![CDATA[
+	length() 메서드는 네이티브 length의 속성과 같이 내부 배열 크기를 지정한다.
+	
+	@method length
+	@syntax nLen
+	@syntax nLen2, vValue
+	@param {Numeric} nLen 지정할 배열의 크기. nLen이 기존 배열의 크기보다 작으면 nLen번째 이후의 원소는 제거하고, nLen이 기존 배열의 크기보다 크면 적용되지 않는다.
+	@param {Numeric} nLen2 지정할 배열의 크기. nLen2가 기존 배열의 크기보다 작으면 nLen2번째 이후의 원소는 제거하고, nLen2가 기존 배열의 크기보다 크면 추가된 배열의 공간에 vValue 파라미터의 값으로 채운다.
+	@param {Variant} vValue 새로운 원소를 추가할 때 사용할 초기 값.
+	@return {this} 내부 배열의 크기를 변경한 인스턴스 자신
+	@example
+		var zoo = ["zebra", "giraffe", "bear", "monkey"];
+		
+		// 배열의 크기 지정 (원소가 삭제되는 경우)
+		$A(zoo).length(2);
+		// 결과 : ["zebra", "giraffe"]
+	@example
+		// 배열의 크기 지정 (원소가 추가되는 경우)
+		$A(zoo).length(6, "(Empty)");
+		// 결과 : ["zebra", "giraffe", "bear", "monkey", "(Empty)", "(Empty)"]
+		
+		$A(zoo).length(5, birds);
+		// 결과 : ["zebra", "giraffe", "bear", "monkey", ["parrot", "sparrow", "dove"]]
+  ]]></comment>
+  <comment id="has"><![CDATA[
+	has() 메서드는 내부 배열에서 특정 값을 갖는 원소의 유무를 Boolean 형태로 반환한다.
+	
+	@method has
+	@param {Variant} vValue 검색할 값.
+	@return {Boolean} 배열에서 매개 변수의 값과 동일한 원소를 찾으면 true를, 찾지 못하면 false를 반환한다.
+	@see jindo.$A#indexOf
+	@example
+		var arr = $A([1,2,3]);
+		
+		// 값 검색
+		arr.has(3); // 결과 : true
+		arr.has(4); // 결과 : false
+  ]]></comment>
+  <comment id="indexOf"><![CDATA[
+	indexOf() 메서드는 내부 배열에서 특정 값을 갖는 원소를 검색하고 검색된 원소의 인덱스를 반환한다.
+	
+	@method indexOf
+	@param {Variant} vValue 검색할 값.
+	@return {Numeric} 검색된 원소의 인덱스. 인덱스는 0부터 시작한다. 파라미터와 같은 값을 가진 원소를 찾지 못하면 -1을 반환한다.
+	@see jindo.$A#has
+	@example
+		var zoo = ["zebra", "giraffe", "bear"];
+		va  r waZoo = $A(zoo);
+		
+		// 값 검색 후 인덱스 리턴
+		waZoo.indexOf("giraffe"); // 1
+		waZoo.indexOf("monkey"); // -1
+  ]]></comment>
+  <comment id="sign_value"><![CDATA[
+	$value() 메서드는 내부 배열을 반환한다.
+	
+	@method $value
+	@return {Array} 원본 배열
+	@example
+		var waNum = $A([1, 2, 3]);
+		waNum.$value(); // 원래의 배열인 [1, 2, 3]이 반환된다.
+  ]]></comment>
+  <comment id="push"><![CDATA[
+	push() 메서드는 내부 배열에 하나 이상의 원소를 추가하고 배열의 크기를 반환한다.
+	
+	@method push
+	@param {Variant} vValue* 추가할 첫~N 번째 원소의 값.
+	@return {Numeric} 원소를 추가한 후 배열의 크기.
+	@see jindo.$A#pop
+	@see jindo.$A#shift
+	@see jindo.$A#unshift
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/push array.push() - MDN Docs
+	@example
+		var arr = $A([1,2,3]);
+		
+		// 원소 추가
+		arr.push(4);	// 결과 : 4 반환, 내부 배열은 [1,2,3,4]로 변경 됨
+		arr.push(5,6);	// 결과 : 6 반환, 내부 배열은 [1,2,3,4,5,6]로 변경 됨
+  ]]></comment>
+  <comment id="pop"><![CDATA[
+	pop() 메서드는 내부 배열의 마지막 원소를 삭제한다.
+	
+	@method pop
+	@return {Variant} 삭제한 원소.
+	@see jindo.$A#push
+	@see jindo.$A#shift
+	@see jindo.$A#unshift
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/pop array.pop() - MDN Docs
+	@example
+		var arr = $A([1,2,3,4,5]);
+		
+		arr.pop(); // 결과 : 5 반환, 내부 배열은 [1,2,3,4]로 변경 됨
+  ]]></comment>
+  <comment id="shift"><![CDATA[
+	shift() 메서드는 내부 배열의 모든 원소를 앞으로 한 칸씩 이동시킨다. 내부 배열의 첫 번째 원소는 삭제된다.
+	
+	@method shift
+	@return {Variant} 삭제한 첫 번째 원소.
+	@see jindo.$A#pop
+	@see jindo.$A#push
+	@see jindo.$A#unshift
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/shift array.shift() - MDN Docs
+	@example
+		var arr  = $A(['Melon','Grape','Apple','Kiwi']);
+		
+		arr.shift(); // 결과 : 'Melon' 반환, 내부 배열은 ["Grape", "Apple", "Kiwi"]로 변경 됨.
+  ]]></comment>
+  <comment id="unshift"><![CDATA[
+	unshift() 메서드는 내부 배열의 맨 앞에 하나 이상의 원소를 삽입한다.
+	
+	@method unshift
+	@param {Variant} vValue* 삽입할 첫~N 번째 값.
+	@return {Numeric} 원소를 추가한 후 배열의 크기
+	@see jindo.$A#pop
+	@see jindo.$A#push
+	@see jindo.$A#shift
+	@see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/unshift array.unshift() - MDN Docs
+	@example
+		var arr = $A([4,5]);
+		
+		arr.unshift('c');		// 결과 : 3 반환, 내부 배열은 ["c", 4, 5]로 변경 됨.
+		arr.unshift('a', 'b');	// 결과 : 5 반환, 내부 배열은 ["a", "b", "c", 4, 5]로 변경 됨.
+  ]]></comment>
+  <comment id="forEach"><![CDATA[
+	forEach() 메서드는 내부 배열의 모든 원소를 순회하면서 콜백 함수를 실행한다.
+	
+	@method forEach
+	@param {Function+} fCallback 배열을 순회하면서 실행할 콜백 함수. 콜백 함수는 파라미터로 value, index, array를 갖는다. $A.Break()와 $A.Continue()을 사용할 수 있다.<br>
+		<ul class="disc">
+			<li>value는 배열이 가진 원소의 값이다.</li>
+			<li>index는 해당 원소의 인덱스이다.</li>
+			<li>array는 배열 그 자체를 가리킨다.</li>
+		</ul>
+	@param {Variant} [oThis] 콜백 함수가 객체의 메서드일 때, 콜백 함수 내부에서 this 키워드의 실행 문맥(Execution Context)으로 사용할 객체.
+	@return {this} 인스턴스 자신
+	@import core.$A[Break, Continue]
+	@see jindo.$A#map
+	@see jindo.$A#filter
+	@example
+		var waZoo = $A(["zebra", "giraffe", "bear", "monkey"]);
+		
+		waZoo.forEach(function(value, index, array) {
+			document.writeln((index+1) + ". " + value);
+		});
+		
+		// 결과 :
+		// 1. zebra
+		// 2. giraffe
+		// 3. bear
+		// 4. monkey
+	@example
+		var waArray = $A([1, 2, 3]);
+		
+		waArray.forEach(function(value, index, array) {
+			array[index] += 10;
+		});
+		
+		document.write(waArray.$value());
+		// 결과 : 11, 12, 13 (내부 배열에 10씩 더해짐)
+  ]]></comment>
+  <comment id="slice"><![CDATA[
+	slice() 메서드는 내부 배열의 일부분을 추출한다.
+	
+	@method slice
+	@param {Numeric} nStart 배열에서 추출할 부분의 시작 원소 인덱스. 인덱스는 0부터 시작한다.
+	@param {Numeric} nEnd 배열에서 추출할 부분의 마지막 원소 바로 다음 인덱스.
+	@return {jindo.$A} 내부 배열의 일부를 추출한 새로운 jindo.$A() 객체. nStart 값이 0보다 작거나 nStart 값이 nEnd보다 크거나 같으면 빈 배열을 가진 jindo.$A() 객체를 반환한다.
+	@example
+		var arr = $A([12, 5, 8, 130, 44]);
+		var newArr = arr.slice(1,3);
+		// 잘라낸 배열인 [5, 8]를 래핑한 jindo.$A() 객체를 리턴한다. (원래의 배열은 변화 없음)
+	@example
+		var arr = $A([12, 5, 8, 130, 44]);
+		var newArr = arr.slice(3,3);
+		// []를 래핑한 jindo.$A() 객체를 리턴한다.
+  ]]></comment>
+  <comment id="splice"><![CDATA[
+	splice() 메서드는 내부 배열의 일부분을 삭제한다.
+	
+	@method splice
+	@param {Numeric} nIndex	배열에서 삭제할 부분의 시작 원소 인덱스. 인덱스는 0부터 시작한다.
+	@param {Numeric} [nHowMany] 시작 원소부터 삭제할 원소의 개수.<br>
+	이 값과 vValue* 파라미터를 생략하면 nIndex 번째 원소부터 배열의 마지막 원소까지 삭제한다.<br>
+	이 값을 0으로 지정하거나 지정하지 않고 vValue* 파라미터에 값을 지정하면 nIndex 번째 위치에 지정한 vValue* 값을 추가한다.
+	@param {Variant} [vValue*] 삭제한 배열에 추가할 첫~N 번째 값. nIndex~(nIndex+N) 인덱스에 지정한 값이 추가된다.
+	@return {jindo.$A} 삭제한 원소를 래핑하는 새로운 jindo.$A() 객체. 삭제한 원소가 없을 경우 빈 배열을 가진 jindo.$A() 객체를 반환한다.
+	@example
+		var arr = $A(["angel", "clown", "mandarin", "surgeon"]);
+		
+		var removed = arr.splice(2, 0, "drum");
+		// arr의 내부 배열은 ["angel", "clown", "drum", "mandarin", "surgeon"]로 인덱스 2에 drum이 추가 됨
+		// removed의 내부 배열은 []로 삭제된 원소가 없음
+		
+		removed = arr.splice(3, 1);
+		// arr의 내부 배열은 ["angel", "clown", "drum", "surgeon"]로 mandarin이 삭제 됨
+		// removed의 내부 배열은 삭제된 원소 ["mandarin"]를 가짐
+		
+		removed = arr.splice(2, 1, "trumpet", "parrot");
+		// arr의 내부 배열은 ["angel", "clown", "trumpet", "parrot", "surgeon"]로 drum이 삭제되고 새로운 원소가 추가 됨
+		// removed의 내부 배열은 삭제된 원소 ["drum"]을 가짐
+		
+		removed = arr.splice(3);
+		// arr의 내부 배열은 ["angel", "clown", "trumpet"]로 인덱스 3부터 마지막 원소가 삭제되었음
+		// removed의 내부 배열은 삭제된 원소 ["parrot", "surgeon"]을 가짐
+  ]]></comment>
+  <comment id="shuffle"><![CDATA[
+	shuffle() 메서드는 배열 원소의 순서를 무작위로 섞는다.
+	
+	@method shuffle
+	@return {this} 원소의 순서를 섞은 인스턴스 자신
+	@see jindo.$A#reverse
+	@example
+		var dice = $A([1,2,3,4,5,6]);
+		
+		dice.shuffle();
+		document.write("You get the number " + dice.get(0));
+		// 결과 : 1부터 6까지의 숫자 중 랜덤한 숫자
+  ]]></comment>
+  <comment id="reverse"><![CDATA[
+	reverse() 메서드는 배열 원소의 순서를 거꾸로 뒤집는다.
+	
+	@method reverse
+	@return {this} 원소의 순서를 뒤집은 인스턴스 자신
+	@see jindo.$A#shuffle
+	@example
+		var arr = $A([1, 2, 3, 4, 5]);
+		
+		arr.reverse(); // 결과 : [5, 4, 3, 2, 1]
+  ]]></comment>
+  <comment id="empty_1"><![CDATA[
+	empty() 메서드는 배열의 모든 원소를 제거하고, 빈 배열로 만든다.
+	
+	@method empty
+	@return {this} 모든 원소를 제거한 인스턴스 자신
+	@example
+		var arr = $A([1, 2, 3]);
+		
+		arr.empty(); // 결과 : []
+  ]]></comment>
+    <comment id="concat"><![CDATA[
+	concat() 메서드는 배열을 결합해 새로운 배열을 반환한다.
+	
+	@method concat
+	@param {Variant} vValue* 결합할 첫~N 번째 값
+	@return {this} 결합된 새로운 인스턴스 자신
+	@see jindo.$A#concat
+	@example
+		var arr1 = $A([1, 2, 3]);
+		var arr2 = $A([4, 5, 6]);
+		
+		arr1.concat(arr2); // 결과 : [1, 2, 3, 4, 5, 6]
+		arr1.concat(arr2, [7, 8], "JindoJS");  // 결과 : [1, 2, 3, 4, 5, 6, 7, 8, "JindoJS"]
+  ]]></comment>
+  <comment id="sort_1"><![CDATA[
+	sort() 메서드는 배열 오름차순으로 정렬한다.
+	파라메터를 통해 원하는 방법으로 정렬할 수 있다.
+	
+	@method sort
+	@param {Function} [sortFunc] 직접 정렬할 수 있도록 함수를 넣을 수 있다.
+		@param {Variant} [sortFunc.preVal] 앞의 값
+		@param {Variant} [sortFunc.foreVal] 뒤의 값
+	@return {this} 정렬된 $A
+	@example
+		var arr = $A([2, 3, 1]);
+		
+		arr.sort(); // 결과 : [1,2,3]
+		
+	@example
+		var arr = $A([2, 3, 1]);
+		
+		arr.sort(function(v,v1){
+			return v < v1
+		}); // 결과 : [3,2,1]
+  ]]></comment>
+  <comment id="break"><![CDATA[
+	Break() 메서드는 forEach(), filter(), map() 메서드의 루프를 중단한다. 내부적으로는 강제로 예외를 발생시키는 구조이므로, try - catch 영역에서 이 메서드를 실행하면 정상적으로 동작하지 않을 수 있다.
+	
+	@method Break
+	@static
+	@see jindo.$A#Continue
+	@see jindo.$A#forEach
+	@see jindo.$A#filter
+	@see jindo.$A#map
+	@example
+		$A([1,2,3,4,5]).forEach(function(value,index,array) {
+		   // 값이 4보다 크면 종료
+		  if (value > 4) $A.Break();
+		   ...
+		});
+  ]]></comment>
+  <comment id="continue"><![CDATA[
+	Continue() 메서드는 forEach(), filter(), map() 메서드의 루프에서 나머지 명령을 실행하지 않고 다음 루프로 건너뛴다. 내부적으로는 강제로 예외를 발생시키는 구조이므로, try - catch 영역에서 이 메서드를 실행하면 정상적으로 동작하지 않을 수 있다.
+	
+	@method Continue
+	@static
+	@see jindo.$A#Break
+	@see jindo.$A#forEach
+	@see jindo.$A#filter
+	@see jindo.$A#map
+	@example
+		$A([1,2,3,4,5]).forEach(function(value,index,array) {
+		   // 값이 짝수면 처리를 하지 않음
+		  if (value%2 == 0) $A.Continue();
+		   ...
+		});
+  ]]></comment>
+</comments>

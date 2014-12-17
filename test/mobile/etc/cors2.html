@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>CORS via GET</title>
+		<style type="text/css">
+			html { font-family:나눔고딕, "맑은 고딕"; }
+			div {
+				border:1px solid #aaa; background-color:#eee; padding:10px;
+				white-space:normal;
+			}
+		</style>
+		<script type="text/javascript" src="../../core.js"></script>
+		<script type="text/javascript" src="../../cssquery.js"></script>
+		<script type="text/javascript" src="../../agent.js"></script>
+		<script type="text/javascript" src="../../array.js"></script>
+		<script type="text/javascript" src="../../array.extend.js"></script>
+		<script type="text/javascript" src="../../ajax.js"></script>
+		<script type="text/javascript" src="../../ajax.extend.js"></script>
+		<script type="text/javascript" src="../../hash.js"></script>
+		<script type="text/javascript" src="../../json.js"></script>
+		<script type="text/javascript" src="../../cookie.js"></script>
+		<script type="text/javascript" src="../../element.js"></script>
+		<script type="text/javascript" src="../../function.js"></script>
+		<script type="text/javascript" src="../../element.extend.js"></script>
+		<script type="text/javascript" src="../../event.js"></script>
+		<script type="text/javascript" src="../../elementlist.js"></script>
+		<script type="text/javascript" src="../../string.js"></script>
+		<script type="text/javascript" src="../../document.js"></script>
+		<script type="text/javascript" src="../../form.js"></script>
+		<script type="text/javascript" src="../../template.js"></script>
+		<script type="text/javascript" src="../../date.js"></script>
+		<script type="text/javascript" src="../../window.js"></script>
+		<script type="text/javascript" src="../../noconflict.js"></script>
+		<script type="text/javascript">
+			function createCORS() {
+			    
+			    var xhr;
+			    
+			    if (typeof XMLHttpRequest !== "undefined") {
+			        xhr = new XMLHttpRequest();
+			        if ("withCredentials" in xhr) {
+			            return xhr;
+			        }
+			    }
+			
+			    if (typeof XDomainRequest !== "undefined") {
+			        return new XDomainRequest();
+			    }
+			  
+			    return null;
+			    
+			}
+			
+			var cors = createCORS();
+			
+			cors.onload = function() { /*성공 했을때*/
+				document.getElementById("result").innerHTML = this.responseText;
+			};
+			
+			cors.onerror = function() { /*실패 했을때*/
+				
+				console.log('실패');
+			};
+
+			cors.onreadystatechange = function(){
+				console.log(cors.readyState);
+			}
+			cors.open('GET', 'http://jindo.nhncorp.com/tmp/test.php?data=foo', true/*비동기로 열자*/);
+			cors.withCredentials = true; /*open 한 이후에 설정해야 함*/
+			cors.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+			
+			cors.send();
+
+		</script>
+	</head>
+	<body>
+		<h1>CORS via GET</h1>
+		<p>GET 방식으로 다른 도메인의 API 를 호출하여 결과를 받아오는 예제</p>
+		<h2>결과</h2>
+		<div id="result">진행중</div>
+	</body>
+</html>
