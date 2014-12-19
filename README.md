@@ -137,7 +137,7 @@ When you find a bug, please report us via the [GitHub issues page](https://githu
 
 Important numbers of companies has been chosen JindoJS to build their web products. A few of them are listed below.
 
-![They uses JindoJS!](http://jindo.dev.naver.com/jindo_home/img/reference.png)
+![They uses JindoJS!](http://jindo.dev.naver.com/jindo_home/img/reference.png?141219)
 
 - [NAVER](http://www.naver.com/),
 [LINE Q](https://lineq.line.me/),
