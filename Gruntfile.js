@@ -480,9 +480,4 @@ module.exports = function(grunt) {
             }
         });
     });
-
-    grunt.registerTask('cleanup', '', function() {
-        //grunt.file.copy(grunt.config("config.path.merged"), grunt.config("config.path.release"));
-        grunt.task.run("clean:dist");
-    });
 };
