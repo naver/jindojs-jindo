@@ -140,6 +140,7 @@ Important numbers of companies has been chosen JindoJS to build their web produc
 ![They uses JindoJS!](http://jindo.dev.naver.com/jindo_home/img/reference.png)
 
 - [NAVER](http://www.naver.com/),
+[LINE Q](https://lineq.line.me/),
 [CJMall](http://mw.cjmall.com/),
 [YES24](http://m.yes24.com/),
 [iSTYLE24](http://m.istyle24.com/),
@@ -149,8 +150,7 @@ Important numbers of companies has been chosen JindoJS to build their web produc
 [FOOTBALL DAY](http://m.fd.naver.com/gmc/home),
 [Kumkang](http://www.kumkang.com/),
 [IPG](http://m.infopub.co.kr/),
-[pxd](http://www.pxd.co.kr/),
-[Open Books](http://m.openbooks.co.kr/)
+[pxd](http://www.pxd.co.kr/)
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-45811892-6/jindojs-jindo/readme)](https://github.com/naver/jindojs-jindo)
