@@ -1,7 +1,8 @@
 # **Jindo JavaScript Framework** - Do more, easier and faster
 =========================================================
 
-Jindo is open source JavaScript framework developed by [NAVER Corp.](http://www.navercorp.com/en/index.nhn) since 2010,
+Jindo is open source JavaScript framework developed by [NAVER Corp.](http://www.navercorp.com/en/index.nhn) since 2010
+(originally the project was started since 2007, but has been redeveloped completely from that year),
 providing a lot of useful methods in a way of wrapping native object and extending it.
 
 Jindo is the main JavaScript framework used for developing most of NAVER's web products.
