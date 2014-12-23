@@ -20,6 +20,11 @@ You can download customized version at Jindo download page :
 - English : http://jindo.dev.naver.com/utils/downloader/jindo/web/download.en.php
 - Korean : http://jindo.dev.naver.com/utils/downloader/jindo/web/download.php
 
+Or download with Bower :
+
+```bash
+$ bower install jindojs-jindo
+```
 
 ## **Modules**
 - **$** : Select DOM elements by id or create new one.
