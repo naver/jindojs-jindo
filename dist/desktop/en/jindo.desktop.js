@@ -1,7 +1,7 @@
 /**
 * Jindo
 * @type desktop
-* @version 2.13.0-pre
+* @version 2.12.0
 * 
 * NAVER Corp; JindoJS JavaScript Framework
 * http://jindo.dev.naver.com/
@@ -843,7 +843,7 @@ jindo.$Jindo.checkVarType._throwException = function(aArgs, oRules, sFuncName) {
     var sURL;
 
     if (/(\$\w+)#(\w+)?/.test(sFuncName)) {
-        sURL = 'http://jindo.dev.naver.com/docs/jindo/2.13.0-pre/desktop/ko/classes/jindo.' + encodeURIComponent(RegExp.$1) + '.html' + "#method_"+RegExp.$2;
+        sURL = 'http://jindo.dev.naver.com/docs/jindo/2.12.0/desktop/ko/classes/jindo.' + encodeURIComponent(RegExp.$1) + '.html' + "#method_"+RegExp.$2;
     }
 
     throw new TypeError(fpErrorMessage(sUsed, aSuggs, sURL));
@@ -1406,7 +1406,7 @@ jindo.$Class.extend = function(superClass) {
     jindo.VERSION; // Version string - ex. "2.9.2"
     jindo.TYPE;    // Version type string (desktop|mobile) - ex. "desktop"
 */
-jindo.VERSION = "2.13.0-pre";
+jindo.VERSION = "2.12.0";
 jindo.TYPE = "desktop";
 
 /**
