@@ -22,8 +22,6 @@
     "**/.*",
     "build",
     "demo",
-    "dist/desktop",
-    "dist/mobile",
     "dist/doc",
     "dist/meta",
     "src",
