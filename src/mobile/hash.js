@@ -399,13 +399,18 @@ jindo.$H.prototype.keys = function() {
     //-@@$H.keys-@@//
     var keys = this["__jindo_sorted_index"];
     
-    if(!keys){
-        keys = [];
-        for(var k in this._table) {
-            if(this._table.hasOwnProperty(k))
-                keys.push(k);
-        }
-    }
+	if(!keys) {
+		if(Object.keys) {
+			keys = Object.keys(this._table);
+		} else {
+			keys = [];
+
+			for(var k in this._table) {
+				if(this._table.hasOwnProperty(k))
+					keys.push(k);
+			}
+		}
+	}
 
     return keys;
 };
