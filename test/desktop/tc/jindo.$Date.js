@@ -1,5 +1,7 @@
 QUnit.config.autostart = false;
 
+$Date.utc = 9;  // set UTC to 9(Local time in Korea)- http://en.wikipedia.org/wiki/Coordinated_Universal_Time
+
 module("$Date 객체");
 	QUnit.test("$Date 객체가 만들어지는가?",function(){
 		ok($Date() instanceof $Date);
