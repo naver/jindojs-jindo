@@ -1,8 +1,12 @@
 QUnit.config.autostart = false;
 
-$Date.utc = 9;  // set UTC to 9(Local time in Korea)- http://en.wikipedia.org/wiki/Coordinated_Universal_Time
+module("$Date 객체", {
+	setup: function() {
+		// set UTC to 9(Local time in Korea)- http://en.wikipedia.org/wiki/Coordinated_Universal_Time
+		$Date.utc = 9;
+	}
+});
 
-module("$Date 객체");
 	QUnit.test("$Date 객체가 만들어지는가?",function(){
 		ok($Date() instanceof $Date);
 	});
@@ -104,11 +108,11 @@ module("$Date 객체");
 	});
 	QUnit.test("format 사용하기.",function(){
 		var date = $Date(2010,6,2,2,2,2);
-		equal(date.format("l S z L o a u U q"),"Friday rd 182 false 2010 am 1 1278003722001 q");
+		ok(date.format("l S z L o a u U q") == "Friday rd 182 false 2010 am 1 1278003722001 q");
 	});
 	QUnit.test("time 사용하기.",function(){
 		var date = $Date(2010,6,2,2,2,2);
-		deepEqual(date.time(),1278003722001);
+		equal(date.time(),1278003722001);
 		date.time(1000*60*60);
 		equal(date.hours(),10);
 	});
