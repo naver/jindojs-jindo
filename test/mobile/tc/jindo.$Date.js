@@ -108,7 +108,7 @@ module("$Date 객체");
 	});
 	QUnit.test("time 사용하기.",function(){
 		var date = $Date(2010,6,2,2,2,2);
-		equal(date.time(),1278003722001);
+		deepEqual(date.time(),1278003722001);
 		date.time(1000*60*60);
 		equal(date.hours(),10);
 	});
