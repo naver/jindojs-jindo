@@ -2787,22 +2787,14 @@ module("$Element 객체");
     });*/
 
     QUnit.test("ellipsis는 paddding이 들어있어도 정상적으로 잘려야 한다.",function(){
-        $Element("ellipsis_padding").ellipsis();
-        var text = $S($Element("ellipsis_padding").text()).trim();
-        var result;
-        if (text == "NHN은 검색과 게임을 양축으로 혁신적이...") {
-            result = true;
-        }
-        else
-            if (text == "NHN은 검색과 게임을 양축으로 혁신적...") {
-                result = true;
-            }
-            else {
-                result = false;
-            }
-        ok(result)
+        var wel = $Element("ellipsis_padding"),
+            sOrigText = $Element("ellipsis_padding").text();
 
+        wel.ellipsis();
+        var text = $S(wel.text()).trim();
+        ok(sOrigText.length > text.$value().length);
     });
+
     QUnit.test("addClass는 여러개의 클래스를 사용해도 지원한다.",function(){
         var rEle = $Element("multiClass");
         rEle.addClass("add1");
