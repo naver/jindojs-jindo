@@ -103,8 +103,10 @@ module("$Date 객체");
 
 	});
 	QUnit.test("format 사용하기.",function(){
-		var date = $Date(2010,6,2,2,2,2);
-		equal(date.format("l S z L o a u U q"),"Friday rd 182 false 2010 am 0 1278003722000 q");
+		var date = $Date(2010,6,2,2,2,2),
+			date2 = new Date(2010,6,2,2,2,2);
+
+		equal(date.format("l S z L o a u U q"),"Friday rd 182 false 2010 am 0 "+ date2.getTime() +" q");
 	});
 	QUnit.test("time 사용하기.",function(){
 		var date = $Date(2010,6,2,2,2,2),
