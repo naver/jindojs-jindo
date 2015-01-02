@@ -1,5 +1,5 @@
 # **Jindo JavaScript Framework** - Do more, easier and faster
-=========================================================
+[![Build Status](https://travis-ci.org/naver/jindojs-jindo.svg?branch=master)](https://travis-ci.org/naver/jindojs-jindo)
 
 Jindo is open source JavaScript framework developed by [NAVER Corp.](http://www.navercorp.com/en/index.nhn) since 2010
 (originally the project was started since 2007, but has been redeveloped completely from that year),
@@ -29,7 +29,7 @@ $ bower install jindojs-jindo
 
 ## **Modules**
 - **$** : Select DOM elements by id or create new one.
-- **$Jindo** : Provide information about Jindo, and provide utility methods.
+- **$Jindo** : Provide information about Jindo, and utility methods.
 - **$Class** : Provide methods to make object oriented programming style code.
 - **$$(cssquery)** : CSS selector engine.
 - **$Agent** : Provide information about browser, operating systems and user's system.
