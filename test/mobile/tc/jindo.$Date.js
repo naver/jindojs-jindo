@@ -107,10 +107,14 @@ module("$Date 객체");
 		equal(date.format("l S z L o a u U q"),"Friday rd 182 false 2010 am 0 1278003722000 q");
 	});
 	QUnit.test("time 사용하기.",function(){
-		var date = $Date(2010,6,2,2,2,2);
-		equal(date.time(),1278003722000);
+		var date = $Date(2010,6,2,2,2,2),
+			date2 = new Date(2010,6,2,2,2,2)
+
+		equal(date.time(), date2.getTime());
 		date.time(1000*60*60);
-		equal(date.hours(),10);
+		date2.setTime(1000*60*60);
+
+		equal(date.hours(),date2.getHours());
 	});
 	QUnit.test("year 사용하기.",function(){
 		var date = $Date(2010,6,2,2,2,2);
