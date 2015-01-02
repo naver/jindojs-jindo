@@ -29,7 +29,7 @@ $ bower install jindojs-jindo
 
 ## **Modules**
 - **$** : Select DOM elements by id or create new one.
-- **$Jindo** : Provide information about Jindo, and utility methods.
+- **$Jindo** : Provide information about Jindo and utility methods.
 - **$Class** : Provide methods to make object oriented programming style code.
 - **$$(cssquery)** : CSS selector engine.
 - **$Agent** : Provide information about browser, operating systems and user's system.
