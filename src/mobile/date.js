@@ -70,7 +70,7 @@ jindo.$Date = function(src) {
 		case '4num7':
 			for(var i = 0 ; i < 7 ; i++){
 				if(!jindo.$Jindo.isNumeric(a[i])){
-					a[i] = 1;
+					a[i] = i == 2 ? 1 : 0;
 				}
 			}
 			this._date = new Date(a[0],a[1],a[2],a[3],a[4],a[5],a[6]);
