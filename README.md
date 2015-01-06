@@ -143,20 +143,23 @@ When you find a bug, please report us via the [GitHub issues page](https://githu
 
 Important numbers of companies has been chosen JindoJS to build their web products. A few of them are listed below.
 
-![They uses JindoJS!](http://jindo.dev.naver.com/jindo_home/img/reference.png?141219)
+![They uses JindoJS!](http://jindo.dev.naver.com/jindo_home/img/reference.png?150106)
 
 - [NAVER](http://www.naver.com/),
 [LINE Q](https://lineq.line.me/),
 [CJMall](http://mw.cjmall.com/),
 [YES24](http://m.yes24.com/),
-[iSTYLE24](http://m.istyle24.com/),
-[FUNSHOP](http://m.funshop.co.kr/),
-[U+](http://page.uplus.co.kr/),
 [CGV](http://m.cgv.co.kr/),
+[MBC](http://m.imbc.com/),
+[hangame](http://www.hangame.com/),
 [FOOTBALL DAY](http://m.fd.naver.com/gmc/home),
+[U+](http://page.uplus.co.kr/),
+[pxd](http://www.pxd.co.kr/),
 [Kumkang](http://www.kumkang.com/),
-[IPG](http://m.infopub.co.kr/),
-[pxd](http://www.pxd.co.kr/)
-
+[Chosun Ilbo](http://m.chosun.com/),
+[OhmyNews](http://m.ohmynews.com/),
+[FUNSHOP](http://m.funshop.co.kr/),
+[SMBA](http://m.smba.go.kr/),
+[KTX](http://www.ktxwifi.co.kr/)
 
 [![Analytics](https://ga-beacon.appspot.com/UA-45811892-6/jindojs-jindo/readme)](https://github.com/naver/jindojs-jindo)
