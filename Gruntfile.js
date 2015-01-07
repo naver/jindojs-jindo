@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             },
 
             // API doc url
-            docurl: "http://jindo.dev.naver.com/docs/jindo/<%= pkg.version %>/desktop/ko/classes/jindo."
+            docurl: "http://jindo.dev.naver.com/docs/jindo/<%= pkg.version %>/desktop/{{lang}}/classes/jindo."
         },
         meta: {
             banner: '/**\n' +
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
                         aLogData = [];
 
                     parser.parseString("<logs>"+ stdout.replace(/<\/?log>/g, "") +"</logs>", function(err, result) {
-                        if(!result.logs.item) {
+                        if(!result || !result.logs || !result.logs.item) {
                             return;
                         }
 
@@ -286,7 +286,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('versioning', 'Set the version and merge namespace & nonconflict contents', function(sLang) {
         var aReleaseFile = grunt.config("concat.options.list.release"),
-            sVersion = grunt.config("pkg.version");
+            sVersion = grunt.config("pkg.version"),
+            sDocUrl = grunt.config("config.docurl").replace("{{lang}}", sLang);
 
         aReleaseFile.forEach(function(v, i) {
             var sType = /desktop/.test(v) ? "desktop" : "mobile",
@@ -312,7 +313,7 @@ module.exports = function(grunt) {
             }
 
             // set the document api url
-            sContent = sContent.replace(/@docurl@/g, grunt.config("config.docurl"));
+            sContent = sContent.replace(/@docurl@/g, sDocUrl);
 
             // set the version info
             sContent = sContent.replace(/@version@/g, sVersion).replace(/@type@/g, sType);
