@@ -9,9 +9,9 @@
 /**
 {{constructor}}
  */
-jindo.$Cookie = function() {
+jindo.$Cookie = function Cookie(){
 	//-@@$Cookie-@@//
-	var cl = arguments.callee;
+	var cl = Cookie || arguments.callee;
 	var cached = cl._cached;
 	if (cl._cached) return cl._cached;
 	
@@ -138,6 +138,9 @@ jindo.$Cookie.prototype.set = function(sName, sValue, nDays, sDomain, sPath) {
 jindo.$Cookie.prototype.remove = function(sName, sDomain, sPath) {
 	//-@@$Cookie.remove-@@//
 	var cache = jindo.$Jindo;
+	
+	if (cache.isNull(this.get(sName))) return this;
+	
 	var oArgs = cache.checkVarType(arguments, {
 		'4str' : [ 'sName:String+'],
 		'domain_for_string' : [ 'sName:String+',"sDomain:String+"],
@@ -152,7 +155,7 @@ jindo.$Cookie.prototype.remove = function(sName, sDomain, sPath) {
 			aPram.push(-1);	
 		}
 	}
-	if (!cache.isNull(this.get(sName))) this.set.apply(this,aPram);
+	this.set.apply(this,aPram);
 	
 	return this;
 };
