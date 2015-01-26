@@ -13,20 +13,21 @@ jindo.$Cookie = function() {
 	//-@@$Cookie-@@//
 	var cl = arguments.callee;
 	var cached = cl._cached;
-	
 	if (cl._cached) return cl._cached;
+	
+	var cache = jindo.$Jindo;
 	if(!(this instanceof cl)){
 		try{
-			jindo.$Jindo._maxWarn(arguments.length, 1,"$Cookie");
+			cache._maxWarn(arguments.length, 1,"$Cookie");
 			return (arguments.length > 0) ? new cl(arguments[0]) : new cl;
 		}catch(e){
 			if (e instanceof TypeError) { return null; }
 			throw e;
 		}
 	}
-	if (typeof jindo.$Jindo.isUndefined(cl._cached)) cl._cached = this;
+	if (typeof cache.isUndefined(cl._cached)) cl._cached = this;
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = cache.checkVarType(arguments, {
 		"4voi" : [],
 		"4bln" : ["bURIComponent:Boolean"]
 	}, "$Cookie");
@@ -66,7 +67,8 @@ jindo.$Cookie.prototype.keys = function() {
  */
 jindo.$Cookie.prototype.get = function(sName) {
 	//-@@$Cookie.get-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var cache = jindo.$Jindo;
+	var oArgs = cache.checkVarType(arguments, {
 		'4str' : [ 'sName:String+']
 	},"$Cookie#get");
 	var ca = document.cookie.split(/\s*;\s*/);
