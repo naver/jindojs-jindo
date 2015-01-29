@@ -27,7 +27,7 @@ jindo.$Template.addEngine("default", function(str){
 		});
 		
 		str = str.replace(/^{=([^}]+)}/, function(_, varname) {
-			parsed = code.push('$RET$.push(' + varname + ');');
+			parsed = code.push('typeof '+ varname +' != "undefined" && $RET$.push(' + varname + ');');
 			return '';
 		});
 		
