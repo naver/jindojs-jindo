@@ -297,11 +297,10 @@ jindo.$Jindo.checkVarType = function(aArgs, oRules, sFuncName) {
         var nTypeCount = nRuleLen;
 
         for (var i = 0; i < nRuleLen; ++i) {
-            /^([^:]+):([^\+]*)(\+?)$/.test(aRule[i]);
-
-            var sVarName = RegExp.$1,
-                sVarType = RegExp.$2,
-                bAutoCast = RegExp.$3 ? true : false;
+           var aRegExpResult = /^([^:]+):([^\+]*)(\+?)$/.exec(aRule[i]),
+           	   sVarName = aRegExpResult[1],
+               sVarType = aRegExpResult[2],
+               bAutoCast = !!aRegExpResult[3];
 
             // if accept any type
             if (sVarType === 'Variant') {
