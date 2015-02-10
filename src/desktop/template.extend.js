@@ -41,7 +41,7 @@ jindo.$Template.addEngine("default", function(str){
 		});
 		
 		str = str.replace(/^{(g)?set\s+([^=]+)=([^}]+)}/, function(_, at_g, key, val) {
-			parsed = code.push((at_g ? 'var ' : '$SCOPE$.') +key+ '=' + val.replace(/\(=/g, '(') + ';');
+			parsed = code.push((at_g ? 'var ' : '$SCOPE$.') +key+ '=' + val.replace(/(\s|\(|\[)=/g, '$1') + ';');
 			return '';
 		});
 		

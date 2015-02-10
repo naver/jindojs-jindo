@@ -337,3 +337,16 @@ module("$Template에 추가된 템플릿 엔진과 개선된 구조 테스트");
 	    //Then
 	    ok(!occurException)
 	});
+
+	QUnit.test("Output of nested variable should be work.",function(){
+        var oTemplate = jindo.$Template("{set sShopListClass = (=htShopListClass[=item.aShop.length])} {=sShopListClass}"),
+            oData = {
+                htShopListClass: [ "a", "b", "c", "d" ],
+                item : {
+                    aShop: [1,2,3]
+                }
+            };
+
+
+        ok(oTemplate.process(oData));
+	});
