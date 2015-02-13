@@ -357,3 +357,11 @@ module("$Template에 추가된 템플릿 엔진과 개선된 구조 테스트");
 
         ok(oTemplate.process(oData));
 	});
+
+	QUnit.test("Even contains escaped curly bracket should be work.",function(){
+        var oTemplate = jindo.$Template('<button type="button" onclick="(function(el, obj) \{obj.stop();\}(this, obj)"><span>{=name}</span></button>'),
+            oData = { name : "data" };
+
+
+        ok(oTemplate.process(oData));
+	});

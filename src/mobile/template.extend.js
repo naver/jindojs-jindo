@@ -3,6 +3,7 @@
  {{addEngine_default}}
  */
 jindo.$Template.addEngine("default", function(str){
+    str = str.replace(/\\{/g, "#LEFT_CURLY_BRACKET#").replace(/\\}/g, "#RIGHT_CURLY_BRACKET#");
 
 	var code = [];
 	var parsed = false;
@@ -97,7 +98,7 @@ jindo.$Template.addEngine("default", function(str){
 	code.push('}');
 	code.push('return $RET$.join("");');
 
-	var r = new Function('$ARG$', code.join('\n').replace(/\r/g,''));
+	var r = new Function('$ARG$', code.join('\n').replace(/\r/g,'').replace(/#LEFT_CURLY_BRACKET#/g, "{").replace(/#RIGHT_CURLY_BRACKET#/g, "}"));
 	return r;
 });
 //-!jindo.$Template.addEngine.default end!-//
