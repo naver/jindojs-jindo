@@ -1,6 +1,6 @@
 {
   "name": "jindojs-jindo",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "description": "Jindo JavaScript Framework",
   "main": "dist/desktop/en/jindo.desktop.js",
   "moduleType": [
