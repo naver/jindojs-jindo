@@ -1,7 +1,7 @@
 {
   "name": "Jindo",
   "description": "NAVER Corp; JindoJS JavaScript Framework",
-  "version": "2.12.1",
+  "version": "2.12.1-snapshot",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt qp"
@@ -23,8 +23,8 @@
     },
     "changelog": {
       "create": true,
-      "after": "2014-12-19",
-      "before": "2015-02-26"
+      "after": "2015-03-05",
+      "before": "now"
     },
     "namespace": "jindo"
   },
