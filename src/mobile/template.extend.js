@@ -40,14 +40,14 @@ jindo.$Template.addEngine("default", function(str){
 			parsed = code.push('$RET$.push(' + syntax + ');');
 			return '';
 		});
-		
+
 		str = str.replace(/^{(g)?set\s+([^=]+)=([^}]+)}/, function(_, at_g, key, val) {
 			parsed = code.push((at_g ? 'var ' : '$SCOPE$.') +key+ '=' + val.replace(/(\s|\(|\[)=/g, '$1') + ';');
 			return '';
 		});
-		
-		str = str.replace(/^{for\s+([^:}]+)(:([^\s]+))?\s+in\s+([^}]+)}/, function(_, key, _, val, obj) {
-			
+
+		str = str.replace(/^{for\s+([^:}]+)(?:\s*)(:(.+))?\s+in\s+([^}]+)}/, function(_, key, _, val, obj) {
+
 			if (!val) { val = key; key = '$NULL$' + key_num; }
 			var key_str = '$I$' + key_num;
 			var callback = '$CB$' + key_num;

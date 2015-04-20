@@ -358,3 +358,37 @@ module("$Template에 추가된 템플릿 엔진과 개선된 구조 테스트");
 
         ok(oTemplate.process(oData));
 	});
+
+	QUnit.test("When has a blank space after 'for' statement.",function(){
+		//Given
+		var oData = {
+			"aItems" : [
+				{"bHighlight":true,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":false,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":true,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":false,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5}
+			]
+		};
+		// When
+		var template = "{for index : item in aItems}<span>{=item.sDebateTitle}</span>{/for}";
+		var str = jindo.$Template(template).process(oData);
+		// Then
+		equal(str,"<span>3</span><span>3</span><span>3</span><span>3</span>");
+	});
+
+	QUnit.test("When has no character after 'for' statement.",function(){
+		//Given
+		var oData = {
+			"aItems" : [
+				{"bHighlight":true,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":false,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":true,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5},
+				{"bHighlight":false,"sStartDay":"1","sStartTime":2,"sDebateTitle":3,"nReplayKind":4,"sLinkUrl":5}
+			]
+		};
+		// When
+		var template = "{for index:item in aItems}<span>{=item.sDebateTitle}</span>{/for}";
+		var str = jindo.$Template(template).process(oData);
+		// Then
+		equal(str,"<span>3</span><span>3</span><span>3</span><span>3</span>");
+	});

@@ -21,17 +21,17 @@ jindo.$Template.addEngine("default", function(str){
 	
 	do {
 		parsed = false;
-	
+
 		str = str.replace(/^[^{]+/, function(_) {
 			parsed = code.push('$RET$.push("' + stripString(_) + '");');
 			return '';
 		});
-		
+
 		str = str.replace(/^{=([^}]+)}/, function(_, varname) {
 			parsed = code.push('typeof '+ varname +' != "undefined" && $RET$.push(' + varname + ');');
 			return '';
 		});
-		
+
 		str = str.replace(/^{js\s+([^}]+)}/, function(_, syntax) {
 			syntax = syntax.replace(/(=(?:[a-zA-Z_][\w\.]*)+)/g, function(m) {
 				return m.replace('=', '');
@@ -40,13 +40,13 @@ jindo.$Template.addEngine("default", function(str){
 			parsed = code.push('$RET$.push(' + syntax + ');');
 			return '';
 		});
-		
+
 		str = str.replace(/^{(g)?set\s+([^=]+)=([^}]+)}/, function(_, at_g, key, val) {
 			parsed = code.push((at_g ? 'var ' : '$SCOPE$.') +key+ '=' + val.replace(/(\s|\(|\[)=/g, '$1') + ';');
 			return '';
 		});
-		
-		str = str.replace(/^{for\s+([^:}]+)(:([^\s]+))?\s+in\s+([^}]+)}/, function(_, key, _, val, obj) {
+
+		str = str.replace(/^{for\s+([^:}]+)(?:\s*)(:(.+))?\s+in\s+([^}]+)}/, function(_, key, _, val, obj) {
 			
 			if (!val) { val = key; key = '$NULL$' + key_num; }
 			var key_str = '$I$' + key_num;
