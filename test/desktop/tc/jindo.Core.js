@@ -1965,4 +1965,17 @@ module("$Jindo.checkVarType compatible 모드", {
 
 	});
 
+	QUnit.test("Removes whitespace : trim()",function(){
+		var str = "abcdefg",
+		    ideographicSpace = Array(31).join(String.fromCharCode(12288));
+			withSpace1 = "    "+ str +"     ",
+			withSpace2 = ideographicSpace + str +"     ",
+			withSpace3 = "    "+ ideographicSpace + str + ideographicSpace + str +"     "+ ideographicSpace + "    ";
+
+		deepEqual(jindo._p_.trim(withSpace1), str, "Removed white space?");
+		deepEqual(jindo._p_.trim(withSpace2), str, "Removed ideographic white space? #1");
+		deepEqual(jindo._p_.trim(withSpace3), str + ideographicSpace + str, "Removed ideographic white space? #2");
+
+	});
+
 __mockConsole.rescue();

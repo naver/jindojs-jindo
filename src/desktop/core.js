@@ -15,8 +15,13 @@ jindo._p_._JINDO_IS_WK = jindo._p_._j_ag.indexOf("WebKit") > -1;
 jindo._p_._JINDO_IS_MO = /(iPhone|iPod|Mobile|Tizen|Android|Nokia|webOS|BlackBerry|Opera Mobi|Opera Mini)/.test(jindo._p_._j_ag);
 
 jindo._p_.trim = function(str){
-    var sBlank = "\\s|\\t|"+ String.fromCharCode(12288), re = new RegExp(["^(?:", ")+|(?:", ")+$"].join(sBlank), "g");
-    return str.replace(re, "");
+	if(String.prototype.trim) {
+		return str.trim();
+	} else {
+		// removes white space, '\u00A0' no-break space and '\uFEFF' zero width no-break
+		var sBlank = "\\s\\uFEFF\\u00A0", re = RegExp(["^[", "]+|[", "]+$"].join(sBlank), "g");
+		return str.replace(re, "");
+	}
 };
 //-!namespace.default end!-//
 
