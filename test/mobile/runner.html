@@ -747,7 +747,7 @@ function loadScript(sFile) {
     s.type = "text/javascript";
     s.src = "tc/"+ sFile +".js";
 
-    document.head.appendChild(s);
+    (document.head || document.getElementsByTagName("head")[0]).appendChild(s);
 }
 
 QUnit.start();
