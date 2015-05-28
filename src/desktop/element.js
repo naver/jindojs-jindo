@@ -1831,7 +1831,7 @@ jindo.$Element.eventManager = (function() {
                     }else if(sType=="delegate"&&sEvent == "mouseleave") {
                         sEvent = "mouseout";
                     } else if(sEvent == "input") {
-                        sEvent = "propertychange";
+                        sEvent = "keyup";
                     }
 
                     return jindo._p_.mouseTouchPointerEvent(sEvent);
