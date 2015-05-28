@@ -851,7 +851,10 @@ jindo.$Class.extend = function(superClass) {
     for(var x in superClass) {
         if (superClass.hasOwnProperty(x)) {
             if (x == "prototype") continue;
-            this[x] = superClass[x];
+
+            if(this[x] === undefined) {
+	            this[x] = superClass[x];
+	        }
         }
     }
     return this;

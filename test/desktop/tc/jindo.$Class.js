@@ -301,4 +301,19 @@ module("New API $Class", {
         deepEqual(__mockConsole.get(),jindo.$Except.CANNOT_SET_OBJ_PROPERTY);
     });
 
+	QUnit.test("When extend, the static value should refer own value",function(){
+		var Parent = $Class({
+			$static : {
+					VERSION : 1
+			},
+            $init : function() {}
+		}), Child = $Class({
+			$static : {
+				VERSION : 2
+			},
+			$init : function() {}
+		}).extend(Parent);
 
+		ok(Parent.VERSION === 1);
+		ok(Child.VERSION === 2);
+	});
