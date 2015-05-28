@@ -76,7 +76,7 @@ foreach ( $files as $key=>$file ) {
 
 // read namespace.js and put contents to the top and bottom using '[[script-insert]]' delimiter comment.
 $fp = fopen("$path/namespace.js", "r");
-$namespace = preg_split("/^\/\/[^\]]+\[\[script\-insert\]\][^>]+>$/m", str_replace("@namespace@",$jindo,fread($fp, filesize("$path/namespace.js"))));
+$namespace = preg_split("/^\/\/[^\]]+\[\[script\-insert\]\][^>]+>/m", str_replace("@namespace@",$jindo,fread($fp, filesize("$path/namespace.js"))));
 $total = $namespace[0] . $total . $namespace[1];
 
 if($nonconflict) {
