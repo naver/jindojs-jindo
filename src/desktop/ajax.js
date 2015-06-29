@@ -23,7 +23,7 @@ jindo.$Ajax = function (url, option) {
 	}	
 
 	var ___ajax = jindo.$Ajax, ___error = jindo.$Error, ___except = jindo.$Except;
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : [ 'sURL:String+' ],
 		'4obj' : [ 'sURL:String+', 'oOption:Hash+' ]
 	},"$Ajax");
@@ -504,7 +504,7 @@ jindo.$Ajax.prototype.abort = function() {
 {{url2}}
  */
 jindo.$Ajax.prototype.url = function(sURL){
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'g' : [ ],
 		's' : [ 'sURL:String+' ]
 	},"$Ajax#url");
@@ -526,7 +526,7 @@ jindo.$Ajax.prototype.url = function(sURL){
 {{option2}}
  */
 jindo.$Ajax.prototype.option = function(name, value) {
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4var' : [ 'sKey:String+', 'vValue:Variant' ],
 		's4obj' : [ 'oOption:Hash+'],
 		'g' : [ 'sKey:String+']
@@ -570,7 +570,7 @@ jindo.$Ajax.prototype.option = function(name, value) {
 jindo.$Ajax.prototype.header = function(name, value) {
 	if(this._options["type"]==="jsonp" || this._bXDomainRequest){jindo.$Jindo._warn(jindo.$Except.CANNOT_USE_HEADER);}
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4str' : [ 'sKey:String+', 'sValue:String+' ],
 		's4obj' : [ 'oOption:Hash+' ],
 		'g' : [ 'sKey:String+' ]
@@ -670,7 +670,7 @@ jindo.$Ajax.Response.prototype.json = function() {
 {{response_header}}
  */
 jindo.$Ajax.Response.prototype.header = function(name) {
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : [ 'name:String+' ],
 		'4voi' : [ ]
 	},"$Ajax.Response#header");

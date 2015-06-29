@@ -31,7 +31,7 @@ jindo.$Date = function(src) {
 		
 	}
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi'  : [ ],
 		'4str'  : [ 'src:String+' ],
 		'4num'  : [ 'src:Numeric'],
@@ -101,7 +101,7 @@ jindo.$Date._makeISO = function(src){
  * @ignore
  */
 jindo.$Date._paramCheck = function(aPram, sType){
-	return g_checkVarType(aPram, {
+	return jindo._checkVarType(aPram, {
 		's' : [ 'nParm:Numeric'],
 		'g' : []
 	},"$Date#"+sType);
@@ -157,7 +157,7 @@ jindo.$Date.now = function() {
  */
 jindo.$Date.prototype.name = function(vName,aValue){
 	//-@@$Date.name-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4str' : [ 'sKey:String+', 'aValue:Array+' ],
 		's4obj' : [ 'oObject:Hash+' ],
 		'g' : [ 'sKey:String+' ]
@@ -189,7 +189,7 @@ jindo.$Date.prototype.name = function(vName,aValue){
  */
 jindo.$Date.parse = function(strDate) {
 	//-@@$Date.parse-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : [ 'sKey:String+']
 	},"$Date#parse");
 	
@@ -217,7 +217,7 @@ jindo.$Date.prototype.$value = function(){
  */
 jindo.$Date.prototype.format = function(strFormat){
 	//-@@$Date.format-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : [ 'sFormat:String+']
 	},"$Date#format");
 	strFormat = oArgs.sFormat;
@@ -495,7 +495,7 @@ jindo.$Date.prototype.isLeapYear = function() {
  */
 jindo.$Date.prototype.compare = function(oDate, sType) {
 	//-@@$Date.compare-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4dat' : [ 'oDate:Date+'],
 		'4str' : [ 'oDate:Date+','sType:String+']
 	},"$Date#compare");

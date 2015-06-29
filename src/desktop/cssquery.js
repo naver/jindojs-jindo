@@ -1040,7 +1040,7 @@ jindo.$$ = jindo.cssquery = (function() {
     var bExtremeMode = false;
         
     var old_cssquery = function(sQuery, oParent, oOptions) {
-        var oArgs = g_checkVarType(arguments, {
+        var oArgs = jindo._checkVarType(arguments, {
             '4str'   : [ 'sQuery:String+'],
             '4var'  : [ 'sQuery:String+', 'oParent:Variant' ],
             '4var2' : [ 'sQuery:String+', 'oParent:Variant', 'oOptions:Variant' ]
@@ -1227,7 +1227,7 @@ jindo.$$ = jindo.cssquery = (function() {
          {{cssquery_desc}}
          */
         cssquery = function(sQuery, oParent, oOptions){
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
                 '4str'   : [ 'sQuery:String+'],
                 '4var'  : [ 'sQuery:String+', 'oParent:Variant' ],
                 '4var2' : [ 'sQuery:String+', 'oParent:Variant', 'oOptions:Variant' ]
@@ -1346,7 +1346,7 @@ jindo.$$ = jindo.cssquery = (function() {
     cssquery.test = function(oEl, sQuery) {
         clearKeys();
         try{
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
                 '4ele' : [ 'oEl:Element+', 'sQuery:String+' ],
                 '4doc' : [ 'oEl:Document+', 'sQuery:String+' ]
             },"<static> cssquery#test");
@@ -1419,7 +1419,7 @@ jindo.$$ = jindo.cssquery = (function() {
      */
     cssquery.debug = function(fpCallback, nRepeat) {
         
-        var oArgs = g_checkVarType(arguments, {
+        var oArgs = jindo._checkVarType(arguments, {
             '4fun'   : [ 'fpCallback:Function+'],
             '4fun2'  : [ 'fpCallback:Function+', 'nRepeat:Numeric' ]
         },"<static> cssquery#debug");

@@ -22,7 +22,7 @@ jindo.$ElementList = function (els) {
 		}
 	}	
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4arr' : [ 'aEle:Array+' ],
 		'4str' : [ 'sCssQuery:String+' ],
 		'4nul' : [ 'oEle:Null' ],
@@ -110,7 +110,7 @@ jindo.$ElementList = function (els) {
 */
 jindo.$ElementList.prototype.get = function(idx) {
 	//-@@$ElementList.get-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : [ 'nIdx:Numeric' ]
 	},"$ElementList#get");
 	return this._elements[idx];
@@ -146,7 +146,7 @@ jindo.$ElementList.prototype.getLast = function() {
 */
 jindo.$ElementList.prototype.length = function(nLen, oValue) {
 	//-@@$ElementList.length-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [],
 		'4num' : [ jindo.$Jindo._F("nLen:Numeric")],
 		'4var' : [ "nLen:Numeric", "oValue:Variant"]

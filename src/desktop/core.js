@@ -65,7 +65,7 @@ jindo.$Jindo.compatible = function(){
 {{mixin}}
  */
 jindo.$Jindo.mixin = function(oDestination, oSource){
-    g_checkVarType(arguments, {
+    jindo._checkVarType(arguments, {
         'obj' : [ 'oDestination:Hash+', 'oSource:Hash+' ]
     },"<static> $Jindo#mixin");
 
@@ -397,7 +397,7 @@ jindo.$Jindo.checkVarType = function(aArgs, oRules, sFuncName) {
 
 };
 
-var g_checkVarType = jindo.$Jindo.checkVarType;
+var jindo._checkVarType = jindo.$Jindo.checkVarType;
 
 // type check return type object
 jindo.$Jindo._varTypeRetObj = function() {};
@@ -727,7 +727,7 @@ jindo.$ = function(sID/*, id1, id2*/) {
  */
 jindo.$Class = function(oDef) {
     //-@@$Class-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4obj' : [ 'oDef:Hash+' ]
     },"$Class");
 
@@ -836,7 +836,7 @@ jindo._p_._kindOf = function(oThis, oClass){
 {{extend}}
  */
 jindo.$Class.extend = function(superClass) {
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4obj' : [ 'oDef:$Class' ]
     },"<static> $Class#extend");
 

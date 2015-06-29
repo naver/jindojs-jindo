@@ -26,7 +26,7 @@ jindo.$Cookie = function() {
 	}
 	if (typeof jindo.$Jindo.isUndefined(cl._cached)) cl._cached = this;
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		"4voi" : [],
 		"4bln" : ["bURIComponent:Boolean"]
 	}, "$Cookie");
@@ -66,7 +66,7 @@ jindo.$Cookie.prototype.keys = function() {
  */
 jindo.$Cookie.prototype.get = function(sName) {
 	//-@@$Cookie.get-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : [ 'sName:String+']
 	},"$Cookie#get");
 	var ca = document.cookie.split(/\s*;\s*/);

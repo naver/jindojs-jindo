@@ -132,7 +132,7 @@ jindo._p_.hasCustomEventListener = function(sElementId, sEvent, vFilter){
 
 //-!jindo.$Event.customEvent start!-//
 jindo.$Event.customEvent = function(sName, oEvent){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         's4str' : [ 'sName:String+'],
         's4obj' : [ 'sName:String+', "oEvent:Hash+"]
     },"$Event.customEvent");
@@ -238,7 +238,7 @@ jindo.$Event.prototype.key = function() {
  */
 jindo.$Event.prototype.pos = function(bGetOffset) {
 	//-@@$Event.pos-@@//
-	g_checkVarType(arguments,{
+	jindo._checkVarType(arguments,{
 		"voi" : [],
 		"bol" : ["bGetOffset:Boolean"]
 	});
@@ -274,7 +274,7 @@ jindo.$Event.prototype.pos = function(bGetOffset) {
  */
 jindo.$Event.prototype.stop = function(nCancel) {
 	//-@@$Event.stop-@@//
-	g_checkVarType(arguments,{
+	jindo._checkVarType(arguments,{
 		"voi" : [],
 		"num" : ["nCancel:Numeric"]
 	});
@@ -374,7 +374,7 @@ jindo.$Event.prototype.$value = function() {
 						});
 					}
 					this[sType] = function(nIndex) {
-						var oArgs = g_checkVarType(arguments, {
+						var oArgs = jindo._checkVarType(arguments, {
 							'void' : [  ],
 							'4num' : [ 'nIndex:Numeric' ]
 						},"$Event#"+sType);

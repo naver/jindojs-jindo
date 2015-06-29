@@ -212,7 +212,7 @@ jindo.$Element.prototype.$value = function() {
  */
 jindo.$Element.prototype.visible = function(bVisible, sDisplay) {
     //-@@$Element.visible-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g' : [  ],
         's4bln' : [ jindo.$Jindo._F('bVisible:Boolean') ],
         's4str' : [ 'bVisible:Boolean', "sDisplay:String+"]
@@ -238,7 +238,7 @@ jindo.$Element.prototype.visible = function(bVisible, sDisplay) {
  */
 jindo.$Element.prototype.show = function(sDisplay) {
     //-@@$Element.show-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [  ],
         '4str' : ["sDisplay:String+"]
     },"$Element#show");
@@ -288,7 +288,7 @@ jindo.$Element.prototype.hide = function() {
  */
 jindo.$Element.prototype.toggle = function(sDisplay) {
     //-@@$Element.toggle-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [  ],
         '4str' : ["sDisplay:String+"]
     },"$Element#toggle");
@@ -307,7 +307,7 @@ jindo.$Element.prototype.toggle = function(sDisplay) {
  */
 jindo.$Element.prototype.opacity = function(value) {
     //-@@$Element.opacity-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
                 'g' : [  ],
                 's' : ["nOpacity:Numeric"],
                 'str' : ['sOpacity:String']
@@ -386,7 +386,7 @@ jindo._p_.changeTransformValue = function(name,_test){
 jindo.$Element.prototype.css = function(sName, sValue) {
     //-@@$Element.css-@@//
     
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g'     : [ 'sName:String+'],
         's4str' : [ jindo.$Jindo._F('sName:String+'), jindo.$Jindo._F('vValue:String+') ],
         's4num' : [ 'sName:String+', 'vValue:Numeric' ],
@@ -508,7 +508,7 @@ jindo.$Element.prototype._setCss = function(e, k, v){
  */
 jindo.$Element.prototype.attr = function(sName, sValue) {
     //-@@$Element.attr-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g'     : [ 'sName:String+'],
         's4str' : [ 'sName:String+', 'vValue:String+' ],
         's4num' : [ 'sName:String+', 'vValue:Numeric' ],
@@ -665,7 +665,7 @@ jindo.$Element.prototype.attr = function(sName, sValue) {
  */
 jindo.$Element.prototype.width = function(width) {
     //-@@$Element.width-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g' : [  ],
         's' : ["nWidth:Numeric"]
     },"$Element#width");
@@ -702,7 +702,7 @@ jindo.$Element.prototype.width = function(width) {
  */
 jindo.$Element.prototype.height = function(height) {
     //-@@$Element.height-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g' : [  ],
         's' : ["nHeight:Numeric"]
     },"$Element#height");
@@ -736,7 +736,7 @@ jindo.$Element.prototype.height = function(height) {
  */
 jindo.$Element.prototype.className = function(sClass) {
     //-@@$Element.className-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g' : [  ],
         's' : [jindo.$Jindo._F("sClass:String+")]
     },"$Element#className");
@@ -759,7 +759,7 @@ jindo.$Element.prototype.className = function(sClass) {
  */
 jindo.$Element.prototype.hasClass = function(sClass) {
     //-@@$Element.hasClass-@@//
-    var ___checkVarType = g_checkVarType;
+    var ___checkVarType = jindo._checkVarType;
 
     if(jindo._p_.canUseClassList()){
         jindo.$Element.prototype.hasClass = function(sClass){
@@ -789,7 +789,7 @@ jindo.$Element.prototype.addClass = function(sClass) {
     if(this._element.classList) {
         jindo.$Element.prototype.addClass = function(sClass) {
             if(this._element==null) return this;
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
                 '4str' : ["sClass:String+"]
             },"$Element#addClass");
          
@@ -802,7 +802,7 @@ jindo.$Element.prototype.addClass = function(sClass) {
         };
     } else {
         jindo.$Element.prototype.addClass = function(sClass) {
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
                 '4str' : ["sClass:String+"]
             },"$Element#addClass");
             var e = this._element;
@@ -831,7 +831,7 @@ jindo.$Element.prototype.removeClass = function(sClass) {
  //-@@$Element.removeClass-@@//
     if(this._element.classList) {
         jindo.$Element.prototype.removeClass = function(sClass){
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
              '4str' : ["sClass:String+"]
             },"$Element#removeClass");
             if(this._element==null) return this;
@@ -844,7 +844,7 @@ jindo.$Element.prototype.removeClass = function(sClass) {
         };
     } else {
         jindo.$Element.prototype.removeClass = function(sClass) {
-            var oArgs = g_checkVarType(arguments, {
+            var oArgs = jindo._checkVarType(arguments, {
                 '4str' : ["sClass:String+"]
             },"$Element#removeClass");
             var e = this._element;
@@ -875,7 +875,7 @@ jindo.$Element.prototype.removeClass = function(sClass) {
  */
 jindo.$Element.prototype.toggleClass = function(sClass, sClass2) {
     //-@@$Element.toggleClass-@@//
-    var ___checkVarType = g_checkVarType;
+    var ___checkVarType = jindo._checkVarType;
     if(jindo._p_.canUseClassList()){
         jindo.$Element.prototype.toggleClass = function(sClass, sClass2){
             var oArgs = ___checkVarType(arguments, {
@@ -932,7 +932,7 @@ jindo.$Element.prototype.toggleClass = function(sClass, sClass2) {
  {{cssClass2}}
  */
 jindo.$Element.prototype.cssClass = function(vClass, bCondition){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g'  : ["sClass:String+"],
         's4bln' : ["sClass:String+", "bCondition:Boolean"],
         's4obj' : ["oObj:Hash+"]
@@ -985,7 +985,7 @@ jindo.$Element.prototype.cssClass = function(vClass, bCondition){
  */
 jindo.$Element.prototype.text = function(sText) {
     //-@@$Element.text-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g'  : [],
         's4str' : ["sText:String+"],
         's4num' : [jindo.$Jindo._F("sText:Numeric")],
@@ -1037,7 +1037,7 @@ jindo.$Element.prototype.text = function(sText) {
  */
 jindo.$Element.prototype.html = function(sHTML) {
     //-@@$Element.html-@@//
-    var oArgs = g_checkVarType(arguments,{
+    var oArgs = jindo._checkVarType(arguments,{
         'g'  : [],
         's4str' : [jindo.$Jindo._F("sText:String+")],
         's4num' : ["sText:Numeric"],
@@ -1115,7 +1115,7 @@ jindo.$Element.prototype.toString = function(){
  {{attach}}
  */   
 jindo.$Element.prototype.attach = function(sEvent, fpCallback){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : ["sEvent:String+", "fpCallback:Function+"],
         '4obj'  : ["hListener:Hash+"]
     },"$Element#attach"), oSplit, hListener;
@@ -1141,7 +1141,7 @@ jindo.$Element.prototype.attach = function(sEvent, fpCallback){
  {{detach}}
  */
 jindo.$Element.prototype.detach = function(sEvent, fpCallback){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         // 'group_for_string'  : ["sEvent:String+"],
         '4str'  : ["sEvent:String+", "fpCallback:Function+"],
         '4obj'  : ["hListener:Hash+"]
@@ -1168,7 +1168,7 @@ jindo.$Element.prototype.detach = function(sEvent, fpCallback){
 {{delegate}}
 */
 jindo.$Element.prototype.delegate = function(sEvent , vFilter , fpCallback){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : ["sEvent:String+", "vFilter:String+", "fpCallback:Function+"],
         '4fun'  : ["sEvent:String+", "vFilter:Function+", "fpCallback:Function+"]
     },"$Element#delegate");
@@ -1181,7 +1181,7 @@ jindo.$Element.prototype.delegate = function(sEvent , vFilter , fpCallback){
 {{undelegate}}
  */
 jindo.$Element.prototype.undelegate = function(sEvent , vFilter , fpCallback){
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : ["sEvent:String+", "vFilter:String+", "fpCallback:Function+"],
         '4fun'  : ["sEvent:String+", "vFilter:Function+", "fpCallback:Function+"],
         'group_for_string'  : ["sEvent:String+", "vFilter:String+"],

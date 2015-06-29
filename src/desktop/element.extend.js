@@ -13,7 +13,7 @@ jindo.$Element.prototype.appear = function(duration, callback) {
     var endName = name == "transition" ? "end" : "End";
 
     function appear() {
-        var oArgs = g_checkVarType(arguments, {
+        var oArgs = jindo._checkVarType(arguments, {
             '4voi' : [ ],
             '4num' : [ 'nDuration:Numeric'],
             '4fun' : [ 'nDuration:Numeric' ,'fpCallback:Function+']
@@ -121,7 +121,7 @@ jindo.$Element.prototype.disappear = function(duration, callback) {
     var endName = name == "transition" ? "end" : "End";
 
     function disappear(){
-        var oArgs = g_checkVarType(arguments, {
+        var oArgs = jindo._checkVarType(arguments, {
             '4voi' : [ ],
             '4num' : [ 'nDuration:Numeric'],
             '4fun' : [ 'nDuration:Numeric' ,'fpCallback:Function+']
@@ -224,7 +224,7 @@ jindo.$Element.prototype.disappear = function(duration, callback) {
  */
 jindo.$Element.prototype.offset = function(nTop, nLeft) {
     //-@@$Element.offset-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'g' : [ ],
         's' : [ 'nTop:Numeric', 'nLeft:Numeric']
     },"$Element#offset");
@@ -334,7 +334,7 @@ jindo.$Element.prototype.offset_get = function(nTop,nLeft) {
  */
 jindo.$Element.prototype.evalScripts = function(sHTML) {
     //-@@$Element.evalScripts-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ "sHTML:String+" ]
     },"$Element#evalScripts");
     var aJS = [];
@@ -353,7 +353,7 @@ jindo.$Element.prototype.evalScripts = function(sHTML) {
  {{clone}}
  */
 jindo.$Element.prototype.clone = function(bDeep) {
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'default' : [ ],
         'set' : [ 'bDeep:Boolean' ]
     },"$Element#clone");
@@ -496,7 +496,7 @@ jindo.$Element.prototype.after = function(oElement) {
  */
 jindo.$Element.prototype.parent = function(pFunc, limit) {
     //-@@$Element.parent-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [],
         '4fun' : [ 'fpFunc:Function+' ],
         '4nul' : [ 'fpFunc:Null' ],
@@ -543,7 +543,7 @@ jindo.$Element.prototype.parent = function(pFunc, limit) {
  */
 jindo.$Element.prototype.child = function(pFunc, limit) {
     //-@@$Element.child-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [],
         '4fun' : [ 'fpFunc:Function+' ],
         '4nul' : [ 'fpFunc:Null' ],
@@ -604,7 +604,7 @@ jindo.$Element.prototype.child = function(pFunc, limit) {
 jindo.$Element.prototype.prev = function(pFunc) {
     //-@@$Element.prev-@@//
     
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [],
         '4fun' : [ 'fpFunc:Function+' ],
         '4nul' : [ 'fpFunc:Null' ]
@@ -667,7 +667,7 @@ jindo.$Element.prototype.prev = function(pFunc) {
  */
 jindo.$Element.prototype.next = function(pFunc) {
     //-@@$Element.next-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [],
         '4fun' : [ 'fpFunc:Function+' ],
         '4nul' : [ 'fpFunc:Null' ]
@@ -872,7 +872,7 @@ jindo.$Element.prototype.fireEvent = function(sEvent, oProps) {
     };
 
     function IE(sEvent, oProps) {
-        var oArgs = g_checkVarType(arguments, _oParam,"$Element#fireEvent");
+        var oArgs = jindo._checkVarType(arguments, _oParam,"$Element#fireEvent");
         var ele = this._element;
         
         if(jindo._p_.normalCustomEvent[sEvent]){
@@ -908,7 +908,7 @@ jindo.$Element.prototype.fireEvent = function(sEvent, oProps) {
     }
 
     function DOM2(sEvent, oProps) {
-        var oArgs = g_checkVarType(arguments, _oParam,"$Element#fireEvent");
+        var oArgs = jindo._checkVarType(arguments, _oParam,"$Element#fireEvent");
         var ele = this._element;
         
         var oldEvent = sEvent;
@@ -1060,7 +1060,7 @@ jindo.$Element.prototype.wrap = function(wrapper) {
 jindo.$Element.prototype.ellipsis = function(stringTail) {
     //-@@$Element.ellipsis-@@//
     
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4voi' : [ ],
         '4str' : [ 'stringTail:String+' ]
     },"$Element#ellipsis");
@@ -1122,7 +1122,7 @@ jindo.$Element.prototype.indexOf = function(element) {
  */
 jindo.$Element.prototype.queryAll = function(sSelector) { 
     //-@@$Element.queryAll-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : [ 'sSelector:String+']
     },"$Element#queryAll");
 
@@ -1141,7 +1141,7 @@ jindo.$Element.prototype.queryAll = function(sSelector) {
  */
 jindo.$Element.prototype.query = function(sSelector) { 
     //-@@$Element.query-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : [ 'sSelector:String+']
     },"$Element#query");
     var ele =  jindo.cssquery.getSingle(sSelector, this._element);
@@ -1155,7 +1155,7 @@ jindo.$Element.prototype.query = function(sSelector) {
  */
 jindo.$Element.prototype.test = function(sSelector) {
     //-@@$Element.test-@@// 
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : [ 'sSelector:String+']
     },"$Element#test");
     return jindo.cssquery.test(this._element, sSelector); 
@@ -1168,7 +1168,7 @@ jindo.$Element.prototype.test = function(sSelector) {
  */
 jindo.$Element.prototype.xpathAll = function(sXPath) {
     //-@@$Element.xpathAll-@@// 
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str'  : [ 'sXPath:String+']
     },"$Element#xpathAll");
     var arrEle = jindo.cssquery.xpath(sXPath, this._element);
@@ -1187,7 +1187,7 @@ jindo.$Element.prototype.xpathAll = function(sXPath) {
 jindo.$Element.insertAdjacentHTML = function(ins,html,insertType,type,fn,sType){
     var aArg = [ html ];
     aArg.callee = arguments.callee;
-    var oArgs = g_checkVarType(aArg, {
+    var oArgs = jindo._checkVarType(aArg, {
         '4str'  : [ 'sHTML:String+' ]
     },"$Element#"+sType);
     var _ele = ins._element;
@@ -1319,7 +1319,7 @@ jindo.$Element.prototype.afterHTML = function(sHTML) {
  */
 jindo.$Element.prototype.hasEventListener = function(sEvent){
 
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'sEvent:String+' ]
     },"$Element#hasEventListener"),
         oDoc,
@@ -1401,7 +1401,7 @@ jindo.$Element.prototype.data = function(sKey, vValue) {
     }
     if(document.body.dataset){
         jindo.$Element.prototype.data = function(sKey, vValue) {
-            var sToStr, oArgs = g_checkVarType(arguments, oType ,"$Element#data");
+            var sToStr, oArgs = jindo._checkVarType(arguments, oType ,"$Element#data");
             var  isNull = jindo.$Jindo.isNull;
             
             switch(oArgs+""){
@@ -1450,7 +1450,7 @@ jindo.$Element.prototype.data = function(sKey, vValue) {
         };
     }else{
         jindo.$Element.prototype.data = function(sKey, vValue) {
-            var sToStr, oArgs = g_checkVarType(arguments, oType ,"$Element#data");
+            var sToStr, oArgs = jindo._checkVarType(arguments, oType ,"$Element#data");
             var  isNull = jindo.$Jindo.isNull;
             switch(oArgs+""){
                 case "g":

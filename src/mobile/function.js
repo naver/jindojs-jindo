@@ -23,7 +23,7 @@ jindo.$Fn = function(func, thisObject) {
 		}
 	}	
 
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4fun' : ['func:Function+'],
 		'4fun2' : ['func:Function+', "thisObject:Variant"],
 		'4str' : ['func:String+', "thisObject:String+"]
@@ -49,7 +49,7 @@ jindo.$Fn = function(func, thisObject) {
  * @ignore 
  */
 jindo.$Fn._commonPram = function(oPram,sMethod){
-	return g_checkVarType(oPram, {
+	return jindo._checkVarType(oPram, {
 		'4ele' : ['eElement:Element+',"sEvent:String+"],
 		'4ele2' : ['eElement:Element+',"sEvent:String+","bUseCapture:Boolean"],
 		'4str' : ['eElement:String+',"sEvent:String+"],
@@ -163,7 +163,7 @@ jindo.$Fn.prototype.detach = function(oElement, sEvent, bUseCapture) {
  */
 jindo.$Fn.prototype.delay = function(nSec, args) {
 	//-@@$Fn.delay-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nSec:Numeric'],
 		'4arr' : ['nSec:Numeric','args:Array+']
 	},"$Fn#delay");
@@ -187,7 +187,7 @@ jindo.$Fn.prototype.delay = function(nSec, args) {
 jindo.$Fn.prototype.setInterval = function(nSec, args) {
 	//-@@$Fn.setInterval-@@//
 	//-@@$Fn.repeat-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nSec:Numeric'],
 		'4arr' : ['nSec:Numeric','args:Array+']
 	},"$Fn#setInterval");

@@ -24,7 +24,7 @@ jindo.$S = function(str) {
 		}
 	}	
 		
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 	    'nul' : ['nul:Null'],
 	    'unde' : ['unde:Undefined'],
 		'4var' : ['str:Variant']
@@ -111,7 +111,7 @@ jindo.$S.prototype.stripTags = function() {
  */
 jindo.$S.prototype.times = function(nTimes) {
 	//-@@$S.times-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : ['nTimes:Numeric']
 	},"$S#times");
 	if (!oArgs) { return this; }
@@ -160,7 +160,7 @@ jindo.$S.prototype.escape = function() {
  */
 jindo.$S.prototype.bytes = function(vConfig) {
 	//-@@$S.bytes-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [],
 		'4num' : ["nConfig:Numeric"],
 		'4obj' : ["nConfig:Hash+"]

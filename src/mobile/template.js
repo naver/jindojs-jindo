@@ -34,7 +34,7 @@ jindo.$Template = function(str, sEngineName){
 		}
 	}
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : ['str:String+'],
 		'4ele' : ['ele:Element+'],
 		'4str3' : ['str:String+', 'sEngineName:String+'],
@@ -66,7 +66,7 @@ jindo.$Template.pattern  = /^(?:if (.+)|elseif (.+)|for (?:(.+)\:)?(.+) in (.+)|
  {{addEngine}}
  */
 jindo.$Template.addEngine = function(sEngineName, fEngine){
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		"4fun" : ["sEngineName:String+", "fEngine:Function+"]
 	}, "$Template#addEngine");
 	
@@ -77,7 +77,7 @@ jindo.$Template.addEngine = function(sEngineName, fEngine){
  {{getEngine}}
  */
 jindo.$Template.getEngine = function(sEngineName){
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		"4str" : ["sEngineName:String+"]
 	}, "$Template#getEngine");
 	
@@ -91,7 +91,7 @@ jindo.$Template.getEngine = function(sEngineName){
  */
 jindo.$Template.prototype.process = function(data){
 	//-@@$Template.process-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 			'4obj' : ['data:Hash+'],
 			'4voi' : []
 		}, "$Template#process"),

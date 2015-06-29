@@ -25,7 +25,7 @@ jindo.$A = function(array) {
 		}
 	}
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [ ],
 		'4arr' : ['aPram:Array+'],
 		'4nul' : [ 'oNull:Null' ],
@@ -71,7 +71,7 @@ jindo.$A.prototype.toString = function() {
  */
 jindo.$A.prototype.get = function(nIndex){
 	//-@@$A.get-@@//
-	 g_checkVarType(arguments, {
+	 jindo._checkVarType(arguments, {
 		'4num' : [ 'nIndex:Numeric' ]
 	},"$A#get");
 	return this._array[nIndex];
@@ -84,7 +84,7 @@ jindo.$A.prototype.get = function(nIndex){
  */
 jindo.$A.prototype.set = function(nIndex,vValue){
 	//-@@$A.set-@@//
-	g_checkVarType(arguments, {
+	jindo._checkVarType(arguments, {
 		'4num' : [ 'nIndex:Numeric' ,'vValue:Variant']
 		
 	},"$A#set");
@@ -104,7 +104,7 @@ jindo.$A.prototype.set = function(nIndex,vValue){
 jindo.$A.prototype.length = function(nLen, oValue) {
 	//-@@$A.length-@@//
 
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : [ jindo.$Jindo._F('nLen:Numeric')],
 		'sv' : [ 'nLen:Numeric', 'vValue:Variant'],
 		'4voi' : [ ]
@@ -223,7 +223,7 @@ jindo.$A.prototype.forEach = function(fCallback, oThis) {
 	//-@@$A.forEach-@@//
 	function forEachBody(fpEach){
 		return function(fCallback, oThis){
-			var oArgs = g_checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#forEach");
+			var oArgs = jindo._checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#forEach");
 			var that = this;
 			function f(v,i,a) {
 				try {
@@ -347,7 +347,7 @@ jindo.$A.prototype.concat = function(vValue/*, vValue1,...*/) {
  */
 jindo.$A.prototype.sort = function(fpSort) {
 	//-@@$A.sort-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
         'void' : [],
         '4fp' : [ 'fpSort:Function+']
     },"$A#sort");

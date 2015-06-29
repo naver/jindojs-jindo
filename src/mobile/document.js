@@ -23,7 +23,7 @@ jindo.$Document = function (el) {
 		}
 	}	
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4doc'  : [ 'oDocument:Document+']
 	},"$Document");
 	if(oArgs==null){this._doc = document;}
@@ -41,7 +41,7 @@ jindo.$Document = function (el) {
 	for(var i in type){
 		jindo.$Document.prototype[i] = (function(sMethod,fp){
 			return function(sQuery){
-				var oArgs = g_checkVarType(arguments, {
+				var oArgs = jindo._checkVarType(arguments, {
 					'4str'  : [ 'sQuery:String+']
 				},"$Document#"+sMethod);
 				return fp(sQuery,this._doc);

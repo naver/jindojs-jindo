@@ -23,7 +23,7 @@ jindo.$Form = function (el) {
 		}
 	}	
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4str' : ['oForm:String+'],
 		'4ele' : [ 'oForm:Element+']
 	},"$Form");
@@ -91,7 +91,7 @@ jindo.$Form.prototype.serialize = function() {
 jindo.$Form.prototype.element = function(sKey) {
 	//-@@$Form.element-@@//
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [],
 		'4str' : [jindo.$Jindo._F('sKey:String+')]
 	},"$Form#element");
@@ -114,7 +114,7 @@ jindo.$Form.prototype.element = function(sKey) {
  */
 jindo.$Form.prototype.enable = function(sKey) {
 	//-@@$Form.enable-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4bln' : [ 'sName:String+', 'bEnable:Boolean' ],
 		's4obj' : [ 'oObj:Hash+'],
 		'g' : [ jindo.$Jindo._F('sName:String+')]
@@ -169,7 +169,7 @@ jindo.$Form.prototype.enable = function(sKey) {
 jindo.$Form.prototype.value = function(sKey) {
 	//-@@$Form.value-@@//
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4str' : [ 'sKey:String+', 'vValue:Variant' ],
 		's4obj' : [ jindo.$Jindo._F('oObj:Hash+')],
 		'g' : [ 'sKey:String+']
@@ -307,7 +307,7 @@ jindo.$Form.prototype.value = function(sKey) {
  */
 jindo.$Form.prototype.submit = function(sTargetName, fValidation) {
 	//-@@$Form.submit-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'voi' : [],
 		'4str' : [ 'sTargetName:String+'],
 		'4fun' : [ 'fValidation:Function+'],
@@ -342,7 +342,7 @@ jindo.$Form.prototype.submit = function(sTargetName, fValidation) {
  */
 jindo.$Form.prototype.reset = function(fValidation) {
 	//-@@$Form.reset-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [ ],
 		'4fun' : [ 'fValidation:Function+']
 	},"$Form#reset");

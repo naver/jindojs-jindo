@@ -24,7 +24,7 @@ jindo.$Json = function (sObject) {
 		}
 	}	
 		
-	g_checkVarType(arguments, {
+	jindo._checkVarType(arguments, {
 		'4var' : ['oObject:Variant']
 	},"$Json");
 	this._object = sObject;

@@ -23,7 +23,7 @@ jindo.$Window = function(el) {
 		}
 	}	
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4win' : ['el:Window+']
 	},"$Window");
 	
@@ -47,7 +47,7 @@ jindo.$Window.prototype.$value = function() {
  */
 jindo.$Window.prototype.resizeTo = function(nWidth, nHeight) {
 	//-@@$Window.resizeTo-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nWidth:Numeric','nHeight:Numeric']
 	},"$Window#resizeTo");
 	this._win.resizeTo(nWidth, nHeight);
@@ -61,7 +61,7 @@ jindo.$Window.prototype.resizeTo = function(nWidth, nHeight) {
  */
 jindo.$Window.prototype.resizeBy = function(nWidth, nHeight) {
 	//-@@$Window.resizeBy-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nWidth:Numeric','nHeight:Numeric']
 	},"$Window#resizeBy");
 	this._win.resizeBy(nWidth, nHeight);
@@ -75,7 +75,7 @@ jindo.$Window.prototype.resizeBy = function(nWidth, nHeight) {
  */
 jindo.$Window.prototype.moveTo = function(nLeft, nTop) {
 	//-@@$Window.moveTo-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nLeft:Numeric','nTop:Numeric']
 	},"$Window#moveTo");
 	this._win.moveTo(nLeft, nTop);
@@ -89,7 +89,7 @@ jindo.$Window.prototype.moveTo = function(nLeft, nTop) {
  */
  jindo.$Window.prototype.moveBy = function(nLeft, nTop) {
  	//-@@$Window.moveBy-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nLeft:Numeric','nTop:Numeric']
 	},"$Window#moveBy");
 	this._win.moveBy(nLeft, nTop);
@@ -103,7 +103,7 @@ jindo.$Window.prototype.moveTo = function(nLeft, nTop) {
  */	
 jindo.$Window.prototype.sizeToContent = function(nWidth, nHeight) {
 	//-@@$Window.sizeToContent-@@//
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4num' : ['nWidth:Numeric','nHeight:Numeric'],
 		'4voi' : []
 	},"$Window#sizeToContent");

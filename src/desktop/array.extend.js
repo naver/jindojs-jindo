@@ -10,7 +10,7 @@ jindo.$A.prototype.map = function(fCallback, oThis) {
 	//-@@$A.map-@@//
 	function mapBody(fpEach){
 		return function(fCallback, oThis) {
-			var oArgs = g_checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#map");
+			var oArgs = jindo._checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#map");
 			if(oArgs == null){ return this; }
 			
 			var returnArr	= [];
@@ -62,7 +62,7 @@ jindo.$A.prototype.filter = function(fCallback, oThis) {
 	//-@@$A.filter-@@//
 	function filterBody(fpEach){
 		return function(fCallback, oThis) {
-			var oArgs = g_checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#filter");
+			var oArgs = jindo._checkVarType(arguments, jindo.$A.checkVarTypeObj,"$A#filter");
 			if(oArgs == null){ return this; }
 			
 			var returnArr	= [];
@@ -115,7 +115,7 @@ jindo.$A.prototype.filter = function(fCallback, oThis) {
  */
 jindo.$A.prototype.every = function(fCallback, oThis) {
 	//-@@$A.every-@@//
-	var ___checkVarType = g_checkVarType;
+	var ___checkVarType = jindo._checkVarType;
 	var ___checkObj = jindo.$A.checkVarTypeObj;
 	if (this._array.every) {
 		jindo.$A.prototype.every = function(fCallback, oThis) {
@@ -149,7 +149,7 @@ jindo.$A.prototype.every = function(fCallback, oThis) {
  */
 jindo.$A.prototype.some = function(fCallback, oThis) {
 	//-@@$A.some-@@//
-	var ___checkVarType = g_checkVarType;
+	var ___checkVarType = jindo._checkVarType;
 	var ___checkObj = jindo.$A.checkVarTypeObj;
 	if (this._array.some) {
 		jindo.$A.prototype.some = function(fCallback, oThis) {

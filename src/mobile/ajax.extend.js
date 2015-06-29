@@ -24,13 +24,13 @@ jindo.$Ajax.RequestBase = klass({
 	open   : function(){},
 	send   : function(){},
 	setRequestHeader  : function(sName, sValue) {
-		g_checkVarType(arguments, {
+		jindo._checkVarType(arguments, {
 			'4str' : [ 'sName:String+', 'sValue:String+' ]
 		},"$Ajax.RequestBase#setRequestHeader");
 		this._headers[sName] = sValue;
 	},
 	getResponseHeader : function(sName) {
-		g_checkVarType(arguments, {
+		jindo._checkVarType(arguments, {
 			'4str' : [ 'sName:String+']
 		},"$Ajax.RequestBase#getResponseHeader");
 		return this._respHeaders[sName] || "";
@@ -99,14 +99,14 @@ jindo.$Ajax.JSONPRequest = klass({
 		}
 	},
 	open  : function(method, url) {
-		g_checkVarType(arguments, {
+		jindo._checkVarType(arguments, {
 			'4str' : [ 'method:String+','url:String+']
 		},"$Ajax.JSONPRequest#open");
 		this.responseJSON = null;
 		this._url = url;
 	},
 	send  : function(data) {
-		var oArgs = g_checkVarType(arguments, {
+		var oArgs = jindo._checkVarType(arguments, {
 			'4voi' : [],
 			'4nul' : ["data:Null"],
 			'4str' : ["data:String+"]
@@ -182,7 +182,7 @@ jindo.$Ajax.Queue = function (option) {
 	var cl = arguments.callee;
 	if (!(this instanceof cl)){ return new cl(option||{});}
 	
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4voi' : [],
 		'4obj' : ["option:Hash+"]
 	},"$Ajax.Queue");
@@ -205,7 +205,7 @@ jindo.$Ajax.Queue = function (option) {
 {{queue_option2}}
  */
 jindo.$Ajax.Queue.prototype.option = function(name, value) {
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		's4str' : [ 'sKey:String+', 'sValue:Variant' ],
 		's4obj' : [ 'oOption:Hash+' ],
 		'g' : [ 'sKey:String+' ]
@@ -235,7 +235,7 @@ jindo.$Ajax.Queue.prototype.option = function(name, value) {
 {{queue_add}}
  */
 jindo.$Ajax.Queue.prototype.add = function (oAjax, oParam) {
-	var oArgs = g_checkVarType(arguments, {
+	var oArgs = jindo._checkVarType(arguments, {
 		'4obj' : ['oAjax:Hash+'],
 		'4obj2' : ['oAjax:Hash+','oPram:Hash+']
 	},"$Ajax.Queue");

@@ -23,7 +23,7 @@ jindo.$H = function(hashObject) {
         }
     }
     
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4obj' : ['oObj:Hash+'],
         '4vod' : []
     },"$H");
@@ -56,7 +56,7 @@ jindo.$H.prototype.$value = function() {
  */
 jindo.$H.prototype.$ = function(key, value) {
     //-@@$H.$-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         's4var' : [ jindo.$Jindo._F('key:String+'), 'value:Variant' ],
         's4var2' : [ 'key:Numeric', 'value:Variant' ],
         'g4str' : [ 'key:String+' ],
@@ -113,7 +113,7 @@ jindo.$H.prototype.length = function() {
  */
 jindo.$H.prototype.forEach = function(callback, scopeObject) {
     //-@@$H.forEach-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4fun' : [ 'callback:Function+'],
         '4obj' : [ 'callback:Function+', "thisObject:Variant"]
     },"$H#forEach");
@@ -160,7 +160,7 @@ jindo.$H.prototype.forEach = function(callback, scopeObject) {
  */
 jindo.$H.prototype.filter = function(callback, thisObject) {
     //-@@$H.filter-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4fun' : [ 'callback:Function+'],
         '4obj' : [ 'callback:Function+', "thisObject:Variant"]
     },"$H#filter");
@@ -193,7 +193,7 @@ jindo.$H.prototype.filter = function(callback, thisObject) {
 
 jindo.$H.prototype.map = function(callback, thisObject) {
     //-@@$H.map-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4fun' : [ 'callback:Function+'],
         '4obj' : [ 'callback:Function+', "thisObject:Variant"]
     },"$H#map");
@@ -227,7 +227,7 @@ jindo.$H.prototype.map = function(callback, thisObject) {
  */
 jindo.$H.prototype.add = function(key, value) {
     //-@@$H.add-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'key:String+',"value:Variant"],
         '4num' : [ 'key:Numeric',"value:Variant"]
     },"$H#add");
@@ -247,7 +247,7 @@ jindo.$H.prototype.add = function(key, value) {
  */
 jindo.$H.prototype.remove = function(key) {
     //-@@$H.remove-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'key:String+'],
         '4num' : [ 'key:Numeric']
     },"$H#remove");
@@ -277,7 +277,7 @@ jindo.$H.prototype.remove = function(key) {
  */
 jindo.$H.prototype.search = function(value) {
     //-@@$H.search-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'value:Variant']
     },"$H#search");
     var result = false;
@@ -304,7 +304,7 @@ jindo.$H.prototype.search = function(value) {
  */
 jindo.$H.prototype.hasKey = function(key) {
     //-@@$H.hasKey-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'key:String+'],
         '4num' : [ 'key:Numeric']
     },"$H#hasKey");
@@ -318,7 +318,7 @@ jindo.$H.prototype.hasKey = function(key) {
  */
 jindo.$H.prototype.hasValue = function(value) {
     //-@@$H.hasValue-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         '4str' : [ 'value:Variant']
     },"$H#hasValue");
     return (this.search(value) !== false);
@@ -365,7 +365,7 @@ jindo._p_.defaultSort = function(oArgs,that,type){
 
 jindo.$H.prototype.sort = function(fpSort) {
     //-@@$H.sort-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'vo'  : [],
         '4fp' : [ 'fpSort:Function+']
     },"$H#sort");
@@ -381,7 +381,7 @@ jindo.$H.prototype.sort = function(fpSort) {
  */
 jindo.$H.prototype.ksort = function(fpSort) {
     //-@@$H.ksort-@@//
-    var oArgs = g_checkVarType(arguments, {
+    var oArgs = jindo._checkVarType(arguments, {
         'vo'  : [],
         '4fp' : [ 'fpSort:Function+']
     },"$H#ksort");
