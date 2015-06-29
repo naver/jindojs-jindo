@@ -392,3 +392,9 @@ module("$Template에 추가된 템플릿 엔진과 개선된 구조 테스트");
 		// Then
 		equal(str,"<span>3</span><span>3</span><span>3</span><span>3</span>");
 	});
+
+    QUnit.test("Should work even template variable isn't given.",function(){
+        var replace_data = jindo.$Template('<b>{if sample}some{/if}</b>').process({});
+        ok(replace_data.constructor == String);
+        equal(replace_data,'<b></b>');
+    });

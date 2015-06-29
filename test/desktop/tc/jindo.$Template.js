@@ -93,7 +93,7 @@ module("$Template 객체");
 
 		equal($Template("{for i:browser in data}{if browser=='Chrome'}{=browser}{elseif browser=='Firefox'}{=browser}{else}{=i+1}. {=browser}{/if}, {/for}").process({data:data}),"1. Internet Explorer, Firefox, 3. Safari, Chrome, ");
 	});
-	QUnit.test("null처리가 암됨.",function(){
+	QUnit.test("null처리가 안됨.",function(){
 		var tpl = $Template("{for site in potals}{if site.name == null}aaa{/if}{/for}");
 		var data = {potals:[
 			{ name : "네이버", url : "http://www.naver.com" },
@@ -399,3 +399,10 @@ module("$Template에 추가된 템플릿 엔진과 개선된 구조 테스트");
 		// Then
 		equal(str,"<span>3</span><span>3</span><span>3</span><span>3</span>");
 	});
+
+
+    QUnit.test("Should work even template variable isn't given.",function(){
+        var replace_data = jindo.$Template('<b>{if sample}some{/if}</b>').process({});
+        ok(replace_data.constructor == String);
+        equal(replace_data,'<b></b>');
+    });

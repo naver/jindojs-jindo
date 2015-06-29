@@ -79,7 +79,12 @@ jindo.$Template.addEngine("default", function(str){
 		});
 		
 		str = str.replace(/^{(else)?if\s+([^}]+)}/, function(_, iselse, expr) {
-			parsed = code.push((iselse ? '} else ' : '') + 'if (' + expr + ') {');
+			var variable = (expr.match(/(\w+)\.?/) || [,])[1], isFuncArg;
+
+			variable && (isFuncArg = RegExp("function\\([$\\w]*,?[\\s]*"+ variable +"[^)]*\\)").test(code.join("")));
+			variable = !variable || isFuncArg ? '' : '$SCOPE$.'+ variable +' && ';
+
+			parsed = code.push((iselse ? '} else ' : '') + 'if ('+ variable + expr +' ) {');
 			return '';
 		});
 		
