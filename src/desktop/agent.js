@@ -49,21 +49,21 @@ jindo.$Agent.prototype.navigator = function() {
 		}
 		return name;
 	};
-
-	info.webkit = f("WebKit", u);
+	info.edge = f("Edge", u);
+	info.webkit = !info.edge&&f("WebKit", u);
 	info.opera = (window.opera !== undefined) || f("Opera", u) || f("OPR", u);
 	info.ie = !info.opera && (f("MSIE", u)||f("Trident", u));
-	info.chrome = info.webkit && !info.opera && f("Chrome", u) || f("CriOS", u);
-	info.safari = info.webkit && !info.chrome && !info.opera && f("Apple", v);
+	info.chrome = !info.edge&&info.webkit && !info.opera && f("Chrome", u) || f("CriOS", u);
+	info.safari = !info.edge&&info.webkit && !info.chrome && !info.opera && f("Apple", v);
 	info.firefox = f("Firefox", u);
-	info.mozilla = f("Gecko", u) && !info.safari && !info.chrome && !info.firefox && !info.ie;
+	info.mozilla = !info.edge&&f("Gecko", u) && !info.safari && !info.chrome && !info.firefox && !info.ie;
 	info.camino = f("Camino", v);
 	info.netscape = f("Netscape", u);
 	info.omniweb = f("OmniWeb", u);
 	info.icab = f("iCab", v);
 	info.konqueror = f("KDE", v);
-	info.mobile = (f("Mobile", u) || f("Android", u) || f("Nokia", u) || f("webOS", u) || f("Opera Mini", u) || f("Opera Mobile", u) || f("BlackBerry", u) || (f("Windows", u) && f("PPC", u)) || f("Smartphone", u) || f("IEMobile", u)) && !(f("iPad", u) || f("Tablet", u));
-	info.msafari = ((!f("IEMobile", u) && f("Mobile", u)) || (f("iPad", u) && f("Safari", u))) && !info.chrome && !info.opera && !info.firefox;
+	info.mobile = !info.edge&&(f("Mobile", u) || f("Android", u) || f("Nokia", u) || f("webOS", u) || f("Opera Mini", u) || f("Opera Mobile", u) || f("BlackBerry", u) || (f("Windows", u) && f("PPC", u)) || f("Smartphone", u) || f("IEMobile", u)) && !(f("iPad", u) || f("Tablet", u));
+	info.msafari = !info.edge&&((!f("IEMobile", u) && f("Mobile", u)) || (f("iPad", u) && f("Safari", u))) && !info.chrome && !info.opera && !info.firefox;
 	info.mopera = f("Opera Mini", u);
 	info.mie = f("PPC", u) || f("Smartphone", u) || f("IEMobile", u);
 
@@ -83,7 +83,9 @@ jindo.$Agent.prototype.navigator = function() {
 			}else{
 				nativeVersion = ver = u.match(/(?:MSIE) ([\d.]+)/)[1];
 			}
-		}else if(info.safari || info.msafari){
+		} else if(info.edge) {
+            ver = u.match(/(?:Edge)\/([\d.]+)/)[1];
+        } else if(info.safari || info.msafari){
 			ver = parseFloat(u.match(/Safari\/([\d.]+)/)[1]);
 
 			if(ver == 100){
