@@ -348,6 +348,33 @@ QUnit.test("$Agent : IE11 호환성",function(){
 		$Agent._cached = null;
 		 
 	});
+QUnit.test("$Agent : Edge 12",function(){
+	var _navigator = {};
+	_navigator.userAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+	_navigator.vendor = '';
+	window.opera = undefined;
+	$Agent._cached = null;
+	var oAgent = $Agent(_navigator);
+	oAgent._navigator = _navigator;
+	oAgent._dm = -1;
+	var oInfo = oAgent.navigator();
+	deepEqual(oInfo.getName(), 'edge');
+	ok(oInfo.edge);
+	ok(!oInfo.firefox);
+	ok(!oInfo.webkit);
+	ok(!oInfo.chrome);
+	ok(!oInfo.opera);
+	ok(!oInfo.ie);
+	ok(!oInfo.safari);
+	ok(!oInfo.mozilla);
+	ok(!oInfo.camino);
+	ok(!oInfo.netscape);
+	ok(!oInfo.omniweb);
+	ok(!oInfo.icab);
+	ok(!oInfo.konqueror);
+	deepEqual(oInfo.version, 12);
+	$Agent._cached = null;
+});
 QUnit.test("safari 버전이 정확히 확인되어야 한다.",function(){
 		var oSafariInfo = {
 			"1"   : ['Mozilla/5.0 (Macintosh; U; PPC Mac OS X; sv-se) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.5'],
