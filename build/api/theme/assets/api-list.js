@@ -10,25 +10,17 @@ var apiDocs = function(projectAssets) {
     var fpRelocate = function() {};
    
     var onHashChange = function(oCustomEvent) {
-    	
-        var sHash = oCustomEvent.hash;
+        var sHash = oCustomEvent.hash, welEl, nTop;
         
-        /^([a-z0-9]+)(_(.+))?$/i.test(sHash);
-        
-        var welEl = jindo.$Element(sHash);
-        if (welEl) {
-            
-            var nTop = welEl.offset().top;
-            document.documentElement.scrollTop = document.body.scrollTop = nTop - 90;
-            
-            welEl.addClass('highlight');
-            setTimeout(function() {
-                welEl.removeClass('highlight');
-            }, 1000);
-        }
-        
-        // fpRelocate();
-        
+        if(/^([a-z0-9]+)(_(.+))?$/i.test(sHash) && ( welEl = jindo.$Element(sHash) )) {
+			nTop = welEl.offset().top;
+			document.documentElement.scrollTop = document.body.scrollTop = nTop - 90;
+
+			welEl.addClass('highlight');
+			setTimeout(function () {
+				welEl.removeClass('highlight');
+			}, 1000);
+		}
     };
     
     var oStorage = {
