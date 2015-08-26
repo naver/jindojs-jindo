@@ -7,72 +7,74 @@ if(___namespace&&___namespace[1]){
 }
 
 $Ajax.SWFRequest.prototype.send = function(data) {
+	this.responseXML  = false;
+	this.responseText = "";
 
-this.responseXML  = false;
-		this.responseText = "";
+	var t    = this;
+	var dat  = {};
+	var info = this._getCallbackInfo();
+	var swf  = this._getFlashObj()
 
-		var t    = this;
-		var dat  = {};
-			var info = this._getCallbackInfo();
-		var swf  = this._getFlashObj()
-
-		function f(arg) {
-			switch(typeof arg){
-				case "string":
-					return '"'+arg.replace(/\"/g, '\\"')+'"';
-					break;
-				case "number":
-					return arg;
-					break;
-				case "object":
-					var ret = "", arr = [];
-					if (jindo.$Jindo.isArray(arg)) {
-						for(var i=0; i < arg.length; i++) {
-							arr[i] = f(arg[i]);
-						}
-						ret = "["+arr.join(",")+"]";
-					} else {
-						for(var x in arg) {
-							if(arg.hasOwnProperty(x)){
-								arr[arr.length] = f(x)+":"+f(arg[x]);
-							}
-						}
-						ret = "{"+arr.join(",")+"}";
+	function f(arg) {
+		switch(typeof arg){
+			case "string":
+				return '"'+arg.replace(/\\/g, '\\\\').replace(/\"/g, '\\"')+'"';
+				break;
+			case "number":
+				return arg;
+				break;
+			case "object":
+				var ret = "", arr = [];
+				if (jindo.$Jindo.isArray(arg)) {
+					for(var i=0; i < arg.length; i++) {
+						arr[i] = f(arg[i]);
 					}
-					return ret;
-				default:
-					return '""';
-			}
+					ret = "["+arr.join(",")+"]";
+				} else {
+					for(var x in arg) {
+						if(arg.hasOwnProperty(x)){
+							arr[arr.length] = f(x)+":"+f(arg[x]);
+						}
+					}
+					ret = "{"+arr.join(",")+"}";
+				}
+				return ret;
+			default:
+				return '""';
 		}
-
-		data = (data || "").split("&");
-
-		for(var i=0; i < data.length; i++) {
-			pos = data[i].indexOf("=");
-			key = data[i].substring(0,pos);
-			val = data[i].substring(pos+1);
-
-			dat[key] = decodeURIComponent(val);
-		}
-		this._current_callback_id = info.id
-		window["__"+___jindoName+"_callback"][info.id] = function(success, data){
-			try {
-				t._callback(success, data);
-			} finally {
-				delete window["__"+___jindoName+"_callback"][info.id];
-			}
-		};
-
-		var oData = {
-			url  : this._url,
-			type : this._method,
-			data : dat,
-			charset  : "UTF-8",
-			callback : info.name,
-			header_json : this._headers
-		};
-
 	}
+
+	data = (data || "").split("&");
+
+	for(var i=0; i < data.length; i++) {
+		pos = data[i].indexOf("=");
+		key = data[i].substring(0,pos);
+		val = data[i].substring(pos+1);
+
+		dat[key] = decodeURIComponent(val);
+	}
+	this._current_callback_id = info.id
+	window["__"+___jindoName+"_callback"][info.id] = function(success, data){
+		try {
+			t._callback(success, data);
+		} finally {
+			delete window["__"+___jindoName+"_callback"][info.id];
+		}
+	};
+
+	var oData = {
+		url  : this._url,
+		type : this._method,
+		data : dat,
+		charset  : "UTF-8",
+		callback : info.name,
+		header_json : this._headers
+	};
+
+	f(oData);
+
+	window.__f = f;
+}
 
 
 var _isOnerrorExcute = false;
@@ -212,6 +214,7 @@ module("$Ajax Object");
 			deepEqual(oFlash._request._headers,{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8", "charset":"utf-8", "X-Requested-With":"XMLHttpRequest"});
 			deepEqual(oFlash._request._respHeaders,{});
 
+			deepEqual(__f("\\\"").replace(/^\"|\"$/g,"").split(""), ["\\", "\\", "\\", "\"" ], "Escaped string values have to return as escaped.");
 
 			var oJsonp = new $Ajax('../data/ajax_test_json2.txt',{
 				type : "jsonp",
@@ -280,6 +283,8 @@ module("$Ajax Object");
 		oFlash.option("decode",true);
 		ok(oFlash.option("decode"));
 		ok(oFlash._request.option("decode"));
+
+
 
 
 		var oJsonp = new $Ajax('../data/ajax_test_json2.txt',{

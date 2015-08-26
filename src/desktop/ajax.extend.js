@@ -282,7 +282,7 @@ jindo.$Ajax.SWFRequest = klass({
 		function f(arg) {
 			switch(typeof arg){
 				case "string":
-					return '"'+arg.replace(/\"/g, '\\"')+'"';
+					return '"'+arg.replace(/\\/g, '\\\\').replace(/\"/g, '\\"')+'"';
 					
 				case "number":
 					return arg;
