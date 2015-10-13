@@ -395,7 +395,7 @@ jindo.$Jindo.checkVarType = function(aArgs, oRules, sFuncName) {
 	return fpChecker(aArgs, oRules, sFuncName);
 	
 };
-var jindo._checkVarType = jindo.$Jindo.checkVarType;
+jindo._checkVarType = jindo.$Jindo.checkVarType;
 jindo.$Jindo._varTypeRetObj = function() {};
 jindo.$Jindo._varTypeRetObj.prototype.toString = function() { return this.__type; };
 

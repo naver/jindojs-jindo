@@ -397,7 +397,7 @@ jindo.$Jindo.checkVarType = function(aArgs, oRules, sFuncName) {
 
 };
 
-var jindo._checkVarType = jindo.$Jindo.checkVarType;
+jindo._checkVarType = jindo.$Jindo.checkVarType;
 
 // type check return type object
 jindo.$Jindo._varTypeRetObj = function() {};
