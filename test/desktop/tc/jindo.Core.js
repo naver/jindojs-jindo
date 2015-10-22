@@ -1606,7 +1606,7 @@ module("$Jindo.checkVarType 타입별 테스트", {
 	});
 
 var speed = {
-    _nCount : 1000  // 속도 측정 전에
+    _nCount : 500  // 속도 측정 전에
 };
 
 module("$Jindo.checkVarType 속도측정", {
