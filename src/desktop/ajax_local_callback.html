@@ -11,15 +11,16 @@ se.replace(/([^=]+)=([^&]*)(&|$)/g, function(){
     return arguments[0];
 });
 
-if (typeof qa.domain != "undefined" && qa.domain.length > 0) {
-	document.domain = qa.domain;
-}
+if(/^_[a-z0-9]+_?$/i.test(qa.id)) {
+    if (typeof qa.domain != "undefined" && /^[a-z0-9][a-z0-9-.]+[a-z0-9]\.[a-z]{2,}$/i.test(qa.domain)) {
+        document.domain = qa.domain;
+    }
 
-qa.header = decodeURIComponent(qa.header);
+    qa.header = decodeURIComponent(qa.header);
 
-try {
-	parent.__jindo2_callback[qa.id](qa.id,decodeURIComponent(location.hash.substr(1)),qa.header);
-} catch(e){
+    try {
+        parent.__jindo2_callback[qa.id](qa.id, decodeURIComponent(location.hash.substr(1)), qa.header);
+    } catch (e) {}
 }
 </script>
 </head>
