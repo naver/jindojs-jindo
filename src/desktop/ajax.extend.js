@@ -314,9 +314,17 @@ jindo.$Ajax.SWFRequest = klass({
 			oEach = data[i]; 
 			pos = oEach.indexOf("=");
 			key = oEach.substring(0,pos);
-			val = oEach.substring(pos+1);
+			val = decodeURIComponent(oEach.substring(pos+1));
 
-			dat[key] = decodeURIComponent(val);
+			if(key in dat) {
+				if(dat[key].constructor === Array) {
+					dat[key].push(val);
+				} else {
+					dat[key] = [ dat[key], val ];
+				}
+			} else {
+				dat[key] = val;
+			}
 		}
 		this._current_callback_id = info.id;
 		window["__"+jindo._p_.jindoName+"_callback"][info.id] = function(success, data){

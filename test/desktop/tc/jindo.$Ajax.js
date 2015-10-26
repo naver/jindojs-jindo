@@ -49,9 +49,17 @@ $Ajax.SWFRequest.prototype.send = function(data) {
 	for(var i=0; i < data.length; i++) {
 		pos = data[i].indexOf("=");
 		key = data[i].substring(0,pos);
-		val = data[i].substring(pos+1);
+		val = decodeURIComponent(data[i].substring(pos+1));
 
-		dat[key] = decodeURIComponent(val);
+		if(key in dat) {
+			if(dat[key].constructor === Array) {
+				dat[key].push(val);
+			} else {
+				dat[key] = [ dat[key], val ];
+			}
+		} else {
+			dat[key] = val;
+		}
 	}
 	this._current_callback_id = info.id
 	window["__"+___jindoName+"_callback"][info.id] = function(success, data){
@@ -74,6 +82,7 @@ $Ajax.SWFRequest.prototype.send = function(data) {
 	f(oData);
 
 	window.__f = f;
+	window.__oData = oData;
 }
 
 
@@ -731,3 +740,17 @@ module("New $Ajax", {
             oAjax.request();
         }
     });
+
+	QUnit.test("", function() {
+		var paramData = {
+			imageListPathList: ["some1.png", "some2.png", "some3.png" ]
+		};
+
+		new $Ajax('../data/ajax_test_json.txt',{
+			type : 'flash',
+			method : 'get',
+			onload : function(res){}
+		}).request(paramData);
+
+		deepEqual(paramData, window.__oData.data, "Should have array value.");
+	});
