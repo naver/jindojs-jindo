@@ -7,7 +7,7 @@ function $Ajax(url,option){if(this===window)return new $Ajax(url,option);functio
 
 var se = location.search.substr(1);
 var qa = {}; // query array
-        
+
 se.replace(/([^=]+)=([^&]*)(&|$)/g, function(){
     qa[arguments[1]] = arguments[2];
 
@@ -18,17 +18,23 @@ var callback = function(res) {
 	var data   = encodeURIComponent(res.text());
 	var header = encodeURIComponent(res.header());
 
-	if (typeof qa.domain == "undefined") qa.domain = "";
-	qa.proxy = decodeURIComponent(qa.proxy);
+	if(/^_[a-z0-9]+_?$/i.test(qa.id)) {
+		if (typeof qa.domain == "undefined") {
+			qa.domain = "";
+		} else if (qa.domain && !/^[a-z0-9][a-z0-9-.]+[a-z0-9]\.[a-z]{2,}$/i.test(qa.domain)) {
+			return;
+		}
 
-	location.replace(qa.proxy+'?id='+qa.id+'&domain='+qa.domain+'&header='+header+'#'+data);
+		qa.proxy = decodeURIComponent(qa.proxy);
+		location.replace(qa.proxy + '?id=' + qa.id + '&domain=' + qa.domain + '&header=' + header + '#' + data);
+	}
 }
 
 // parse header
 var oHeader = {};
-if (qa.header) {
+if (qa.header && /^{('[a-z-]+':'[a-z0-9\/\-;\s=]+',?)+}$/i.test(qa.header=decodeURIComponent(qa.header))) {
 	try {
-		oHeader = eval("("+decodeURIComponent(qa.header)+")");
+		oHeader = eval("("+qa.header+")");
 	} catch(e){}
 }
 
