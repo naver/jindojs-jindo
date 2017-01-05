@@ -1,5 +1,0 @@
-<comments name="noconflict">
-  <comment id="title"><![CDATA[
-	@fileOverview Appends the jindo object to window only if using jindo without other frameworks for convenience purposes only.
-  ]]></comment>
-</comments>

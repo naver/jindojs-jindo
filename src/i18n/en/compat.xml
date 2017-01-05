@@ -1,8 +1,0 @@
-<comments name="compat">
-  <comment id="title"><![CDATA[
-	Functions compatibilitable with Internet Explorer 5 or earlier versions
-	
-	@id core.ie5
-	@import core.ie55
-  ]]></comment>
-</comments>

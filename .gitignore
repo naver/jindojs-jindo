@@ -1,7 +1,3 @@
 .*
 !.git*
-!.jshintrc
-!.travis.yml
-dist
-node_modules
 *.iml

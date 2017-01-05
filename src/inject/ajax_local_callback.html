@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+var se = location.search.substr(1);
+var qa = {}; // query array
+        
+se.replace(/([^=]+)=([^&]*)(&|$)/g, function(){
+    qa[arguments[1]] = arguments[2];
+
+    return arguments[0];
+});
+
+if (typeof qa.domain != "undefined" && qa.domain.length > 0) {
+	document.domain = qa.domain;
+}
+
+qa.header = decodeURIComponent(qa.header);
+
+try {
+	parent.__jindo2_callback[qa.id](qa.id,decodeURIComponent(location.hash.substr(1)),qa.header);
+} catch(e){
+}
+</script>
+</head>
+<body>
+</body>
+</html>
