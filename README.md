@@ -1,3 +1,12 @@
+
+> This project is no longer maintained since 2017.
+> Please use alternatives libraries as 'jQuery' and 'egjs' instead of Jindo and JC/JMC.
+If you need to migrate, check out migration documents(jQuery/JMC) listed as below.
+- Jindo: https://naver.github.io/jindo-to-jquery/
+- JMC: https://github.com/naver/jindojs-jmc/wiki
+
+
+
 # **Jindo JavaScript Framework** - Do more, easier and faster
 [![Build Status](https://travis-ci.org/naver/jindojs-jindo.svg?branch=master)](https://travis-ci.org/naver/jindojs-jindo)
 
